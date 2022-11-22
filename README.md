@@ -1,1 +1,1 @@
-# Tega
+# Tega toolkit
