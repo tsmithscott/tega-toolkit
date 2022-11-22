@@ -59,11 +59,16 @@ def index():
             )
         )
     else:
-        return render_template("login.html")
+        return render_template("index.html")
     
     
 @app.route("/login")
 def login():
+    return "Normal (non-oauth) Login Route"
+    
+    
+@app.route("/google-login", methods=["GET"])
+def google_login():
     google_provider_cfg = get_google_provider_cfg()
     authorisation_endpoint = google_provider_cfg["authorization_endpoint"]
     
