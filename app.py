@@ -81,7 +81,7 @@ def google_login():
     return redirect(request_uri)
         
                 
-@app.route("/login/callback")
+@app.route("/google-login/callback")
 def callback():
     code = request.args.get("code")
     
