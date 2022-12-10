@@ -49,22 +49,40 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}!</p><p>Email: {}</p>"
-            '<img src="{}" alt="Google profile pic"></img>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name,
-                current_user.email,
-                current_user.profile_pic
-            )
-        )
+        # return (
+        #     "<p>Hello, {}!</p><p>Email: {}</p>"
+        #     '<img src="{}" alt="Google profile pic"></img>'
+        #     '<a class="button" href="/logout">Logout</a>'.format(
+        #         current_user.name,
+        #         current_user.email,
+        #         current_user.profile_pic
+        #     )
+        # )
+        return redirect(url_for("dashboard"))
     else:
-        return render_template("index.html")
+        return render_template("index.html", title="Tega Toolkit")
     
     
 @app.route("/login")
 def login():
-    return "Normal (non-oauth) Login Route"
+    if current_user.is_authenticated:
+        # return (
+        #     "<p>Hello, {}!</p><p>Email: {}</p>"
+        #     '<img src="{}" alt="Google profile pic"></img>'
+        #     '<a class="button" href="/logout">Logout</a>'.format(
+        #         current_user.name,
+        #         current_user.email,
+        #         current_user.profile_pic
+        #     )
+        # )
+        return redirect(url_for("dashboard"))
+    else:
+        return render_template("login.html", title="Tega Toolkit - Login")
+
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard")
     
     
 @app.route("/google-login", methods=["GET"])
@@ -149,4 +167,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", debug=True)
+    app.run(ssl_context="adhoc", host="0.0.0.0", port=5001, debug=True)
