@@ -20,10 +20,17 @@
                             </div>
                             <hr>
                             <div class="centered-div">
-                            <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
-                                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
-                                Log in with Google
-                            </a>
+                                <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
+                                    Log in with Google
+                                </a>
+                            </div>
+                            <br />
+                            <div class="centered-div">
+                                <a class="btn btn-outline-dark" href="{{ url_for('index') }}" role="button" style="text-transform:none">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/return.png') }}">
+                                    Return to Signup
+                                </a>
                             </div>
                             <hr>
                         </form>

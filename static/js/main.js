@@ -306,3 +306,10 @@ jQuery(document).ready(function($) {
   siteScroll();
 
 });
+
+const myModal = document.getElementById('contactUsModal')
+const myInput = document.getElementById('modal-button')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
