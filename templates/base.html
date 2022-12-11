@@ -49,6 +49,9 @@
                         <div class="ml-auto w-25">
                             <nav class="site-navigation position-relative text-right" role="navigation">
                                 <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                                    {% if request.endpoint == 'dashboard' %}
+                                            <li class="cta"><a id="intro-modal-button" href="#introModal" data-bs-toggle="modal" data-bs-target="#introModal" class="nav-link"><span>Info</span></a></li>
+                                        {% endif %}
                                     {% if not current_user.is_authenticated %}
                                         {% if not request.endpoint == 'login' %}
                                             <li class="cta"><a href="/login" class="nav-link"><span>Login</span></a></li>
@@ -85,7 +88,7 @@
                         <div class="col-md-4">
                             <h3>Contact Us</h3>
                             <p>If you would like to get in touch, please feel free to get in touch</p>
-                            <button id="modal-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactUsModal">
+                            <button id="contact-us-modal-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactUsModal">
                                 Contact us
                             </button>
                         </div>
@@ -132,6 +135,77 @@
                         <button type="button" class="btn btn-primary">Submit</button>
                       </div>
                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- Introduction/Info Modal -->
+        <div class="modal fade" id="introModal" aria-labelledby="introModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" style="text-align: center;">Project Structure</h5>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="accordion" style="text-align: center;">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Diagnosis
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>Identifying the learner/player typology</li>
+                                        <li>Defining the scope and learning outcome</li>
+                                    </ul>
+                                </ul>
+                                </div>
+                            </div>
+                            <ul>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                    Design
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>Identifying the game characteristics and mechanics</li>
+                                        <li>Selection of the clean slate game</li>
+                                        <li>Ensuring the game inclusivity and accessibility</li>
+                                        <li>Ensuring the flow element in the design</li>
+                                        <li>Drafting the instruction of the game</li>
+                                        <li>Ensuring the game playability by playtesting through Beta-Play and reflection</li>
+                                        <li>Amending based on the feedback of the Beta-Play</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                                    Testing
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>Planting the assessment criteria</li>
+                                        <li>Entering in TEGA database</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>

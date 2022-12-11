@@ -6,34 +6,25 @@
         <div class="container">
             <div class="row centered-div">
                 <div class="col-sm-12">
-                    
                     <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                         <form action="" method="post" class="form-box">
-                            <h3 class="h4 text-black mb-4">Login</h3>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email Address">
+                            <h1 style="color:black; text-align: center;">Dashboard</h1>
+                            <div class="col-sm-4" style="height: 387px; overflow-y: scroll; direction: rtl;">
+                                <ul class="list-group" style="direction: ltr;">
+                                    <li class="list-group-item active" aria-current="true">Learner topolgy</li>
+                                    <li class="list-group-item">Scope and learning outcome</li>
+                                    <li class="list-group-item">Characteristics and mechanics</li>
+                                    <li class="list-group-item">Clean slate game</li>
+                                    <li class="list-group-item">Game inclusivity and accessibility</li>
+                                    <li class="list-group-item">Flow element in design</li>
+                                    <li class="list-group-item">Instructions of the game</li>
+                                    <li class="list-group-item">Game playability</li>
+                                    <li class="list-group-item">Amendments based on feedback</li>
+                                    <li class="list-group-item">Assessment criteria</li>
+                                    <li class="list-group-item">TEGA database</li>
+                                </ul>
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-                                <input type="submit" class="btn btn-primary btn-pill" value="Login">
-                            </div>
-                            <hr>
-                            <div class="centered-div">
-                                <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
-                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
-                                    Log in with Google
-                                </a>
-                            </div>
-                            <br />
-                            <div class="centered-div">
-                                <a class="btn btn-outline-dark" href="{{ url_for('index') }}" role="button" style="text-transform:none">
-                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/return.png') }}">
-                                    Return to Signup
-                                </a>
-                            </div>
-                            <hr>
+                            <div class="col-sm-6"></div>
                         </form>
                     </div>
                 </div>
