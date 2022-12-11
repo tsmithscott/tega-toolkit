@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{% endblock title%}
+{% block title %}{{title}}{% endblock title %}
 {% block content %}
 <div class="intro-section" id="home-section">
     <div class="slide-1" style="background-image: url('static/images/background.jpg');" data-stellar-background-ratio="0.5" alt="Credit to Aksel Fristrup">
@@ -9,7 +9,7 @@
                     <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                         <form action="" method="post" class="form-box">
                             <h1 style="color:black; text-align: center;">Dashboard</h1>
-                            <div class="col-sm-4" style="height: 387px; overflow-y: scroll; direction: rtl;">
+                            <div class="col-sm-4" style="height: 500px; overflow-y: scroll; direction: rtl;">
                                 <ul class="list-group" style="direction: ltr;">
                                     <li class="list-group-item active" aria-current="true">Learner topolgy</li>
                                     <li class="list-group-item">Scope and learning outcome</li>
