@@ -46,7 +46,7 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     if current_user.is_authenticated:
         # return (
@@ -63,7 +63,7 @@ def index():
         return render_template("index.html", title="Tega Toolkit")
     
     
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         # return (
