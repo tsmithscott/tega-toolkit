@@ -80,7 +80,7 @@ def login():
         return render_template("login.html", title="Tega Toolkit - Login")
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
     return render_template("dashboard.html", title="Tega Toolkit - Dashboard")
     
