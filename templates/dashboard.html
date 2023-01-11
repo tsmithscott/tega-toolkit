@@ -31,42 +31,44 @@
                                         <br />
                                         <img src="{{ url_for('static', filename='images/learner-topology.jpg') }}" style="width: 400px;">
                                         <br /><p style="color: black">Choose a player profile for your students</p><br />
-                                        <div class="row">
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
-                                                data-bs-content="Seek achievement within the game, give themselves game-related goals, and achieve
-                                                them through ACTING in the WORLD. They immerse themselves, shared with other
-                                                people to add authenticity, and competition. The point of playing is to master the game,
-                                                and make it do what you want it to do. Achievers are proud of their formal status in the
-                                                game's built-in level hierarchy, and short time to reach it.">Achievers</button>
+                                        <form action="{{ url_for('dashboard') }}" method="post">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" value="test" name="profile_button"
+                                                    data-bs-content="Seek achievement within the game, give themselves game-related goals, and achieve
+                                                    them through ACTING in the WORLD. They immerse themselves, shared with other
+                                                    people to add authenticity, and competition. The point of playing is to master the game,
+                                                    and make it do what you want it to do. Achievers are proud of their formal status in the
+                                                    game's built-in level hierarchy, and short time to reach it.">Achievers</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                    data-bs-content="They try to find out about the virtual world. They are interested in the game surprise and
+                                                    INTERACTING with the WORLD. It's the sense of wonder they crave for; other players
+                                                    add depth to the game, but not essential. Scoring points all the time is a worthless
+                                                    occupation because it defies the open-endedness. They rack up sufficient points to reach
+                                                    the top, but They are proud of their knowledge of the game's finer points, especially if
+                                                    new players treat them as knowledgeable.">Analogy metaphors</button>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
-                                                data-bs-content="They try to find out about the virtual world. They are interested in the game surprise and
-                                                INTERACTING with the WORLD. It's the sense of wonder they crave for; other players
-                                                add depth to the game, but not essential. Scoring points all the time is a worthless
-                                                occupation because it defies the open-endedness. They rack up sufficient points to reach
-                                                the top, but They are proud of their knowledge of the game's finer points, especially if
-                                                new players treat them as knowledgeable.">Analogy metaphors</button>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                    data-bs-content="They use the game's communicative facilities, as a context in which to converse. They
+                                                    are interested in INTERACTING with other PLAYERS with talking or exotic behaviour.
+                                                    Finding out about people and getting to know them is far more worthy than just a
+                                                    setting. Socialisers are proud of their friendships, their contacts, and their influence">Socialisers</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                    data-bs-content="They seek Imposition upon others through game tools to cause distress to other players.
+                                                    Where permitted, they acquire weapon and ACTING on other PLAYERS without their
+                                                    consent. They wish to demonstrate their superiority over fellow humans. Killers are
+                                                    proud of their reputation and of their oft-practiced fighting skills.">Killers</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
-                                                data-bs-content="They use the game's communicative facilities, as a context in which to converse. They
-                                                are interested in INTERACTING with other PLAYERS with talking or exotic behaviour.
-                                                Finding out about people and getting to know them is far more worthy than just a
-                                                setting. Socialisers are proud of their friendships, their contacts, and their influence">Socialisers</button>
-                                            </div>
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
-                                                data-bs-content="They seek Imposition upon others through game tools to cause distress to other players.
-                                                Where permitted, they acquire weapon and ACTING on other PLAYERS without their
-                                                consent. They wish to demonstrate their superiority over fellow humans. Killers are
-                                                proud of their reputation and of their oft-practiced fighting skills.">Killers</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
