@@ -2,7 +2,7 @@ import json
 import os
 import sqlite3
 
-from flask import Flask, redirect, request, url_for, render_template
+from flask import Flask, redirect, request, url_for, render_template, session
 from flask_login import (
     LoginManager,
     current_user,
@@ -21,7 +21,6 @@ import config
 GOOGLE_CLIENT_ID = config.os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = config.os.environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
-
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
@@ -82,8 +81,15 @@ def login():
 
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
+    '''---ADD LOGIC TO THIS---'''
+    if request.method == "POST":
+        data = request.form.get("profile_button")
+        if data == "test":
+            session["input_type"] = data
+    '''-----------------------'''
+
     return render_template("dashboard.html", title="Tega Toolkit - Dashboard")
-    
+        
     
 @app.route("/google-login", methods=["GET"])
 def google_login():
@@ -167,4 +173,9 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", host="0.0.0.0", port=5001, debug=True)
+    app.run(debug=True, ssl_context="adhoc", host="0.0.0.0", port=5001)
+
+#TODO: Create dashboard functionality for non-account users
+#TODO: Create dashboard functionality for account users
+#TODO: Fix the issue with the steps being accessible. Only enable once previous is complete
+#TODO: Clean google auth code
