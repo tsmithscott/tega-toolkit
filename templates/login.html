@@ -1,41 +1,37 @@
 {% extends 'base.html' %}
 {% block title %}{{title}}{% endblock title %}
 {% block content %}
-<div class="intro-section" id="home-section">
-    <div class="slide-1" style="background-image: url('static/images/background.jpg');" data-stellar-background-ratio="0.5" alt="Credit to Aksel Fristrup">
-        <div class="container">
-            <div class="row centered-div">
-                <div class="col-sm-4 col-lg-5" style="min-width:15rem;">
-                    <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                        <form action="" method="post" class="form-box">
-                            <h3 class="h4 text-black mb-4">Login</h3>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email Address">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-                                <input type="submit" class="btn btn-primary btn-pill" value="Login">
-                            </div>
-                            <hr>
-                            <div class="centered-div">
-                                <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
-                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
-                                    Log in with Google
-                                </a>
-                            </div>
-                            <br />
-                            <div class="centered-div">
-                                <a class="btn btn-outline-dark" href="{{ url_for('index') }}" role="button" style="text-transform:none">
-                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/return.png') }}">
-                                    Return to Signup
-                                </a>
-                            </div>
-                            <hr>
-                        </form>
+<div class="container">
+    <div class="row centered-div">
+        <div class="col-sm-4 col-lg-5" style="min-width:15rem;">
+            <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                <form action="" method="post" class="form-box">
+                    <h3 class="h4 text-black mb-4">Login</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email Address">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
+                        <input type="submit" class="btn btn-primary btn-pill" value="Login">
+                    </div>
+                    <hr>
+                    <div class="centered-div">
+                        <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
+                            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
+                            Log in with Google
+                        </a>
+                    </div>
+                    <br />
+                    <div class="centered-div">
+                        <a class="btn btn-outline-dark" href="{{ url_for('index') }}" role="button" style="text-transform:none">
+                            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/return.png') }}">
+                            Return to Signup
+                        </a>
+                    </div>
+                    <hr>
+                </form>
             </div>
         </div>
     </div>

@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Custom files
-sqlite_db
+tega.db
 config.py

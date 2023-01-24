@@ -307,12 +307,18 @@ jQuery(document).ready(function($) {
 
 });
 
+// Modals
 const myModal = document.getElementById('contactUsModal')
 const myInput = document.getElementById('modal-button')
-
 myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
+// Popovers
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+// Dashboard Content Container
+const dashboardContainer = document.getElementById('dynamic-container')
+
+
