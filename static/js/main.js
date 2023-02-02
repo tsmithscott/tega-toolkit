@@ -1,4 +1,4 @@
- AOS.init({
+AOS.init({
  	duration: 800,
  	easing: 'slide',
  	once: false
@@ -309,10 +309,10 @@ jQuery(document).ready(function($) {
 
 // Modals
 const myModal = document.getElementById('contactUsModal')
-const myInput = document.getElementById('modal-button')
+const myInput = document.getElementById('contact-us-modal-button')
 myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
+	window.scrollTo({top: 0, behavior: 'smooth'});
+});
 
 // Popovers
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')

@@ -1,12 +1,14 @@
 import json
+import uuid
 
 import requests
 from flask import (redirect, render_template, request, session,
-                   url_for)
+                   url_for, make_response)
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users
+from security.jwt import JWT
 
 
 @login_manager.user_loader
@@ -110,10 +112,13 @@ def callback():
         return "User email not available or not verified by Google.", 400
 
     # Doesn't exist? Add it to the database.
-    if not Users.query.filter_by(email=users_email).first():
-        user = Users(name=users_name, 
-                     email=users_email, 
-                     profile_pic=picture)
+    user_id = uuid.uuid4().hex
+    if not Users.query.filter_by(email=users_email).first() and not Users.query.filter_by(id=user_id).first():
+        user = Users(
+            id=user_id,
+            name=users_name, 
+            email=users_email, 
+            profile_pic=picture)
         db.session.add(user)
         db.session.commit()
     else:
@@ -123,13 +128,23 @@ def callback():
     login_user(user)
 
     # Send user back to homepage
-    return redirect(url_for("dashboard"))
+    response = make_response(redirect(url_for('dashboard')))
+    response.set_cookie('_user_id', session.get('_user_id'))
+    return response
 
 
 @app.route("/ajax_handler", methods=["POST"])
 def ajax_handler():
     print(request.form['data'])
     return "Successful", 200
+
+
+@app.route('/ajax-autosave', methods=["POST"])
+def ajax_autosave():
+    token = JWT.generate_jwt(json.loads(request.data.decode()))
+    response = make_response()
+    response.set_cookie("_game_data", token.encode())
+    return response
 
 
 @app.route("/signup")
@@ -149,4 +164,8 @@ def reset_password():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    
+    response = make_response(redirect(url_for('index')))
+    response.set_cookie('_user_id', '', expires=0)
+    
+    return response
