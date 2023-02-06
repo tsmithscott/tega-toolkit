@@ -8,7 +8,7 @@
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
                     <h1 style="color:black; text-align: center; padding-top: 20px;">Dashboard</h1>
                     <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 45px;">
-                        <div class="col-sm-4" style="min-width:200px; height: 500px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
+                        <div class="col-sm-4" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
                             <ul class="list-group w-sm-50" style="direction: ltr;">
                                 <button id="introduction" class="list-group-item list-group-item-action active" aria-current="true">Introduction<input type="hidden" value=0></button>
                                 <button id="profile" class="list-group-item list-group-item-action" disabled style="background-color:lightgray">Player profile<input type="hidden" value=0></button>
@@ -24,10 +24,11 @@
                                 <button id="justification" class="list-group-item list-group-item-action" disabled style="background-color:lightgray">Justification<input type="hidden" value=0></button>
                             </ul>
                         </div>
-                        <div id="dashboard-container-right" class="container justify-content-center text-center p-5" style="max-height:500px;">
+                        <div id="dashboard-container-right" class="container justify-content-center text-center p-5" style="max-height:550px;">
                             <div id="dashboard-container-right-column" class="col-12">
-                                <div id="introduction-content">
+                                <div id="introduction-content" class="dashboard-content">
                                     <div class="accordion" style="text-align: center;">
+                                        <h3>Toolkit Structure: </h3>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -82,37 +83,80 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br /><br />
+                                    <button id="introduction-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
-                                <div id="typology-content" style="display:none;">
-                                    <img src="{{ url_for('static', filename='images/learner-topology.jpg') }}" style="min-width:250px; max-width:400px;">
+                                <div id="profile-content" class="dashboard-content" style="display:none;">
+                                    <img src="{{ url_for('static', filename='images/player-profile.jpg') }}" style="min-width:250px; max-width:400px;">
                                     <br /><p style="color: black">Choose a player profile for your students</p><br />
                                     <form action="{{ url_for('dashboard') }}" method="post">
                                         <div class="row inline">
                                             <div class="col-6">
-                                                <button type="submit" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" value="test" name="profile_button"
+                                                <button id="achievers" type="submit" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top"
                                                 data-bs-content="Seek achievement within the game, give themselves game-related goals, and achieve them through ACTING in the WORLD. They immerse themselves, shared with other people to add authenticity, and competition. The point of playing is to master the game, and make it do what you want it to do. Achievers are proud of their formal status in the game's built-in level hierarchy, and short time to reach it">
                                                 Achievers</button>
                                             </div>
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
-                                                data-bs-content="They try to find out about the virtual world. They are interested in the game surprise and INTERACTING with the WORLD. It's the sense of wonder they crave for; other players add depth to the game, but not essential. Scoring points all the time is a worthless occupation because it defies the open-endedness. They rack up sufficient points to reach the top, but They are proud of their knowledge of the game's finer points, especially if new players treat them as knowledgeable.">
+                                                <button id="explorers" type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                data-bs-content="They try to find out about the virtual world. They are interested in the game surprise and INTERACTING with the WORLD. It's the sense of wonder they crave for; other players add depth to the game, but not essential. Scoring points all the time is a worthless occupation because it defies the open-endedness. They rack up sufficient points to reach the top, but they are proud of their knowledge of the game's finer points, especially if new players treat them as knowledgeable.">
                                                 Explorers</button>
                                             </div>
                                         </div>
                                         <br />
                                         <div class="row inline">
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                <button id="socialisers" type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
                                                 data-bs-content="They use the game's communicative facilities, as a context in which to converse. They are interested in INTERACTING with other PLAYERS with talking or exotic behaviour. Finding out about people and getting to know them is far more worthy than just a setting. Socialisers are proud of their friendships, their contacts, and their influence.">
                                                 Socialisers</button>
                                             </div>
                                             <div class="col-6">
-                                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
+                                                <button id="adversaries" type="button" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" 
                                                 data-bs-content="They seek Imposition upon others through game tools to cause distress to other players. Where permitted, they acquire weapon and ACTING on other PLAYERS without their consent. They wish to demonstrate their superiority over fellow humans. Killers are proud of their reputation and of their oft-practiced fighting skills.">
                                                 Adversaries</button>
                                             </div>
                                         </div>
                                     </form>
+                                    <button id="profile-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="typology-content" class="dashboard-content" style="display:none;">
+                                    Typology Content
+                                    <button id="typology-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="characteristics-content" class="dashboard-content" style="display:none;">
+                                    Characteristics Content
+                                    <button id="characteristics-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="foundation-content" class="dashboard-content" style="display:none;">
+                                    Foundation Content
+                                    <button id="foundation-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="model-content" class="dashboard-content" style="display:none;">
+                                    Model Content
+                                    <button id="model-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="accessibility-content" class="dashboard-content" style="display:none;">
+                                    Accessibility Content
+                                    <button id="accessibility-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="design-content" class="dashboard-content" style="display:none;">
+                                    Design Content
+                                    <button id="design-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="instruction-content" class="dashboard-content" style="display:none;">
+                                    Instruction Content
+                                    <button id="instruction-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="playability-content" class="dashboard-content" style="display:none;">
+                                    Playability Content
+                                    <button id="playability-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="assessment-content" class="dashboard-content" style="display:none;">
+                                    Assessment Content
+                                    <button id="assessment-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                </div>
+                                <div id="justification-content" class="dashboard-content" style="display:none;">
+                                    Justification Content
+                                    <button id="justification-submit" class='dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
                             </div>
                         </div>

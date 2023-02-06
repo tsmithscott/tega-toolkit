@@ -3,8 +3,9 @@ body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
   overflow-x: hidden;
+  overflow-y: auto;
   background: url(../images/background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -624,7 +625,7 @@ h1, h2, h3, h4, h5,
 .intro-section {
   position: relative; }
   .intro-section, .intro-section .container > .row {
-    height: 100vh;
+    height: 105vh;
     min-height: 900px; }
   .intro-section.single-cover, .intro-section.single-cover .container > .row {
     height: 50vh;
@@ -1214,6 +1215,18 @@ li {
   padding-right: 25px;
 }
 
+.error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: red; 
+}
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
 @media (max-width: 995px) {
   #index-container {
     padding-top: 50px;
@@ -1224,9 +1237,12 @@ li {
   }
 }
 
-@media screen and (max-width: 400px){
-  #dashboard-container {
-      width: 400px;
-      overflow: auto;
+@media only screen and (max-width: 1000px) {
+  .site-wrap {
+    display: none;
+  }
+
+  #no-mobile-users-div {
+    display: inline-block!important;
   }
 }

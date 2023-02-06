@@ -15,16 +15,19 @@
           <form action="" method="post" class="form-box">
             <h3 class="h4 text-black mb-4">Sign Up</h3>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Email Address">
+              <input id="email-signup" type="text" class="form-control" placeholder="Email Address" required>
+              <div id="emailErrorMessage" class="error"><span id="emailErrorSpan"></span></div>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password">
+              <input id="password-signup" type="password" class="form-control" placeholder="Password" required>
+              <div id="passwordErrorMessage" class="error"><span id="passwordErrorSpan"></span></div>
             </div>
             <div class="form-group mb-4">
-              <input type="password" class="form-control" placeholder="Re-type Password">
+              <input id="confirm-password-signup" type="password" class="form-control" placeholder="Re-type Password" required>
+              <div id="confirmErrorMessage" class="error"><span id="confirmErrorSpan"></span></div>
             </div>
             <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-              <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
+              <input class="btn btn-primary btn-pill" value="Sign up" onclick="registrationAjax()">
             </div>
             <hr />
             <div class="centered-div">
@@ -61,7 +64,7 @@
 
           <div class="col-md-4">
               <h3>Contact Us</h3>
-              <p>If you would like to get in touch, please feel free to get in touch</p>
+              <p>If you would like to get in touch, please feel free using the button below.</p>
               <button id="contact-us-modal-button" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactUsModal">
                   Contact us
               </button>

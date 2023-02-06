@@ -39,7 +39,7 @@
             <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center">
-                        <div class="site-logo mr-auto"><a href="/"><img src="static/images/tega-logo-edited.png" style="width: 25rem"></a></div>
+                        <div class="site-logo mr-auto"><a href="/"><img src="{{ url_for('static', filename='images/tega-toolkit-logo.png') }}" style="width: 400px"></a></div>
             
                         <div class="mx-auto text-center">
                             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -75,55 +75,90 @@
         </div> <!-- .site-wrap -->
 
         <!-- Contact Us Modal -->
-        <div class="modal fade" id="contactUsModal" aria-labelledby="contactUsModal" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Contact Us</h5>
-                </div>
-                <div class="modal-body">
-                  <p>Please fill in the contact form below, we endeavour to respond in 48 hours.</p>
-                  <form>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <div class="modal" tabindex="-1" role="dialog" id="contactUsModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Contact Us</h5>
+                        <button type="button" class="close" onclick="closeContactModal()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="mb-3">
-                      <label for="message" class="form-label">Message</label>
-                      <textarea rows="5" class="form-control" id="exampleInputPassword1"></textarea>
+                    <div class="modal-body">
+                        <p>Please fill in the contact form below, we endeavour to respond in 48 hours.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea rows="5" class="form-control" id="exampleInputPassword1"></textarea>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" >Close</button>
-                        <button type="button" class="btn btn-primary">Submit</button>
-                      </div>
-                  </form>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeConfirmModal()">Close</button>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          
-    <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    
-    <!-- JQuery JavaScript -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
-    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
-    {% block scripts %}
-    {% endblock scripts %}
-  </body>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="confirmModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm account.</h5>
+                        <button type="button" class="close" onclick="closeConfirmModal()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Thank you for signing up!</p>
+                        <p>Please check your emails to confirm your account before logging in.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeConfirmModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="no-mobile-users-div" style="display:none; height:100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-centered">
+                        <img src="{{ url_for('static', filename='images/tega-toolkit-logo.png') }}" style="width: 400px">
+                    </div>
+                    <div class="col-md-12 col-centered">
+                        <p>Sorry, this site is not available on mobile devices.<br/>Please use a desktop or laptop computer to access this site.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <!-- JQuery JavaScript -->
+        <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
+        <!-- Custom JavaScript -->
+        <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+        {% block scripts %}
+        {% endblock scripts %}
+    </body>
 </html>

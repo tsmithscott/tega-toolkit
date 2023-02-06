@@ -3,8 +3,9 @@ import uuid
 
 import requests
 from flask import (redirect, render_template, request, session,
-                   url_for, make_response)
+                   url_for, make_response, jsonify)
 from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users
@@ -19,15 +20,6 @@ def load_user(user_id):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if current_user.is_authenticated:
-        # return (
-        #     "<p>Hello, {}!</p><p>Email: {}</p>"
-        #     '<img src="{}" alt="Google profile pic"></img>'
-        #     '<a class="button" href="/logout">Logout</a>'.format(
-        #         current_user.name,
-        #         current_user.email,
-        #         current_user.profile_pic
-        #     )
-        # )
         return redirect(url_for("dashboard"))
     else:
         return render_template("index.html", title="Tega Toolkit")
@@ -35,19 +27,15 @@ def index():
     
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        # return (
-        #     "<p>Hello, {}!</p><p>Email: {}</p>"
-        #     '<img src="{}" alt="Google profile pic"></img>'
-        #     '<a class="button" href="/logout">Logout</a>'.format(
-        #         current_user.name,
-        #         current_user.email,
-        #         current_user.profile_pic
-        #     )
-        # )
-        return redirect(url_for("dashboard"))
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return redirect(url_for("dashboard"))
+        else:
+            return render_template("login.html", title="Tega Toolkit - Login")
+    elif request.method == 'POST':
+        pass
     else:
-        return render_template("login.html", title="Tega Toolkit - Login")
+        return '', 405
 
 
 @app.route("/dashboard", methods=['GET', 'POST'])
@@ -113,7 +101,11 @@ def callback():
 
     # Doesn't exist? Add it to the database.
     user_id = uuid.uuid4().hex
-    if not Users.query.filter_by(email=users_email).first() and not Users.query.filter_by(id=user_id).first():
+
+    while Users.query.filter_by(id=user_id).first():
+        user_id = uuid.uuid4().hex
+
+    if not Users.query.filter_by(email=users_email).first():
         user = Users(
             id=user_id,
             name=users_name, 
@@ -147,12 +139,40 @@ def ajax_autosave():
     return response
 
 
-@app.route("/signup")
-def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))
+@app.route("/register-user", methods=["POST"])
+def register_user():
+    if not Users.query.filter_by(email=request.form['email']).first():
+        user_id = uuid.uuid4().hex
+
+        while Users.query.filter_by(id=user_id).first():
+            user_id = uuid.uuid4().hex
+
+        new_user = Users(
+            id=user_id,
+            name=None,
+            email=request.form['email'],
+            profile_pic=None,
+            password=generate_password_hash(request.form['password'], method='sha256'),
+            account_confirmed=False
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        response = make_response(jsonify(message='/login'))
+        response.status_code = 200
+        return response
     else:
-        return render_template("signup.html")
+        user = Users.query.filter_by(email=request.form['email']).first()
+        
+        if user.account_confirmed:
+            response = make_response(jsonify(message='E-500-1'))
+            response.status_code = 400
+            return response
+        else:
+            response = make_response(jsonify(message='E-500-2'))
+            response.status_code = 400
+            return response
 
 
 @app.route("/reset-password")
