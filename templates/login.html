@@ -13,8 +13,12 @@
                     <div class="form-group">
                         <input id="password-login" type="password" class="form-control" placeholder="Password" required>
                     </div>
+                    <div class="form-group" id="errorMessage" hidden>
+                        <span id="credentialError" style="color:red;" hidden>Username or password is incorrect. Please try again.</span>
+                        <span id="confirmError" style="color:red;" hidden>Please confirm your account via the link sent to your email. Need another link? Click <a href='#' style='color:blue'>here.</a></span>
+                    </div>
                     <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-                        <input class="btn btn-primary btn-pill" value="Login">
+                        <input class="btn btn-primary btn-pill" value="Login" onclick="loginAjax()">
                     </div>
                     <hr>
                     <div class="centered-div">

@@ -3,7 +3,7 @@ import uuid
 
 import requests
 from flask import (redirect, render_template, request, session,
-                   url_for, make_response, jsonify)
+                   url_for, make_response, jsonify, send_from_directory)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -33,7 +33,22 @@ def login():
         else:
             return render_template("login.html", title="Tega Toolkit - Login")
     elif request.method == 'POST':
-        pass
+        email = request.form['email']
+        
+        if Users.query.filter_by(email=email).first():
+            user = Users.query.filter_by(email=email).first()
+            if check_password_hash(user.password, request.form['password']):
+                if user.account_confirmed:
+                    login_user(user)
+                    return url_for('dashboard')
+                else:
+                    response = make_response()
+                    response.status_code = 406
+                    return response
+            else:
+                return '', 400
+        else:
+            return '', 400
     else:
         return '', 405
 
@@ -151,7 +166,7 @@ def register_user():
             id=user_id,
             name=None,
             email=request.form['email'],
-            profile_pic=None,
+            profile_pic=url_for('fallback_profile'),
             password=generate_password_hash(request.form['password'], method='sha256'),
             account_confirmed=False
         )
@@ -189,3 +204,9 @@ def logout():
     response.set_cookie('_user_id', '', expires=0)
     
     return response
+
+
+@app.route("/fallback-profile")
+@login_required
+def fallback_profile():
+    return send_from_directory('static/images', 'default-profile-pic.png')

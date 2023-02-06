@@ -16,8 +16,7 @@ function registrationAjax() {
             $('#emailErrorSpan').empty();
             $('#passwordErrorSpan').empty();
             $('#confirmErrorSpan').empty();
-            
-            response = JSON.parse(JSON.stringify(response));
+            $('#signup-form')[0].reset();
             $('#confirmModal').modal('show');
         },
         error: function(error) {
@@ -35,5 +34,31 @@ function registrationAjax() {
 }
 
 function loginAjax() {
-    return;
+    $.ajax({
+        url: '/login',
+        data: {
+            "email": $("#email-login").val(),
+            "password": $("#password-login").val()
+        },
+        type: 'POST',
+        success: function(response) {
+            response = JSON.parse(JSON.stringify(response));
+            window.location.href = response;
+            $("#errorMessage").attr("hidden", "");
+            $("#confirmError").attr("hidden", "");
+            $("#credentialError").attr("hidden", "");
+        },
+        error: function(error) {
+            if (error['status'] === 406) {
+                $("#errorMessage").removeAttr("hidden");
+                $("#confirmError").removeAttr("hidden");
+                $("#credentialError").attr("hidden", "");
+            } else {
+                $("#errorMessage").removeAttr("hidden");
+                $("#confirmError").attr("hidden", "");
+                $("#credentialError").removeAttr("hidden");
+            }
+            $("#errorMessage").removeAttr("hidden");
+        }
+    })
 }

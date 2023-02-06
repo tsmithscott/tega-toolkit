@@ -6,20 +6,20 @@
     <div class="col-12">
       <div class="row align-items-center" id="main_page">
         <div class="col-lg-6 mb-4">
-          <h1  data-aos="fade-up" data-aos-delay="100">Build an educational game</h1>
+          <h1 data-aos="fade-up" data-aos-delay="100">Build an educational game</h1>
           <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Develop a <b>game-based teaching strategy</b> that intend to change traditional pedagogical practices.</p>
           <p id="index-continue-button" data-aos="fade-up" data-aos-delay="300"><a href="{{ url_for('dashboard') }}" class="btn btn-primary py-3 px-5 btn-pill">Continue without an Account</a></p>
         </div>
 
         <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-          <form action="" method="post" class="form-box">
+          <form id="signup-form" action="" method="post" class="form-box">
             <h3 class="h4 text-black mb-4">Sign Up</h3>
             <div class="form-group">
               <input id="email-signup" type="text" class="form-control" placeholder="Email Address" required>
               <div id="emailErrorMessage" class="error"><span id="emailErrorSpan"></span></div>
             </div>
             <div class="form-group">
-              <input id="password-signup" type="password" class="form-control" placeholder="Password" required>
+              <input id="password-signup" type="password" class="form-control liveValidation" placeholder="Password" required>
               <div id="passwordErrorMessage" class="error"><span id="passwordErrorSpan"></span></div>
             </div>
             <div class="form-group mb-4">
