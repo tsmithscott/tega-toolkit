@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{title}}{% endblock title %}
 {% block content %}
-<div id="dashboard-container" class="container-fluid" style="padding-top:150px;">
+<div id="dashboard-container" class="container-fluid" style="padding-top:150px;overflow-y:none;">
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
         <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1000px; max-width: 1000px;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
@@ -24,7 +24,7 @@
                                 <button id="justification" class="list-group-item list-group-item-action" disabled style="background-color:lightgray">Justification<input type="hidden" value=0></button>
                             </ul>
                         </div>
-                        <div id="dashboard-container-right" class="container justify-content-center text-center p-5" style="max-height:550px;">
+                        <div id="dashboard-container-right" class="container justify-content-center text-center p-2" style="max-height:550px; min-height:550px;">
                             <div id="dashboard-container-right-column" class="col-12">
 
                                 <div id="introduction-content" class="dashboard-content">
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <br /><br />
-                                    <button onclick="processSection('introduction-content')" id="introduction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('introduction')" id="introduction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="profile-content" class="dashboard-content" style="display:none;">
@@ -117,9 +117,9 @@
                                         </div>
                                     </div>
                                     <br />
-                                    <span id="errorMessage" style="color:red" hidden>You must select at least one option!</span>
+                                    <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
                                     <br />
-                                    <button onclick="processSection('profile-content')" id="profile-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & Continue</button>
+                                    <button onclick="processSection('profile')" id="profile-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & Continue</button>
                                 </div>
 
                                 <div id="typology-content" class="dashboard-content" style="display:none;">
@@ -130,14 +130,14 @@
                                             <tr>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Sensors like facts, data, and experimentation solving problems by standard methods and dislike “surprises”; Sensors are patient with detail but do not like complications; good at memorizing facts, are careful but may be slow. ">
                                                         Sensing</button>
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Intuitors prefer principles and theories and innovation and dislike repetition. Are bored by detail and welcome complications. good at grasping new concepts, are quick but may be careless, more comfortable with symbols, since words are symbols, translating them into what they represent comes naturally to intuitors and is a struggle for sensors">
                                                         Intuitive</button>
                                                     </span>
@@ -146,14 +146,14 @@
                                             <tr>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Visual learners remember best what they see: pictures, diagrams, flow charts, timelines, films, demonstrations. If something is simply said to them, they will probably forget it.">
                                                         Visual</button>
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Auditory learners remember much of what they hear and more of what they hear and then say. They get a lot out of discussion, prefer verbal explanation to visual demonstration, and learn effectively by explaining things to others.">Auditory</button>
                                                     </span>
                                                 </td>
@@ -161,7 +161,7 @@
                                             <tr>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Teaching tends to follow a deductive course of reasoning while learning tends to be inductive. Teaching tends to follow a deductive course of reasoning while learning tends to be inductive. 
                                                         Inductive learners need motivation for learning and how this stuff will be useful to you some day” approach: like sensors, they need to see the phenomena before they can understand and appreciate the underlying theory. An effective way to reach both groups is to follow the scientific method in classroom presentations: first induction, then deduction. The instructor precedes presentations of theoretical material with a statement of observable phenomena that the theory will explain or of a physical problem the theory will be used to solve; infers the governing rules or principles that explain the observed phenomena; and deduces other implications and consequences of the inferred principles. Such problems play to the inductive learners strength and they also help deductive learners develop facility with their less preferred learning mode.">
                                                         Inductive</button>
@@ -169,7 +169,7 @@
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Teaching tends to follow a deductive course of reasoning while learning tends to be inductive. Teaching tends to follow a deductive course of reasoning while learning tends to be inductive. 
                                                         Inductive learners need motivation for learning and how this stuff will be useful to you some day” approach: like sensors, they need to see the phenomena before they can understand and appreciate the underlying theory. An effective way to reach both groups is to follow the scientific method in classroom presentations: first induction, then deduction. The instructor precedes presentations of theoretical material with a statement of observable phenomena that the theory will explain or of a physical problem the theory will be used to solve; infers the governing rules or principles that explain the observed phenomena; and deduces other implications and consequences of the inferred principles. Such problems play to the inductive learners strength and they also help deductive learners develop facility with their less preferred learning mode.">
                                                         Deductive</button>
@@ -179,14 +179,14 @@
                                             <tr>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="An “active learner” is someone who feels more comfortable with, active experimentation than reflective observation. They do not learn much in situations that require them to be passive (such as most lectures). They work well in groups and tend to be experimentalists.">
                                                         Active</button>
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Reflective learners do not learn much in situations that provide no opportunity to think about the information being presented (such as most lectures), They work better by themselves or with at most one other person. They tend to be theoreticians.">
                                                         Reflective</button>
                                                     </span>
@@ -195,14 +195,14 @@
                                             <tr>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Sequential learners follow linear reasoning processes when solving problems; They can work with material when they understand it partially or superficially. Sequential learners may be strong in convergent thinking and analysis. They learn best when material is presented in a steady progression of complexity and difficulty.">
                                                         Sequential</button>
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        <button class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                        <button onclick="processButton(this)" class="btn btn-primary btn-block" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                                                         data-bs-content="Global learners make intuitive leaps and may be unable to explain how they came up with solutions.; global learners may be better at divergent thinking and synthesis. Global learners sometimes do better by jumping directly to more complex and difficult material.">
                                                         Global</button>
                                                     </span>
@@ -210,53 +210,60 @@
                                             </tr>
                                         </tbody>
                                       </table>
-                                    <button id="typology-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & continue</button>
+                                    <button onclick="processSection('typology')" id="typology-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & continue</button>
                                 </div>
 
                                 <div id="characteristics-content" class="dashboard-content" style="display:none;">
-                                    Characteristics Content
-                                    <div class="characteristics-content-dropdown">Hello</div>
-                                    <button id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <p style="color: black;">The measures for a good game extracted from the focus group are listed here. They can be used to make decisions about what characteristics of the game you would like to fit within your game.</p>
+                                    <p style="color: black;">Please select the characteristic measures and submeasures that you would like to include in your game.</p>
+                                    <div class="dropdown">
+                                        <button onclick="populateDropdown(this);" class="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            +
+                                        </button>
+                                        <ul class="dropdown-menu"></ul>
+                                    </div>
+                                    <br />
+                                    <button onclick="processSection('characteristics')" id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="foundation-content" class="dashboard-content" style="display:none;">
-                                    Foundation Content
-                                    <button id="foundation-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <p style="color: black">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>). To add a theoretical foundation, we need to ensure the existence of the following within our game:</p>
+                                    <button onclick="processSection('foundation')" id="foundation-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="model-content" class="dashboard-content" style="display:none;">
                                     Model Content
-                                    <button id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('model')" id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="accessibility-content" class="dashboard-content" style="display:none;">
                                     Accessibility Content
-                                    <button id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('accessibility')" id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="design-content" class="dashboard-content" style="display:none;">
                                     Design Content
-                                    <button id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('design')" id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="instruction-content" class="dashboard-content" style="display:none;">
                                     Instruction Content
-                                    <button id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('instruction')" id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="playability-content" class="dashboard-content" style="display:none;">
                                     Playability Content
-                                    <button id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
                                     Assessment Content
-                                    <button id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                                 <div id="justification-content" class="dashboard-content" style="display:none;">
                                     Justification Content
-                                    <button id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('justification')" id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
                             </div>

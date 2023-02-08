@@ -1184,6 +1184,10 @@ h1, h2, h3, h4, h5,
   border-bottom-right-radius: 5px;
 }
 
+.dashboard-content {
+  height: 525px;
+}
+
 .custom-tooltip {
   --bs-tooltip-bg: var(--bs-primary);
 }
@@ -1229,6 +1233,11 @@ li {
 
 .green {
   background-color: green;
+}
+
+.dropdown-menu {
+  max-height: 280px;
+  overflow-y: auto;
 }
 
 @media (max-width: 995px) {

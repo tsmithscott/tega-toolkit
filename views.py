@@ -125,7 +125,9 @@ def callback():
             id=user_id,
             name=users_name, 
             email=users_email, 
-            profile_pic=picture)
+            profile_pic=picture,
+            password=None,
+            account_confirmed=None)
         db.session.add(user)
         db.session.commit()
     else:
@@ -148,9 +150,10 @@ def ajax_handler():
 
 @app.route('/ajax-autosave', methods=["POST"])
 def ajax_autosave():
-    token = JWT.generate_jwt(json.loads(request.data.decode()))
+    token = JWT.generate_jwt(request.get_json()["current_game"])
     response = make_response()
     response.set_cookie("_game_data", token.encode())
+    response.status_code = 200
     return response
 
 

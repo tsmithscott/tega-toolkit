@@ -1,3 +1,5 @@
+var current_game = {};
+
 var sections = ['introduction', 
 				'profile', 
 				'typology', 
@@ -212,15 +214,45 @@ function processButton(button) {
 }
 
 function processSection(sectionID) {
-	if (sectionID === "introduction-content") {
-		console.log("intro")
+	if (sectionID === "introduction") {
 		unlockNextSection(sectionID);
 	} else {
-		var section = $("#" + sectionID).find("button");
-		console.log(section);
+		let selections = $(".green").map(function() {
+			return this.id.split("-")[2];
+		}).get();
+
+		if (selections.length < 1) {
+			$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+			return;
+		} else {
+			$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
+			current_game[sectionID] = selections;
+			console.log(current_game);
+
+			if (processGameData()) {
+				unlockNextSection(sectionID);
+			} else {
+				alert(this);
+			}
+		}
 	}
 }
 
+function processGameData() {
+	$.ajax({
+		url: '/ajax-autosave',
+		contentType: "application/json;charset=utf-8",
+		data: JSON.stringify({current_game}),
+		dataType: "json",
+		type: 'POST',
+		success: function(response) {
+			return true;
+		},
+		error: function(error) {
+			return error;
+	  }
+	});
+}
 
 $(document).ready(function() {
 	// TODO:
@@ -278,12 +310,13 @@ $(document).ready(function() {
 });
 
 
-// Set all styling to default/disabled/hidden
+// Set all dashboard card component styling to default/disabled/hidden
 function removeAllStyling() {
 	$('.list-group-item.list-group-item-action').removeClass('active').removeAttr('aria-current');
 	$('.list-group-item.list-group-item-action').attr('disabled', true).css('background-color', 'lightgray');
 	$('.dashboard-content').hide();
 }
+
 
 // Helper function to add styling to sections on page load
 // Uses saved cookie data to determine which sections to add styling to
@@ -345,55 +378,37 @@ $('.list-group-item').click(function() {
 	let clickedButtonContent = clickedButton.attr('id') + '-content';
 
 	$.ajax({
-	  url: '/ajax_handler',
-	  data: { "data": "TEST" },
-	  type: 'POST',
-	  success: function(response) {
-		$('.dashboard-content').hide(); // Hide all content sections
-		$('#' + clickedButtonContent).show(); // Show clicked content section
-		currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
-		clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
-	  },
-	  error: function(error) {
-		console.error(error);
+		url: '/ajax_handler',
+		data: { "data": "TEST" },
+		type: 'POST',
+		success: function(response) {
+			$('.dashboard-content').hide(); // Hide all content sections
+			$('#' + clickedButtonContent).show(); // Show clicked content section
+			currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
+			clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
+		},
+		error: function(error) {
+			console.error(error);
 	  }
 	});
 });
 
 
-// // Handle dashboard content submit button clicks
-// $('.dashboard-content-submit').click(function() {
-// 	let submit_button = $(this);
-// 	let currentSection = submit_button.attr('id').split('-')[0];
-// 	$.ajax({
-// 		url: '/ajax_handler',
-// 		data: { "data": "TEST" },
-// 		type: 'POST',
-// 		success: function(response) {
-// 			unlockNextSection(currentSection);
-// 		},
-// 		error: function(error) {
-// 			console.error(error);
-// 		}
-// 	});
-// });
+// Populate dropdown options for 'Game Characteristics' section on click
+function populateDropdown(dropdown) {
+	$(dropdown).siblings().empty();
+	let characteristics_keys = Object.keys(characteristics);
+	let no_characteristics = characteristics_keys.length;
+	for (let i = 0; i < no_characteristics; i++) {
+		$(dropdown).siblings().append('<li><a id="'+ characteristics_keys[i].replace(/\s+/g, '') +'" class="dropdown-item" href="#">' + characteristics_keys[i] + '</a></li>')
+	}
+};
 
 
-// // Populate dropdown options for 'Game Characteristics' section on click
-// $('.characteristics-content-dropdown').click(function() {
-// 	charateristics_keys = Object.keys(characteristics);
-// 	no_characteristics = charateristics_keys.length;
-// 	for (let i = 0; i < no_characteristics; i++) {
-// 		this.html('<option value="${characteristics}">${characteristics}</option>')
-// 	}
-// 	populateDropdown();
-// });
+// Handle dropdown option clicks
 
 
-// // Helper function to load dropdown options
-// function populateDropdown(measure) {
-// 	$('#' + measure).html('<option value="${measure}">${measure}</option>');
-// }
-
-
-
+// Prevent dropdown button clicks from closing dropdown menu
+$('.dropdown-menu a').click(function (e) {
+	e.stopPropagation();
+});
