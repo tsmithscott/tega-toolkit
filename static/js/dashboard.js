@@ -13,7 +13,6 @@ var sections = ['introduction',
 				'assessment', 
 				'justification'];
 
-
 var characteristics = {
 	'Education Game': [
 		'Memory tasks',
@@ -203,21 +202,64 @@ var characteristics = {
 	]
 }
 
-function processButton(button) {
+
+$(document).ready(function() {
+	populateCharacteristicsDropdown();
+	loadGameData();
+});
+
+
+function toggleSelection(button) {
 	if ($(button).hasClass("green")) {
 		$(button).removeClass("green");
-		$(button).removeAttr("selected")
+		$(button).removeAttr("selected");
+
+		if ($(button).closest("div").attr("id") === "typology-content") {
+			$(button).closest("td").siblings().children().find("button").removeAttr("disabled");
+		}
 	} else {
 		$(button).addClass("green");
-		$(button).attr("selected", "")
+		$(button).attr("selected", "");
+
+		if ($(button).closest("div").attr("id") === "typology-content") {
+			$(button).closest("td").siblings().children().find("button").attr("disabled", "");
+		}
 	}
-}
+};
+
 
 function processSection(sectionID) {
 	if (sectionID === "introduction") {
 		unlockNextSection(sectionID);
+	} else if (sectionID === "characteristics") {
+		console.log("characteristics section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "foundation") {
+		console.log("foundation section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "model") {
+		console.log("model section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "accessibility") {
+		console.log("accessibility section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "design") {
+		console.log("design section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "instruction") {
+		console.log("instruction section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "playability") {
+		console.log("playability section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "assessment") {
+		console.log("assessment section");
+		unlockNextSection(sectionID);
+	} else if (sectionID === "justification") {
+		console.log("justification section");
+		unlockNextSection(sectionID);
 	} else {
-		let selections = $(".green").map(function() {
+		let selections = $("#" + sectionID + "-content").find(".green").map(function() {
 			return this.id.split("-")[2];
 		}).get();
 
@@ -226,88 +268,117 @@ function processSection(sectionID) {
 			return;
 		} else {
 			$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
-			current_game[sectionID] = selections;
-			console.log(current_game);
 
-			if (processGameData()) {
+			if (current_game[sectionID]) {
+				current_game[sectionID] = [];
+			}
+
+			current_game[sectionID] = selections;
+			save = processGameData();
+
+			if (save) {
+				selections = [];
 				unlockNextSection(sectionID);
 			} else {
-				alert(this);
+				alert("unable to save progress. Please contact support.");
 			}
 		}
 	}
 }
 
-function processGameData() {
-	$.ajax({
-		url: '/ajax-autosave',
-		contentType: "application/json;charset=utf-8",
-		data: JSON.stringify({current_game}),
-		dataType: "json",
-		type: 'POST',
-		success: function(response) {
-			return true;
-		},
-		error: function(error) {
-			return error;
-	  }
-	});
-}
 
-$(document).ready(function() {
-	// TODO:
-	// Check if jwt token exists
-	// If it does, parse it and get the last section visited
-	// Set the last section button styles
-	// If the cookie doesn't exist start from the beginning
-
+function loadGameData() {
 	if (getCookie("_game_data") !== null) {
-		sections = JSON.parse(getCookie("_game_data"));
-		sections_keys = Object.keys(sections);
+		jwt = getCookie("_game_data");
+		current_game = parseJWT(jwt);
+
+		if (!current_game) {
+			return;
+		}
+
+		sections_keys = Object.keys(current_game);
 		latestSection = sections_keys[sections_keys.length - 1];
 
 		removeAllStyling();
 
 		switch (latestSection) {
 			case('introduction'):
-				addSectionStyling('#introduction');
+				addStyling('#introduction');
 				break;
 			case('profile'):
-				addSectionStyling('#profile');
+				addStyling('#profile');
 				break;
 			case('typology'):
-				addSectionStyling('#typology');
+				addStyling('#typology');
 				break;
 			case('characteristics'):
-				addSectionStyling('#characteristics');
+				addStyling('#characteristics');
 				break;
 			case('foundation'):
-				addSectionStyling('#foundation');
+				addStyling('#foundation');
 				break;
 			case('model'):
-				addSectionStyling('#model');
+				addStyling('#model');
 				break;
 			case('accessibility'):
-				addSectionStyling('#accessibility');
+				addStyling('#accessibility');
 				break;
 			case('design'):
-				addSectionStyling('#design');
+				addStyling('#design');
 				break;
 			case('instruction'):
-				addSectionStyling('#instruction');
+				addStyling('#instruction');
 				break;
 			case('playability'):
-				addSectionStyling('#playability');
+				addStyling('#playability');
 				break;
 			case('assessment'):
-				addSectionStyling('#assessment');
+				addStyling('#assessment');
 				break;
 			case('justification'):
-				addSectionStyling('#justification');
+				addStyling('#justification');
 				break;
 		}
 	}
-});
+}
+
+
+function processGameData() {
+	let saved = '';
+	deleteCookie("_game_data");
+	$.ajax({
+		url: '/ajax-autosave',
+		contentType: "application/json;charset=utf-8",
+		data: JSON.stringify({current_game}),
+		type: 'POST',
+		success: function(response) {
+			saved = true;
+		},
+		error: function(error) {
+			saved = false;
+	  	},
+		async: false
+	});
+	return saved;
+}
+
+
+function parseJWT(jwt) {
+	let data = '';
+	$.ajax({
+		url: '/ajax-parse',
+		data: {"jwt": jwt},
+		type: 'POST',
+		success: function(response) {
+			data = response;
+		},
+		error: function(error) {
+			return false;
+	  	},
+		async: false
+	});
+	return data;
+}
 
 
 // Set all dashboard card component styling to default/disabled/hidden
@@ -321,7 +392,7 @@ function removeAllStyling() {
 // Helper function to add styling to sections on page load
 // Uses saved cookie data to determine which sections to add styling to
 function addStyling(latestSection) {
-	no_previous_sections = sections.indexOf(latestSection);
+	no_previous_sections = sections.indexOf(latestSection.split("#")[1]);
 	for (let i = 0; i < no_previous_sections; i++) {
 		$('#' + sections[i]).removeAttr('disabled style');
 	}
@@ -386,8 +457,7 @@ $('.list-group-item').click(function() {
 			$('#' + clickedButtonContent).show(); // Show clicked content section
 			currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
 			clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
-		},
-		error: function(error) {
+		},		error: function(error) {
 			console.error(error);
 	  }
 	});
@@ -395,20 +465,30 @@ $('.list-group-item').click(function() {
 
 
 // Populate dropdown options for 'Game Characteristics' section on click
-function populateDropdown(dropdown) {
-	$(dropdown).siblings().empty();
+function populateCharacteristicsDropdown() {
 	let characteristics_keys = Object.keys(characteristics);
 	let no_characteristics = characteristics_keys.length;
 	for (let i = 0; i < no_characteristics; i++) {
-		$(dropdown).siblings().append('<li><a id="'+ characteristics_keys[i].replace(/\s+/g, '') +'" class="dropdown-item" href="#">' + characteristics_keys[i] + '</a></li>')
+		$("#characteristics-content-dropdown-button").siblings().append('<li id="'+ characteristics_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristics_keys[i] + '</a></li>')
 	}
 };
 
 
-// Handle dropdown option clicks
+// Handle main dropdown option clicks in 'Game Characteristics' section
+function processCharacteristicMeasure(characteristic) {
+	let unprocessed_keys = Object.keys(characteristics);
+	let keys = Object.keys(characteristics);
+	for (let i = 0; i < keys.length; i++) {
+		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		if (keys[i] === $(characteristic).attr('id')) {
+			createCharacteristicsSubmeasureDropdown(keys[i], unprocessed_keys[i], i);
+		}
+	}
+	$(characteristic).remove();
+}
 
 
-// Prevent dropdown button clicks from closing dropdown menu
-$('.dropdown-menu a').click(function (e) {
-	e.stopPropagation();
-});
+// Create submeasure dropdowns for 'Game Characteristics' section when pressed
+function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic, index) {
+	$('#characteristics-content-accordion-row').prepend('<div class="dropdown"><button id="characteristics-content-accordion-' + characteristic_for_id + '" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">' + characteristic + '</button><ul class="dropdown-menu"><div class="dropdown-item form-check"><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"><label class="form-check-label" for="defaultCheck1">Option 1</label></div></ul></div>');
+}

@@ -6,6 +6,7 @@ from flask import (redirect, render_template, request, session,
                    url_for, make_response, jsonify, send_from_directory)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from jwt.exceptions import InvalidSignatureError
 
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users
@@ -138,7 +139,7 @@ def callback():
 
     # Send user back to homepage
     response = make_response(redirect(url_for('dashboard')))
-    response.set_cookie('_user_id', session.get('_user_id'))
+    response.set_cookie('_user_id', session.get('_user_id'), secure=True)
     return response
 
 
@@ -152,9 +153,25 @@ def ajax_handler():
 def ajax_autosave():
     token = JWT.generate_jwt(request.get_json()["current_game"])
     response = make_response()
-    response.set_cookie("_game_data", token.encode())
+    response.set_cookie("_game_data", token, secure=True)
     response.status_code = 200
     return response
+
+
+@app.route('/ajax-parse', methods=["POST"])
+def ajax_parse():
+    try:
+        game_data = JWT.decode_jwt(request.form['jwt'])
+        response = make_response(
+            jsonify(
+                game_data
+            ), 200
+        )
+        response.headers['Content-Type'] == 'application/json'
+        return response
+    except InvalidSignatureError:
+        response = make_response()
+        response.status_code = 400
 
 
 @app.route("/register-user", methods=["POST"])
