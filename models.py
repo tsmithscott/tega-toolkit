@@ -20,3 +20,4 @@ class Users(db.Model, UserMixin):
         self.profile_pic = profile_pic
         self.password = password
         self.account_confirmed = account_confirmed
+
