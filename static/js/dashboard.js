@@ -209,20 +209,24 @@ $(document).ready(function() {
 });
 
 
-function toggleSelection(button) {
-	if ($(button).hasClass("green")) {
-		$(button).removeClass("green");
-		$(button).removeAttr("selected");
+function toggleSelection(input) {
+	if ($(input).attr("type") === "checkbox") {
+		if ($(input).closest("button").hasClass("green")) {
+			console.log("button has been deselected");
+		}
+	} else if ($(input).hasClass("green")) {
+		$(input).removeClass("green");
+		$(input).removeAttr("selected");
 
-		if ($(button).closest("div").attr("id") === "typology-content") {
-			$(button).closest("td").siblings().children().find("button").removeAttr("disabled");
+		if ($(input).closest("div").attr("id") === "typology-content") {
+			$(input).closest("td").siblings().children().find("button").removeAttr("disabled");
 		}
 	} else {
-		$(button).addClass("green");
-		$(button).attr("selected", "");
+		$(input).addClass("green");
+		$(input).attr("selected", "");
 
-		if ($(button).closest("div").attr("id") === "typology-content") {
-			$(button).closest("td").siblings().children().find("button").attr("disabled", "");
+		if ($(input).closest("div").attr("id") === "typology-content") {
+			$(input).closest("td").siblings().children().find("button").attr("disabled", "");
 		}
 	}
 };
@@ -481,7 +485,7 @@ function processCharacteristicMeasure(characteristic) {
 	for (let i = 0; i < keys.length; i++) {
 		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
 		if (keys[i] === $(characteristic).attr('id')) {
-			createCharacteristicsSubmeasureDropdown(keys[i], unprocessed_keys[i], i);
+			createCharacteristicsSubmeasureDropdown(keys[i], unprocessed_keys[i]);
 		}
 	}
 	$(characteristic).remove();
@@ -489,6 +493,23 @@ function processCharacteristicMeasure(characteristic) {
 
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
-function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic, index) {
-	$('#characteristics-content-accordion-row').prepend('<div class="dropdown"><button id="characteristics-content-accordion-' + characteristic_for_id + '" class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">' + characteristic + '</button><ul class="dropdown-menu"><div class="dropdown-item form-check"><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"><label class="form-check-label" for="defaultCheck1">Option 1</label></div></ul></div>');
+function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + '</button></h2><div id="' + characteristic_for_id + '-collapse" style="padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:110px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
+	for (submeasure in characteristics[characteristic]) {
+		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' + characteristics[characteristic] + '-' + submeasure + '"><label class="form-check-label" style="color:black;" for="' + characteristics[characteristic] + '-' + submeasure + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
+	}
 }
+
+
+function removeCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
+	$('.characteristics-content-accordion-' + characteristic).remove();
+	$("#characteristics-content-dropdown-button").siblings().append('<li id="'+ characteristic_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristic + '</a></li>');
+}
+
+
+const foundationModal1 = document.getElementById('foundationModal1')
+const foundationModal1Button = document.getElementById('foundationModal1Button')
+
+foundationModal1.addEventListener('shown.bs.modal', () => {
+	foundationModal1Button.focus()
+})

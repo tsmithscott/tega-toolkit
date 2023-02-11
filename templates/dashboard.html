@@ -219,37 +219,13 @@
                                     <p style="color: black;">Please select the characteristic measures and submeasures that you would like to include in your game.</p>
                                     <div id="characteristics-content-accordion-row" class="row">
                                         <div class="col">
-                                            <div class="characteristics-content-accordion-" style="text-align: center; max-height: 170px; overflow:auto;">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingOne">
-                                                        <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                            Diagnosis
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <div class="accordion-body">
-                                                            <ul>
-                                                                <li>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                                                                        <label class="form-check-label" for="flexCheck1">
-                                                                            Default checkbox 1
-                                                                        </label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
                                             <div id="characteristics-content-dropdown" class="dropdown">
-                                                <button id="characteristics-content-dropdown-button" class="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    +
+                                                <button id="characteristics-content-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/> </svg>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <!-- Populated by dashboard.js populateCharacteristicsDropdown() -->
+                                                    <!-- Also when an measure option is removed -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -262,6 +238,44 @@
 
                                 <div id="foundation-content" class="dashboard-content" style="display:none;">
                                     <p style="color: black">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>). To add a theoretical foundation, we need to ensure the existence of the following within our game:</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button id="foundationModal1Button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#foundationModal1">
+                                                Commitment to participate in the game
+                                            </button>
+                                              
+                                            <div class="modal fade" id="foundationModal1" tabindex="-1" aria-labelledby="foundationModalLabel1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="foundationModalLabel1">Commitment to participate in the game</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Until captivating the player completely (Goffman 1980: 376). This creates the normative expectations of clearly defined world in which the player can perform their individual actions within the above cybernetic circuit.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            
+                                        </div>
+                                        <div class="col">
+                                            
+                                        </div>
+                                        <div class="col">
+                                            
+                                        </div>
+                                        <div class="col">
+                                            
+                                        </div>
+                                        <div class="col">
+                                            
+                                        </div>
+                                    </div>
+                                    <br />
                                     <button onclick="processSection('foundation')" id="foundation-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
