@@ -206,8 +206,13 @@ var characteristics = {
 $(document).ready(function() {
 	populateCharacteristicsDropdown();
 	loadGameData();
+	disableBodyScroll()
 });
 
+
+function disableBodyScroll() {
+	$("body").css("overflow-y", "hidden");
+}
 
 function toggleSelection(input) {
 	if ($(input).attr("type") === "checkbox") {
@@ -473,7 +478,7 @@ function populateCharacteristicsDropdown() {
 	let characteristics_keys = Object.keys(characteristics);
 	let no_characteristics = characteristics_keys.length;
 	for (let i = 0; i < no_characteristics; i++) {
-		$("#characteristics-content-dropdown-button").siblings().append('<li id="'+ characteristics_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristics_keys[i] + '</a></li>')
+		$("#characteristics-content-add-dropdown-button").siblings().append('<li id="'+ characteristics_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristics_keys[i] + '</a></li>')
 	}
 };
 
@@ -494,22 +499,52 @@ function processCharacteristicMeasure(characteristic) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + '</button></h2><div id="' + characteristic_for_id + '-collapse" style="padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:110px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
+	console.log("Adding")
+	console.log(characteristic_for_id, characteristic)
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:110px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
 		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' + characteristics[characteristic] + '-' + submeasure + '"><label class="form-check-label" style="color:black;" for="' + characteristics[characteristic] + '-' + submeasure + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
 	}
 }
 
 
-function removeCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('.characteristics-content-accordion-' + characteristic).remove();
-	$("#characteristics-content-dropdown-button").siblings().append('<li id="'+ characteristic_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristic + '</a></li>');
+function removeCharacteristicsSubmeasureDropdown(characteristic_for_id) {
+	console.log("Removing")
+	console.log(characteristic_for_id);
+	let unprocessed_keys = Object.keys(characteristics);
+	let keys = Object.keys(characteristics);
+	let characteristic;
+	for (let i = 0; i < keys.length; i++) {
+		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		if (keys[i] === characteristic_for_id) {
+			characteristic = unprocessed_keys[i];
+		}
+	}
+	console.log(characteristic)
+	$('.characteristics-content-accordion-' + characteristic_for_id).remove();
+	$("#characteristics-content-add-dropdown-button").siblings().append('<li id="'+ characteristic_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristic + '</a></li>');
 }
 
 
-const foundationModal1 = document.getElementById('foundationModal1')
-const foundationModal1Button = document.getElementById('foundationModal1Button')
-
-foundationModal1.addEventListener('shown.bs.modal', () => {
-	foundationModal1Button.focus()
-})
+// Handle 'Theoretical Foundation' section modals
+$("#foundationModal1Button").click(function(){
+	$("#foundationModal1").modal('show');
+});
+$("#foundationModal2Button").click(function(){
+	$("#foundationModal2").modal('show');
+});
+$("#foundationModal3Button").click(function(){
+	$("#foundationModal3").modal('show');
+});
+$("#foundationModal4Button").click(function(){
+	$("#foundationModal4").modal('show');
+});
+$("#foundationModal5Button").click(function(){
+	$("#foundationModal5").modal('show');
+});
+$("#foundationModal6Button").click(function(){
+	$("#foundationModal6").modal('show');
+});
+$(document).on('hidden.bs.modal', function () {
+	disableBodyScroll();
+});

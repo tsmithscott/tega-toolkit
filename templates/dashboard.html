@@ -27,20 +27,25 @@
                         <div id="dashboard-container-right" class="container justify-content-center text-center p-2" style="max-height:550px; min-height:550px;">
                             <div id="dashboard-container-right-column" class="col-12">
 
+                                <!-- Introduction -->
                                 <div id="introduction-content" class="dashboard-content">
+                                    <a id="introductionModal1Button" class="btn btn-primary btn-block text-wrap" data-bs-toggle="modal" href="#introductionModal1" role="button">
+                                        Click for a Detailed Overview of the Toolkit</a>
+                                    <br />
+                                    <p class="text-dark">To create a game that meets specific learning outcomes, the TEGA design package provides a systematic process for exploring and applying game characteristics and mechanics, as well as for assessing learning outcomes. By following this process, game designers can create games that effectively leverage motivation and inclusivity, and that are tailored to meet the needs of specific learners and learning goals.</p>
+                                    <p class="text-dark">We go through the process as follows:</p>
                                     <div class="accordion" style="text-align: center;">
-                                        <h3>Toolkit Structure: </h3>
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Diagnosis
+                                                    Diagnosis <span class="fas fa-angle-down"></span>
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <ul>
-                                                        <li style="color: black;">Identifying the learner/player typology</li>
-                                                        <li style="color: black;">Defining the scope and learning outcome</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Identifying the learner/player typology</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Defining the scope and learning outcome</li>
                                                     </ul>
                                                 </ul>
                                                 </div>
@@ -50,19 +55,19 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingTwo">
                                                 <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                                                    Design
+                                                    Design <span class="fas fa-angle-down"></span>
                                                 </button>
                                             </h2>
                                             <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <ul>
-                                                        <li style="color: black;">Identifying the game characteristics and mechanics</li>
-                                                        <li style="color: black;">Selection of the clean slate game</li>
-                                                        <li style="color: black;">Ensuring the game inclusivity and accessibility</li>
-                                                        <li style="color: black;">Ensuring the flow element in the design</li>
-                                                        <li style="color: black;">Drafting the instruction of the game</li>
-                                                        <li style="color: black;">Ensuring the game playability by playtesting through Beta-Play and reflection</li>
-                                                        <li style="color: black;">Amending based on the feedback of the Beta-Play</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Identifying the game characteristics and mechanics</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Selection of the clean slate game</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Ensuring the game inclusivity and accessibility</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Ensuring the flow element in the design</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Drafting the instruction of the game</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Ensuring the game playability by playtesting through Beta-Play and reflection</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Amending based on the feedback of the Beta-Play</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -71,14 +76,14 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingThree">
                                                 <button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
-                                                    Testing
+                                                    Testing <span class="fas fa-angle-down"></span>
                                                 </button>
                                             </h2>
                                             <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <ul>
-                                                        <li style="color: black;">Planting the assessment criteria</li>
-                                                        <li style="color: black;">Entering in TEGA database</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Planting the assessment criteria</li>
+                                                        <li class="text-dark"><span class="fas fa-angle-right"></span>  Entering in TEGA database</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -88,6 +93,7 @@
                                     <button onclick="processSection('introduction')" id="introduction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
 
+                                <!-- Player Profile -->
                                 <div id="profile-content" class="dashboard-content" style="display:none;">
                                     <img src="{{ url_for('static', filename='images/player-profile.jpg') }}" style="min-width:250px; max-width:400px;">
                                     <br /><p style="color: black">Think about what your player profiles are, or what learner profiles you would like to target in your design. </p>
@@ -122,6 +128,7 @@
                                     <button onclick="processSection('profile')" id="profile-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & Continue</button>
                                 </div>
 
+                                <!-- Learner Typology -->
                                 <div id="typology-content" class="dashboard-content" style="display:none;">
                                     <p style="color: black">Think about what your learner profiles are, or what learner profiles you would like to target in your design.</p>
                                     <p style="color: black">Select <i><b>one</b></i> from each row that applies to your students.</p>
@@ -214,13 +221,22 @@
                                     <button onclick="processSection('typology')" id="typology-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & continue</button>
                                 </div>
 
+                                <!-- Characteristics of a Game -->
                                 <div id="characteristics-content" class="dashboard-content" style="display:none;">
                                     <p style="color: black;">The measures for a good game extracted from the focus group are listed here. They can be used to make decisions about what characteristics of the game you would like to fit within your game.</p>
+                                    <a id="characteristicsModal1Button" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#characteristicsModal1" role="button">
+                                        Click for More Info</a>
                                     <p style="color: black;">Please select the characteristic measures and submeasures that you would like to include in your game.</p>
                                     <div id="characteristics-content-accordion-row" class="row">
+                                        <div id="characteristics-content-dropdown" class="col">
+                                            <!-- Populated by adding using 'characteristics-content-add-dropdown' -->
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
                                         <div class="col">
-                                            <div id="characteristics-content-dropdown" class="dropdown">
-                                                <button id="characteristics-content-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div id="characteristics-content-add-dropdown" class="dropdown">
+                                                <button id="characteristics-content-add-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/> </svg>
                                                 </button>
                                                 <ul class="dropdown-menu">
@@ -230,88 +246,131 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
                                     <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
                                     <br />
-                                    <button onclick="processSection('characteristics')" id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <br />
+                                    <button onclick="processSection('characteristics')" id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Theoretical Foundation -->
                                 <div id="foundation-content" class="dashboard-content" style="display:none;">
                                     <p style="color: black">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>). To add a theoretical foundation, we need to ensure the existence of the following within our game:</p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <button id="foundationModal1Button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#foundationModal1">
-                                                Commitment to participate in the game
-                                            </button>
-                                              
-                                            <div class="modal fade" id="foundationModal1" tabindex="-1" aria-labelledby="foundationModalLabel1" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="foundationModalLabel1">Commitment to participate in the game</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Until captivating the player completely (Goffman 1980: 376). This creates the normative expectations of clearly defined world in which the player can perform their individual actions within the above cybernetic circuit.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col">
-                                            
-                                        </div>
-                                        <div class="col">
-                                            
-                                        </div>
-                                        <div class="col">
-                                            
-                                        </div>
-                                        <div class="col">
-                                            
-                                        </div>
-                                        <div class="col">
-                                            
-                                        </div>
+                                    <div class="centered-div">
+                                    <table class="table table-striped w-50">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal1Button" class="btn btn-primary btn-block text-wrap" data-bs-toggle="modal" href="#foundationModal1" role="button">
+                                                            Commitment to participate in the game</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#foundationModal2" role="button">
+                                                            Framework</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal3Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#foundationModal3" role="button">
+                                                            Magic Circle</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal4Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#foundationModal4" role="button">
+                                                            Rule System</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal5Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#foundationModal5" role="button">
+                                                            Flow Principle</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <a id="foundationModal6Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#foundationModal6" role="button">
+                                                            Game Mechanics</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     </div>
                                     <br />
-                                    <button onclick="processSection('foundation')" id="foundation-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('foundation')" id="foundation-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Continue to Next Section
+                                    </button>
                                 </div>
 
+                                <!-- Foundational Model -->
                                 <div id="model-content" class="dashboard-content" style="display:none;">
                                     Model Content
-                                    <button onclick="processSection('model')" id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('model')" id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Accessibility and Inclusivity -->
                                 <div id="accessibility-content" class="dashboard-content" style="display:none;">
                                     Accessibility Content
-                                    <button onclick="processSection('accessibility')" id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('accessibility')" id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Flow Element of the Design-->
                                 <div id="design-content" class="dashboard-content" style="display:none;">
                                     Design Content
-                                    <button onclick="processSection('design')" id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('design')" id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Drafting Instructions of the Game -->
                                 <div id="instruction-content" class="dashboard-content" style="display:none;">
                                     Instruction Content
-                                    <button onclick="processSection('instruction')" id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('instruction')" id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Game Playability-->
                                 <div id="playability-content" class="dashboard-content" style="display:none;">
                                     Playability Content
-                                    <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
                                     Assessment Content
-                                    <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
+                                <!-- Justification -->
                                 <div id="justification-content" class="dashboard-content" style="display:none;">
                                     Justification Content
-                                    <button onclick="processSection('justification')" id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
+                                    <button onclick="processSection('justification')" id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save & Continue
+                                    </button>
                                 </div>
 
                             </div>
@@ -330,6 +389,294 @@
         </div>
     </div>
 </div>
+
+<!-- Modals - Introduction -->
+<div class="modal fade" id="introductionModal1" tabindex="-1" aria-labelledby="introductionModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="introductionModalLabel1">Overview</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">For a game to be called a game, various characteristics need to be considered. Motivation design combines the rules, mechanics, and consequences in a game system to keep players engaged, through challenge to reward to punishment.</p>
+                <p class="text-dark">We then will consider the criteria related to the learner/player typology, game characteristics, mechanics, principle of Playability (The easement of instruction) and Inclusivity/Accessibility. We then make sure to include some principle of Flow theory in order to design a step-based instruction for the game as well as clear assessment and learning outcomes.</p>
+                <p class="text-dark">The TEGA design package describes the procedures for designing the game. The design pack include instructions for the exploration and application of the game characteristics, mechanics, principle of Playability (The easement of instruction) and Inclusivity/Accessibility.</p>
+                <p class="text-dark">Using the principle of Flow theory in order to design a step-based instruction/ template/tick boxes for a game that meets the criteria set by each tutor and the requirements of the classroom. This will be followed by the assessment pack and altogether create a scenario-based analysis to map the actual learning against the intended learning outcomes.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals - Characteristics of a Game -->
+<div class="modal fade" id="characteristicsModal1" tabindex="-1" aria-labelledby="characteristicsModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="characteristicsModalLabel1">Game Structure</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Until captivating the player completely (Goffman 1980: 376). This creates the normative expectations of clearly defined world in which the player can perform their individual actions within the above cybernetic circuit.</p>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-01 Competitive Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A game with two or more players and a single winner.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-02 Cooperative Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“Players coordinate their actions to achieve a common win condition or conditions. Players all win or lose the game together.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-03 Team-Based Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“In team-based games, teams of players compete with one another to obtain victory. There are a variety of possible team structures, including symmetrical teams like 2v2 and 3v3, multiple sides like 2v2v2, and even One vs. All.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-04 Solo Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A solo game is a game or game mode intended for play by a single player.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-05 Semi-Cooperative Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A game which ends with either no winners or the players winning as a group but a single player being recognized as the individual winner as well.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-06 Single-Loser Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A game with three or more players in which players are not assigned to static teams and which ends with only one loser.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-07 Traitor Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A traitor game can be seen as a kind of team game or as a cooperative game with a betrayal mechanism. The traitors typically win by triggering a failure condition for the players, though an affirmative win condition can also exist. For our purposes, a traitor game is characterized by traitors that begin the game with hidden identities.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-08 Scenario/ Mission/ Campaign Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“This is a game system that can be applied to a variety of different maps, starting resources and positions, and even different win and loss conditions. These variable conditions can be assembled into a broader narrative or campaign, or they can be entirely disconnected from one another.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-09 Score-and-Reset Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“This is a game in which players play until reaching a stopping condition, then record scores, reset the game, and play one or more additional rounds. The game concludes after some number of rounds, and the cumulative score is calculated to determine a winner.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-sm-3">
+                                <span>
+                                    <p class="text-dark font-weight-bold">STR-10 Legacy Games</p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <p class="text-dark">“A legacy game is a multisession game in which permanent and irreversible changes to the game state carry over from session to session.”</p>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals - Theoretical Foundation -->
+<div class="modal fade" id="foundationModal1" tabindex="-1" aria-labelledby="foundationModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel1">Commitment to participate in the game</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Until captivating the player completely (Goffman 1980: 376). This creates the normative expectations of clearly defined world in which the player can perform their individual actions within the above cybernetic circuit.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="foundationModal2" tabindex="-1" aria-labelledby="foundationModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel2">Framework</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Games are specifically motivating control systems within a defined framework consists of three different (combinable) factors or dimensions. Behavioural dimension, frame dimension, and a construction dimension (Jürgen Fritz, 2004).</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="foundationModal3" tabindex="-1" aria-labelledby="foundationModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel3">Magic Circle</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Once the framework is set, the limits about structure, rules, communication, and behaviour within a “Magical Circle” can be set (Suter, 2018). Magic Circle: Inside the circle, inherently different rules apply but mutual interacting between outside the circle in the real world (including reward and punishment).</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="foundationModal4" tabindex="-1" aria-labelledby="foundationModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel4">Rule System</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">Raise a challenge by offering opportunities for action and allowing them to be evaluated.</p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">To evaluate is to reward or punish, to give a positive or negative feedback.  </p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">Game design, which, in its execution, acceptance of the rules encloses the player in the “Magic Circle”.  </p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">Supervision and control of the real world. On the other hand, the real world’s rules simply formulate the rules of access to a game, so they frame and regulate the transfer of the subject from the real world to the magical circle of a game, but they do not interfere with the rules of the game. </p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">Role play: Live Action Roleplaying (LARP) is a genre that is freer in dealing with the permeability of the real world and the virtual world. In a live role game, the player is physically present in the game as a game character. The player is allowed to freely interpret and improvise his role. It is not only the behaviour of the game character that is regulated by the life-world experiences of the player, but individual rules as well. </p>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <p class="text-dark">A simple set of instructions for our characters and/or objects, their behaviours and their relationships. This world can be perceived as object oriented. We start with creating objects, their scene (their playing field) and their movements. </p>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="foundationModal5" tabindex="-1" aria-labelledby="foundationModalLabel5" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel5">Flow Principle</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Perfectly challenged, with dosed punishment and well rewarded, the player cruises or floats through the game. This is the experience of flow (Csíkszent-mihályi 1990) that captures the player and persuades him to identify with game-play and sequencing (via his avatar).</p>
+                <p class="text-dark">Games, however, do not only differ in short-term game mechanics (micro mechanics), but also in long-term mechanics (macro mechanics). The latter motivate for hours, if not for days and weeks. Often progression strategies or intrinsic narrative strategies are used as macro mechanics, such as, in form of new (visual) worlds, additional new challenges, superordinate comparisons, and (complex) stories.</p>
+                <p class="text-dark">For example, the game Tearaway (2013) is visually and narratively convincing with its unique unfolding paper world. If we now classify the rules according to the well-known Mechanics-Dynamics-Aesthetics (MDA) theory (cf. Hunicke et al. 2004), which attempts to formalize the consumption of games by means of analytics, and in which mechanics are the basic components/ rules (possible player actions, algorithms etc.) of a game.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="foundationModal6" tabindex="-1" aria-labelledby="foundationModalLabel6" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel6">Game Mechanics</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Game mechanics create motivations, a minimal unit for engagement and involvement (Figure 1). A game system usually consists of individual game mechanics in hierarchical, competitive, or mixed units.</p>
+                <p class="text-dark">Sorting, exploring, and storytelling are examples of macro mechanics. Often storytelling is accompanied by a second macro mechanic such as exploring that is key for setting up sets of supporting micro mechanics. Developers often view storytelling as a method to structure games in plot sequences and purvey meaning. However, meaning can also be purveyed by motivational game mechanics.</p>
+                <p class="text-dark">The simplest game mechanic is a cybernetic control loop of challenges, events, plot options, decisions, actions, and the resulting rewards and punishments (Zurich Game Manifesto-2013). Macro mechanics establish the framework for the decisions and interactions of a game, individual micro mechanics establish playful and purposeful paths and experiences for the player.</p>
+                <p class="text-dark">Micro and macro mechanics are designed as cybernetic circuits or control systems.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
