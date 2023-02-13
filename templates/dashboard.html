@@ -6,7 +6,7 @@
         <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1000px; max-width: 1000px;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
-                    <h1 style="color:black; text-align: center; padding-top: 20px;">Dashboard</h1>
+                    <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
                     <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 45px;">
                         <div class="col-sm-4" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
                             <ul class="list-group w-sm-50" style="direction: ltr;">
@@ -138,6 +138,7 @@
 
                                 <!-- Learner Typology -->
                                 <div id="typology-content" class="dashboard-content" style="display:none;">
+                                    <p style="color:black"><b>Learner Profiles</b> (opposite pairs, each pair an axis in the multidimensional typology), roughly citing the seminal typology in Felder & Silverman, 1988 (Learning and Teaching Styles in Engineering Education):</p>
                                     <p style="color: black">Think about what your learner profiles are, or what learner profiles you would like to target in your design.</p>
                                     <p style="color: black">Select <i><b>one</b></i> from each row that applies to your students.<br/><sub>(Hover over options for more information)</sub></p>
                                     <table class="table table-striped">
@@ -269,9 +270,11 @@
                                 <!-- Theoretical Foundation -->
                                 <div id="foundation-content" class="dashboard-content" style="display:none;">
                                     <p style="color: black">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>).</p>
-                                    <p style="color: black">To add a theoretical foundation, we need to ensure the existence of the following within our game:</p>
+                                    <p style="color: black">To add a theoretical foundation, we need to ensure the existence of the following within our game:<br />
+                                        <sub>(Press for descriptions)</sub>
+                                    </p>
                                     <div class="centered-div">
-                                        <table class="table table-striped w-50">
+                                        <table class="table table-borderless w-50">
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -334,10 +337,11 @@
 
                                 <!-- Foundational Model -->
                                 <div id="model-content" class="dashboard-content" style="display:none;">
-                                    
-                                    <p style="color:black;">Final theoretical model is a combination of the following models:</p>
+                                    <p style="color:black;">Final theoretical model is a combination of the following models:<br />
+                                        <sub>(Press for descriptions)</sub>
+                                    </p>
                                     <div class="centered-div">
-                                        <table class="table table-transparent table-borderless w-50">
+                                        <table class="table table-borderless w-50">
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -366,7 +370,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <p class="text-dark">!!! INPUTS TO BE ADDED HERE !!!</p>
+                                    <p class="text-dark">!!! INPUTS TO BE ADDED !!!</p>
                                     <br />
                                     <button onclick="processSection('model')" id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
@@ -397,10 +401,363 @@
                                 <div id="accessibility-content" class="dashboard-content" style="display:none;">
                                     <p style="color:black">Inclusive design recognizes accessibility for people with and without disabilities, by including the voices and representations of players in the game.</p>
                                     <img src={{ url_for('static', filename='images/inclusivity-accessibility.jpg') }} class="img-fluid rounded mx-auto" alt="The dimensions of accessibility and inclusive design">
+                                    <sub>Figure: The dimensions of accessibility and inclusive design</sub><br /><br />
                                     <p style="color:black">The importance of games are pointed out as a medium to organise our lived experience, promote learners' involvement, comprehension, cooperation, and motivation for teaching practices (Gil-Domenéch & Berbegal-Mirabent, 2017).</p>
                                     <p style="color:black">Analogue games particularly deal with current issues with traditional/instructional pedagogical methods (Sardone & Devlin-Scherer, 2016) through an experiential framework. One of these issues is implementing inclusivity within a diverse classroom composed of motor-divergent, Neuro-divergent, and culturally diverse pupils.</p>
                                     <p style="color:black">Heron et al. (2018) provided a guideline for accessibility Support Needs and Relevant Design Aspects. Also, TEGA project (TEGA-Porject, 2022) identified 14 measures for inclusivity (Consulting the students, Play testing, Customisability, being fun, Simplicity, Co-Operation, Common goal and grounds Mechanics to ensure listening, Team management, Communication, Lifting Language barrier, Personality traits, Unique engagement and Assigned responsibility).</p>
-                                    <p style="color:black">These measures combined could to some extent ensure measures of inclusivity are being met in your design, please fill out the following inputs. You don’t need to make sure all boxes are ticked, but more than half needs to be ticked.</p>
+                                    <p style="color:black">These measures combined could to some extent ensure measures of inclusivity are being met in your design, please fill out the following table. You don’t need to make sure all boxes are ticked, but more than half need to be ticked.<br />
+                                        <br /><sub>(Select the checkbox for measures/tools that <i><b>have</b></i> been considered)</sub>
+                                    </p>
+                                    <br />
+                                    <table class="table table-bordered" style="color:black;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Inclusivity Measures</th>
+                                                <th scope="col">Mediated tool</th>
+                                                <th scope="col"></th>
+                                                <th scope="col">Why not considered</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="8">Motor Skills</td>
+                                                <td>Size of cards</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Size of cards">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Token shape</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Token shape">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regularity of piece manipulation</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Regularity of piece manipulation">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ease of communicating instructions</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Ease of communicating instructions">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Physical acting</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Physical acting">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Paper money</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Paper money">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Number of tokens</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Number of tokens">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Size of game board elements</td>
+                                                <td>
+                                                    <div class="form-check motor-skills">
+                                                        <input class="form-check-input" type="checkbox" value="Size of game board elements">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="3">Visual Sensory</td>
+                                                <td>Reading level</td>
+                                                <td>
+                                                    <div class="form-check visual-sensory">
+                                                        <input class="form-check-input" type="checkbox" value="Reading level">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lying/bluffing</td>
+                                                <td>
+                                                    <div class="form-check visual-sensory">
+                                                        <input class="form-check-input" type="checkbox" value="Lying/bluffing">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Communication of strategy</td>
+                                                <td>
+                                                    <div class="form-check visual-sensory">
+                                                        <input class="form-check-input" type="checkbox" value="Communication of strategy">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="4">Sensory/Auditory</td>
+                                                <td>Audibility</td>
+                                                <td>
+                                                    <div class="form-check sensory-auditory">
+                                                        <input class="form-check-input" type="checkbox" value="Audibility">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lying/bluffing</td>
+                                                <td>
+                                                    <div class="form-check sensory-auditory">
+                                                        <input class="form-check-input" type="checkbox" value="Lying/bluffing">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Communication of strategy</td>
+                                                <td>
+                                                    <div class="form-check sensory-auditory">
+                                                        <input class="form-check-input" type="checkbox" value="Communication of strategy">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Need for audible communications</td>
+                                                <td>
+                                                    <div class="form-check sensory-auditory">
+                                                        <input class="form-check-input" type="checkbox" value="Need for audible communications">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="9">Cognitive</td>
+                                                <td>Reading level required</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Reading level required">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Game state complexity</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Game state complexity">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Memory requirements</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Memory requirements">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Game flow</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Game flow">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Number of token combinations</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Number of token combinations">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Synergy of rules</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Synergy of rules">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Scoring</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Scoring">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>General knowledge/trivia</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="General knowledge/trivia">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Multitasking</td>
+                                                <td>
+                                                    <div class="form-check cognitive">
+                                                        <input class="form-check-input" type="checkbox" value="Multitasking">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Customisability</td>
+                                                <td>
+                                                    <div class="form-check customisability">
+                                                        <input class="form-check-input" type="checkbox" value="Customisability">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Playtesting</td>
+                                                <td>
+                                                    <div class="form-check playtesting">
+                                                        <input class="form-check-input" type="checkbox" value="Playtesting">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Fun</td>
+                                                <td>
+                                                    <div class="form-check fun">
+                                                        <input class="form-check-input" type="checkbox" value="Fun">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Simplicity</td>
+                                                <td>
+                                                    <div class="form-check simplicity">
+                                                        <input class="form-check-input" type="checkbox" value="Simplicity">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Co-Operation</td>
+                                                <td>
+                                                    <div class="form-check co-operation">
+                                                        <input class="form-check-input" type="checkbox" value="Co-Operation">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Common Goal</td>
+                                                <td>
+                                                    <div class="form-check common-goal">
+                                                        <input class="form-check-input" type="checkbox" value="Common Goal">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Listening Mechanics</td>
+                                                <td>
+                                                    <div class="form-check listening-mechanics">
+                                                        <input class="form-check-input" type="checkbox" value="Listening Mechanics">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Team Management</td>
+                                                <td>
+                                                    <div class="form-check team-management">
+                                                        <input class="form-check-input" type="checkbox" value="Team Management">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Communication</td>
+                                                <td>
+                                                    <div class="form-check communication">
+                                                        <input class="form-check-input" type="checkbox" value="Communication">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Lifting language barrier</td>
+                                                <td>
+                                                    <div class="form-check lifting-language-barrier">
+                                                        <input class="form-check-input" type="checkbox" value="Lifting language barrier">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Personality traits</td>
+                                                <td>
+                                                    <div class="form-check personality-traits">
+                                                        <input class="form-check-input" type="checkbox" value="Personality traits">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Unique engagement</td>
+                                                <td>
+                                                    <div class="form-check unique-engagement">
+                                                        <input class="form-check-input" type="checkbox" value="Unique engagement">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Assigned responsibility</td>
+                                                <td>
+                                                    <div class="form-check assigned-responsibility">
+                                                        <input class="form-check-input" type="checkbox" value="Assigned responsibility">
+                                                    </div>
+                                                </td>
+                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <button onclick="processSection('accessibility')" id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
@@ -410,7 +767,105 @@
 
                                 <!-- Flow Element of the Design -->
                                 <div id="design-content" class="dashboard-content" style="display:none;">
-                                    Design Content
+                                    <p style="color:black">The following table has been provided to assist with evaluating the flow element of the design.</p>
+                                    <p style="color:black">Please fill it out to ensure that all necessary considerations have been made.</p>
+                                    <sub>(Leave 'Tools Considered' <i><b>blank</b></i> if you haven't used any)</sub><br />
+                                    <table class="table table-bordered" style="color:black;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Elements</th>
+                                                <th scope="col">Tools Considered</th>
+                                                <th scope="col">Why not considered</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Magic Circle</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Reward</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Punishment</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Step-based</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Micro-Mechanics</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Macro-mechanics</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Challenge</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Visual</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Narrative</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rules & regulation</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Assessment</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Learning outcome</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cybernetic Circuit</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Live Role Game</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Behaviour</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Relationship</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Supervision</td>
+                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <button onclick="processSection('design')" id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>

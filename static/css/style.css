@@ -1235,6 +1235,10 @@ li {
   background-color: green;
 }
 
+.copyright {
+  display:block;
+}
+
 .dropdown-menu {
   max-height: 280px;
   overflow-y: auto;

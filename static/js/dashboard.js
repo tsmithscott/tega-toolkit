@@ -5,8 +5,9 @@ var sections = ['introduction',
 				'typology', 
 				'characteristics', 
 				'foundation', 
-				'model', 
-				'accessibility', 
+				'model',
+				'slate',
+				'accessibility',
 				'design', 
 				'instruction', 
 				'playability', 
@@ -214,6 +215,7 @@ function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
 }
 
+
 function toggleSelection(input) {
 	if ($(input).attr("type") === "checkbox") {
 		if ($(input).closest("button").hasClass("green")) {
@@ -250,8 +252,8 @@ function processSection(sectionID) {
 		console.log("model section");
 		unlockNextSection(sectionID);
 	} else if (sectionID === "slate") {
-			console.log("slate section");
-			unlockNextSection(sectionID);
+		console.log("slate section");
+		unlockNextSection(sectionID);
 	} else if (sectionID === "accessibility") {
 		console.log("accessibility section");
 		unlockNextSection(sectionID);
@@ -299,6 +301,27 @@ function processSection(sectionID) {
 }
 
 
+function processGameData() {
+	let saved = '';
+	deleteCookie("_game_data");
+	$.ajax({
+		url: '/ajax-autosave',
+		contentType: "application/json;charset=utf-8",
+		data: JSON.stringify({current_game}),
+		type: 'POST',
+		success: function(response) {
+			saved = true;
+		},
+		error: function(error) {
+			saved = false;
+	  	},
+		async: false
+	});
+	return saved;
+}
+
+
+// Load game data from cookie
 function loadGameData() {
 	if (getCookie("_game_data") !== null) {
 		jwt = getCookie("_game_data");
@@ -358,26 +381,6 @@ function loadGameData() {
 }
 
 
-function processGameData() {
-	let saved = '';
-	deleteCookie("_game_data");
-	$.ajax({
-		url: '/ajax-autosave',
-		contentType: "application/json;charset=utf-8",
-		data: JSON.stringify({current_game}),
-		type: 'POST',
-		success: function(response) {
-			saved = true;
-		},
-		error: function(error) {
-			saved = false;
-	  	},
-		async: false
-	});
-	return saved;
-}
-
-
 function parseJWT(jwt) {
 	let data = '';
 	$.ajax({
@@ -411,15 +414,16 @@ function addStyling(latestSection) {
 	for (let i = 0; i < no_previous_sections; i++) {
 		$('#' + sections[i]).removeAttr('disabled style');
 	}
-	$('#progress-bar').attr('aria-valuenow', (no_previous_sections) * 7.69230769231).css('width', (no_previous_sections) * 7.69230769231 + '%');
+	$('#progress-bar').attr('aria-valuenow', (no_previous_sections) * 8.33333333333).css('width', (no_previous_sections) * 8.33333333333 + '%');
 	$(latestSection).removeAttr('disabled style').addClass('active').attr('aria-current', 'true');
+	$(latestSection + '-content').scrollTop(0);
 	$(latestSection + '-content').show();
 }
 
 
 // Helper function to increment progress bar
 function incrementProgressBar() {
-	let progress = parseInt($('#progress-bar').attr('aria-valuenow')) + 7.69230769231; // Increment progress bar value
+	let progress = parseInt($('#progress-bar').attr('aria-valuenow')) + 8.33333333333; // Increment progress bar value
 	$('#progress-bar').attr('aria-valuenow', progress).css('width', progress + '%'); // Update progress bar
 }
 
@@ -440,6 +444,7 @@ function unlockNextSection(currentSection) {
 			currentSectionButton.children().val(1);
 			nextSectionButton.addClass('active').attr('aria-current', 'true');
 			currentSectionContent.hide();
+			nextSectionContent.scrollTop(0);
 			nextSectionContent.show()
 			incrementProgressBar();
 		} else {
@@ -451,7 +456,9 @@ function unlockNextSection(currentSection) {
 		nextSectionButton.addClass('active').attr('aria-current', 'true')
 		// Change content section
 		currentSectionContent.hide();
+		nextSectionContent.scrollTop(0);
 		nextSectionContent.show();
+
 	}
 }
 
@@ -469,6 +476,7 @@ $('.list-group-item').click(function() {
 		type: 'POST',
 		success: function(response) {
 			$('.dashboard-content').hide(); // Hide all content sections
+			$('#' + clickedButtonContent).scrollTop(0); // Scroll to top of clicked content section
 			$('#' + clickedButtonContent).show(); // Show clicked content section
 			currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
 			clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
@@ -505,7 +513,7 @@ function processCharacteristicMeasure(characteristic) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:110px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
 		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' + characteristics[characteristic] + '-' + submeasure + '"><label class="form-check-label" style="color:black;" for="' + characteristics[characteristic] + '-' + submeasure + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
 	}

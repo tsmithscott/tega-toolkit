@@ -8,9 +8,10 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from jwt.exceptions import InvalidSignatureError
 
-from app import Config, app, client, db, get_google_provider_cfg, login_manager
+from app import Config, app, client, db, get_google_provider_cfg, login_manager, token_handler
 from models import Users
 from security.jwt import JWT
+from confirmation.sendmail import SendMail
 
 
 @login_manager.user_loader
@@ -210,9 +211,28 @@ def register_user():
             return response
 
 
+@app.route("/confirm-account/<token>")
+def confirm_account(token):
+    email = token_handler.confirm_token(token)
+    
+    print(email)
+    
+    if not email:
+        return "This token is invalid", 200
+    else:
+        return email, 200
+
+
 @app.route("/reset-password")
 def reset_password():
     return render_template("reset.html")
+
+
+@app.route("/test-confirmation")
+def test_confirmation():
+    mail = SendMail()
+    mail.send_confirmation("theo.smithscott@gmail.com", token_handler.generate_token("theo.smithscott@gmail.com"))
+    return '', 200
 
 
 @app.route("/logout")

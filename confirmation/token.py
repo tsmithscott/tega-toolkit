@@ -4,7 +4,7 @@ from config import Config
 
 class Token:
     def __init__(self):
-        self.serializer = URLSafeTimedSerializer(Config.SECRET_KEY)
+        self.serializer = URLSafeTimedSerializer(Config.TOKEN_SECRET_KEY)
 
     def generate_token(self, email: str) -> str:
         return self.serializer.dumps(
@@ -16,7 +16,7 @@ class Token:
         try:
             email = self.serializer.loads(
                 token,
-                salt=Config.SECRET_KEY,
+                salt=Config.TOKEN_SECRET_KEY,
                 max_age=expiration
             )
             return email

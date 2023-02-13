@@ -4,6 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from oauthlib.oauth2 import WebApplicationClient
 
 from config import Config
+from flask_mail import Mail
+
+from confirmation.token import Token
+
 
 GOOGLE_CLIENT_ID = Config.GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET = Config.GOOGLE_CLIENT_SECRET
@@ -17,6 +21,9 @@ login_manager = LoginManager(app) # Create the login manager
 login_manager.login_view = "login" # Set the login view to the login function
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
+
+mail = Mail(app)
+token_handler = Token()
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
