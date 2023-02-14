@@ -3,7 +3,7 @@
 {% block content %}
 <div id="dashboard-container" class="container-fluid" style="padding-top:150px;overflow-y:none;">
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
-        <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1000px; max-width: 1000px;">
+        <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1250px; max-width: 1250px;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
                     <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
@@ -768,8 +768,10 @@
                                 <!-- Flow Element of the Design -->
                                 <div id="design-content" class="dashboard-content" style="display:none;">
                                     <p style="color:black">The following table has been provided to assist with evaluating the flow element of the design.</p>
-                                    <p style="color:black">Please fill it out to ensure that all necessary considerations have been made.</p>
-                                    <sub>(Leave 'Tools Considered' <i><b>blank</b></i> if you haven't used any)</sub><br />
+                                    <p style="color:black">Please fill it out to ensure that all necessary considerations have been made.<br /><br />
+                                        <sub>(Complete 'Tools Considered' <i><b>or</b></i> 'Why not Considered' for <i><b>all</b></i> rows)</sub>
+                                    </p>
+                                    <br />
                                     <table class="table table-bordered" style="color:black;">
                                         <thead>
                                             <tr>
@@ -875,101 +877,68 @@
 
                                 <!-- Drafting Instructions of the Game -->
                                 <div id="instruction-content" class="dashboard-content" style="display:none;">
-                                    <p style="color:black;">To make sure your game is comprehensive and well-considered, please complete the table below with all the relevant information.
-                                        <sub>(Complete either 'Tools Considered' <i>or</i> 'Why not Considered' for <i><b>all</b></i> rows)</sub>
+                                    <p style="color:black;">To make sure your game is comprehensive and well-considered, please complete the table below with all the relevant information.<br /><br />
+                                        <sub>(Complete <i><b>all</b></i> rows)</sub>
                                     </p>
+                                    <br />
                                     <table class="table table-bordered" style="color:black;">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Elements</th>
-                                                <th scope="col">Tools Considered</th>
-                                                <th scope="col">Why not Considered</th>
+                                                <th scope="col">Instruction Points</th>
+                                                <th scope="col">What is Considered</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Magic Circle</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Setting the learning outcome</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Reward</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Setting the type of the game</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Punishment</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Step-based</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Micro-Mechanics</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Macro-mechanics</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Challenge</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Visual</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Number of players (Maximum, Minimum)</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Narrative</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Rules & regulation</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Game final target</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Assessment</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Step-based challenge</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Learning outcome</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Opportunities for addressing the challenge</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Cybernetic Circuit</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Consequences (Reward and Punishment)</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Live Role Game</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Rules of magic circle (what to do/what not to do)</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Behaviour</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Stop point (When does the game is considered finished).</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Relationship</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Supervision and control rules</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td>Supervision</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
+                                                <td>Reflection points within a cybernetic circuit</td>
+                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Assessment of learning outcome</td>
                                                 <td><textarea class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                         </tbody>
@@ -983,7 +952,60 @@
 
                                 <!-- Game Playability-->
                                 <div id="playability-content" class="dashboard-content" style="display:none;">
-                                    Playability Content
+                                    <p style="color:black;">In this section, you will be testing your game to ensure that it is enjoyable and functional for players.</p>
+                                    <p style="color:black;">Playtesting is the process of testing your game with a group of players to identify any issues, errors or bugs that may impact the playability of the game. Beta-Play refers to a specific type of playtesting that involves releasing a beta version of the game to a small group of players, often selected from the game's target audience. The players then provide feedback on their experiences with the game, which can be used to improve and refine the game design.</p>
+                                    <p style="color:black;">In this section, you will plan and conduct a half-day playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
+                                    <p style="color:black;">Please add records accordingly:</p><br />
+                                    <table class="table table-bordered" style="color:black;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Number of Players</th>
+                                                <th scope="col">Time</th>
+                                                <th scope="col">Feedback</th>
+                                                <th scope="col">Reflection Points</th>
+                                                <th scope="col">Amendment to Playtest</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">
+                                                    <button id="playability-content-add-record-button" class="btn btn-secondary btn-sm" type="button">
+                                                        <i class="fa-solid fa-plus"></i>
+                                                    </button>
+                                                </td>
+                                                <td><input type="number" class="form-control number-of-players"></td>
+                                                <td><input type="time" class="form-control time" required></td>
+                                                <td><textarea class="form-control feedback" rows="1"></textarea></td>
+                                                <td><textarea class="form-control reflection-points" rows="1"></textarea></td>
+                                                <td><textarea class="form-control amendment-to-playtest" rows="1"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                                <td>EXAMPLE</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
