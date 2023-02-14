@@ -140,7 +140,6 @@ def callback():
 
     # Send user back to homepage
     response = make_response(redirect(url_for('dashboard')))
-    response.set_cookie('_user_id', session.get('_user_id'), secure=True)
     return response
 
 
