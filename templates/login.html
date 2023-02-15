@@ -5,7 +5,7 @@
     <div class="row centered-div">
         <div class="col-md-8 col-lg-5" style="min-width:15rem;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                <form action="{{ url_for('login') }}" method="post" class="form-box">
+                <form action="javascript:;" onsubmit="loginAjax()" method="post" class="form-box">
                     <h3 class="h4 text-black mb-4">Login</h3>
                     <div class="form-group">
                         <input id="email-login" type="text" class="form-control" placeholder="Email Address" required>
@@ -18,7 +18,7 @@
                         <span id="confirmError" style="color:red;" hidden>Please confirm your account via the link sent to your email. Need another link? Click <a href='#' style='color:blue'>here.</a></span>
                     </div>
                     <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-                        <input class="btn btn-primary btn-pill" value="Login" onclick="loginAjax()">
+                        <button id="loginSubmit" type="submit" class="btn btn-primary btn-pill" value="Login">Login</button>
                     </div>
                     <hr>
                     <div class="centered-div">

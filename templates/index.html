@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-          <form id="signup-form" action="" method="post" class="form-box">
+          <form id="signup-form" action="javascript:;" onsubmit="return registrationAjax()" method="post" class="form-box">
             <h3 class="h4 text-black mb-4">Sign Up</h3>
             <div class="form-group">
               <input id="email-signup" type="text" class="form-control" placeholder="Email Address" required>
@@ -27,7 +27,7 @@
               <div id="confirmErrorMessage" class="error"><span id="confirmErrorSpan"></span></div>
             </div>
             <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-              <input class="btn btn-primary btn-pill" value="Sign up" onclick="registrationAjax()">
+              <button input="signupSubmit" class="btn btn-primary btn-pill" value="Sign up" type="submit">Signup</button>
             </div>
             <hr />
             <div class="centered-div">

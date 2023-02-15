@@ -320,5 +320,3 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 
 // Dashboard Content Container
 const dashboardContainer = document.getElementById('dynamic-container')
-
-

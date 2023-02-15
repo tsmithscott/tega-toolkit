@@ -242,9 +242,9 @@ function toggleSelection(input) {
 function processSection(sectionID) {
 	if (sectionID === "introduction") {
 		unlockNextSection(sectionID);
-	} else if (sectionID === "characteristics") {
-		console.log("characteristics section");
-		unlockNextSection(sectionID);
+	// } else if (sectionID === "characteristics") {
+	// 	console.log("characteristics section");
+	// 	unlockNextSection(sectionID);
 	} else if (sectionID === "foundation") {
 		console.log("foundation section");
 		unlockNextSection(sectionID);
@@ -273,28 +273,45 @@ function processSection(sectionID) {
 		console.log("justification section");
 		unlockNextSection(sectionID);
 	} else {
-		let selections = $("#" + sectionID + "-content").find(".green").map(function() {
-			return this.id.split("-")[2];
-		}).get();
-
-		if (selections.length < 1) {
-			$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
-			return;
-		} else {
-			$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
-
-			if (current_game[sectionID]) {
-				current_game[sectionID] = [];
-			}
-
-			current_game[sectionID] = selections;
-			save = processGameData();
-
-			if (save) {
-				selections = [];
-				unlockNextSection(sectionID);
+		if (sectionID === "characteristics") {
+			var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
+				return this.id.split("-")[0];
+			}).get();
+			
+			if (selections.length < 1) {
+				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+				return;
 			} else {
-				alert("unable to save progress. Please contact support.");
+				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
+				let selectedInputs = [];
+				for (let selection of selections) {
+					console.log(selection);
+				}
+			}
+		} else {
+			var selections = $("#" + sectionID + "-content").find(".green").map(function() {
+				return this.id.split("-")[2];
+			}).get();
+
+			if (selections.length < 1) {
+				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+				return;
+			} else {
+				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
+
+				if (current_game[sectionID]) {
+					current_game[sectionID] = [];
+				}
+
+				current_game[sectionID] = selections;
+				save = processGameData();
+
+				if (save) {
+					selections = [];
+					unlockNextSection(sectionID);
+				} else {
+					alert("unable to save progress. Please contact support.");
+				}
 			}
 		}
 	}
@@ -513,7 +530,7 @@ function processCharacteristicMeasure(characteristic) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
 		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' + characteristics[characteristic] + '-' + submeasure + '"><label class="form-check-label" style="color:black;" for="' + characteristics[characteristic] + '-' + submeasure + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
 	}
