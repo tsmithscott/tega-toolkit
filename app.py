@@ -3,10 +3,10 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from oauthlib.oauth2 import WebApplicationClient
 
+import pymysql
+
 from config import Config
 from flask_mail import Mail
-
-from confirmation.token import Token
 
 
 GOOGLE_CLIENT_ID = Config.GOOGLE_CLIENT_ID
@@ -16,6 +16,7 @@ GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configur
 app = Flask(__name__, template_folder="templates", static_folder="static") # Create the Flask app
 app.config.from_object(Config) # Load the config
 
+pymysql.install_as_MySQLdb()
 db = SQLAlchemy(app) # Create the SQLAlchemy object
 login_manager = LoginManager(app) # Create the login manager
 login_manager.login_view = "login" # Set the login view to the login function
@@ -23,7 +24,6 @@ login_manager.login_view = "login" # Set the login view to the login function
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 mail = Mail(app)
-token_handler = Token()
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()

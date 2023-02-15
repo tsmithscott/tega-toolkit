@@ -8,7 +8,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from jwt.exceptions import InvalidSignatureError
 
-from app import Config, app, client, db, get_google_provider_cfg, login_manager, token_handler
+from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users
 from security.jwt import JWT
 from confirmation.sendmail import SendMail
@@ -193,6 +193,8 @@ def register_user():
 
         db.session.add(new_user)
         db.session.commit()
+        mail = SendMail()
+        mail.send_confirmation(request.form['email'], JWT.generate_jwt({"email":request.form['email']}))
 
         response = make_response(jsonify(message='/login'))
         response.status_code = 200
@@ -212,14 +214,16 @@ def register_user():
 
 @app.route("/confirm-account/<token>")
 def confirm_account(token):
-    email = token_handler.confirm_token(token)
-    
-    print(email)
-    
-    if not email:
-        return "This token is invalid", 200
-    else:
-        return email, 200
+    try:
+        data = JWT.decode_jwt(token)
+        user = Users.query.filter_by(email=data['email']).first()
+        user.account_confirmed = True
+        db.session.commit()
+        login_user(user)
+        
+        return redirect('/dashboard')
+    except InvalidSignatureError:
+        return 'This token is invalid. Contact support', 400
 
 
 @app.route("/reset-password")
@@ -227,10 +231,11 @@ def reset_password():
     return render_template("reset.html")
 
 
-@app.route("/test-confirmation")
-def test_confirmation():
+@app.route("/resend-confirmation", methods=["POST"])
+def send_confirmation():
+    email = request.form["email"]
     mail = SendMail()
-    mail.send_confirmation("theo.smithscott@gmail.com", token_handler.generate_token("theo.smithscott@gmail.com"))
+    mail.send_confirmation(email, JWT.generate_jwt({"email":email}))
     return '', 200
 
 
