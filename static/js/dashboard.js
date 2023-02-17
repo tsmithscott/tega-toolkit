@@ -215,11 +215,36 @@ function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
 }
 
+function toggleSubmeasure(input) {
+	if ($(input).hasClass("selected")) {
+		$(input).removeClass("selected");
+	} else {
+		$(input).addClass("selected");
+	}
+
+	var measure = $(input).val().split("-")[0];
+	toggleMeasure(measure);
+}
+
+function toggleMeasure(measure) {
+	if ($("#" + measure + "-collapse").find("ul").find(".selected").length > 0) {
+		$("#" + measure + "-button-dropdown").addClass("green");
+	} else {
+		$("#" + measure + "-button-dropdown").removeClass("green");
+	}
+}
 
 function toggleSelection(input) {
 	if ($(input).attr("type") === "checkbox") {
-		if ($(input).closest("button").hasClass("green")) {
-			console.log("button has been deselected");
+		textarea_td = $(input).closest("td").next();
+		textarea = $(textarea_td).find("textarea");
+		textarea.val("");
+		textarea.attr("disabled", !textarea.attr("disabled"));
+
+		if ($(input).hasClass("selected")) {
+			$(input).addClass("selected");
+		} else {
+			$(input).removeClass("selected");
 		}
 	} else if ($(input).hasClass("green")) {
 		$(input).removeClass("green");
@@ -251,17 +276,8 @@ function processSection(sectionID) {
 	} else if (sectionID === "model") {
 		console.log("model section");
 		unlockNextSection(sectionID);
-	} else if (sectionID === "slate") {
-		console.log("slate section");
-		unlockNextSection(sectionID);
-	} else if (sectionID === "accessibility") {
-		console.log("accessibility section");
-		unlockNextSection(sectionID);
 	} else if (sectionID === "design") {
 		console.log("design section");
-		unlockNextSection(sectionID);
-	} else if (sectionID === "instruction") {
-		console.log("instruction section");
 		unlockNextSection(sectionID);
 	} else if (sectionID === "playability") {
 		console.log("playability section");
@@ -273,7 +289,10 @@ function processSection(sectionID) {
 		console.log("justification section");
 		unlockNextSection(sectionID);
 	} else {
+		// Game Characteristics
 		if (sectionID === "characteristics") {
+			section_game = {};
+
 			var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
 				return this.id.split("-")[0];
 			}).get();
@@ -285,9 +304,87 @@ function processSection(sectionID) {
 				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
 				let selectedInputs = [];
 				for (let selection of selections) {
-					console.log(selection);
+					if ($("#" + selection + "-collapse").find("ul").find(".selected").length > 0) {
+						 let submeasures = [];
+						 for (let submeasure of $("#" + selection + "-collapse").find("ul").find(".selected")) {
+							let submeasure_string = $(submeasure).val().split("-")[1];
+							submeasures.push(submeasure_string);
+						 }
+						 section_game[selection] = submeasures;
+					} else {
+						$("#" + sectionID + "-content").find(".errorSubMessage").removeAttr("hidden");
+						return;
+					}
+				}
+				current_game[sectionID] = section_game;
+				save = processGameData();
+
+				if (save) {
+					selections = [];
+					unlockNextSection(sectionID);
+				} else {
+					alert("unable to save progress. Please contact support.");
 				}
 			}
+
+		// Clean Slate Game
+		} else if (sectionID === "slate") {
+			let textarea = $("#" + sectionID + "-content").find("textarea");
+			
+			if (current_game[sectionID]) {
+				current_game[sectionID] = [];
+			}
+
+			if (textarea.val().length > 0) {
+				current_game[sectionID] = textarea.val();
+				save = processGameData();
+			} else {
+				save = processGameData();
+			}
+			
+			if (save) {
+				selections = [];
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress. Please contact support.");
+			}
+
+		// Inclusivity and Accessibility
+		} else if (sectionID === "accessibility") {
+			if ($("#" + sectionID + "-content").find(".selected").length < 1) {
+				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+			} else {
+				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden");
+
+			}
+
+		// Drafting Game Instructions
+		} else if (sectionID === "instruction") {
+			let section_game = {};
+			let section = $("#" + sectionID + "-content")
+			let inputs = section.find("textarea").map(function() {
+				return $(this).val().length > 0 ? this : null;
+			}).get();
+
+			for (let input of inputs) {
+				let previous = $(input).parent().siblings()[0];
+				let subsection = $(previous).html();
+				section_game[subsection] = $(input).val();
+			}
+			
+			if (current_game[sectionID]) {
+				current_game[sectionID] = [];
+			}
+
+			current_game[sectionID] = section_game;
+			save = processGameData();
+			
+			if (save) {
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress. Please contact support.");
+			}
+
 		} else {
 			var selections = $("#" + sectionID + "-content").find(".green").map(function() {
 				return this.id.split("-")[2];
@@ -310,7 +407,7 @@ function processSection(sectionID) {
 					selections = [];
 					unlockNextSection(sectionID);
 				} else {
-					alert("unable to save progress. Please contact support.");
+					alert("Unable to save progress. Please contact support.");
 				}
 			}
 		}
@@ -427,7 +524,7 @@ function removeAllStyling() {
 // Helper function to add styling to sections on page load
 // Uses saved cookie data to determine which sections to add styling to
 function addStyling(latestSection) {
-	no_previous_sections = sections.indexOf(latestSection.split("#")[1]);
+	let no_previous_sections = sections.indexOf(latestSection.split("#")[1]);
 	for (let i = 0; i < no_previous_sections; i++) {
 		$('#' + sections[i]).removeAttr('disabled style');
 	}
@@ -530,9 +627,11 @@ function processCharacteristicMeasure(characteristic) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; position:relative; left:-35px;"></ul></div></div></div></div>');
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left:-10px;"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
-		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' + characteristics[characteristic] + '-' + submeasure + '"><label class="form-check-label" style="color:black;" for="' + characteristics[characteristic] + '-' + submeasure + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
+		let sm = characteristics[characteristic][submeasure];
+		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" lass="form-check-input" type="checkbox" value="'+ characteristic_for_id + '-' + characteristics[characteristic][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
 	}
 }
 
@@ -551,6 +650,21 @@ function removeCharacteristicsSubmeasureDropdown(characteristic_for_id) {
 	$("#characteristics-content-add-dropdown-button").siblings().append('<li id="'+ characteristic_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + characteristic + '</a></li>');
 }
 
+
+function processDesign(input_element) {
+	// Get adjacent textarea element depending on the class of the input element
+	let adjacent_textarea = $(input_element).hasClass('tools') ? $(input_element).closest("td").next().find("textarea") : $(input_element).closest("td").prev().find("textarea");
+	if ($(input_element).val().length < 1) {
+		console.log("you're dad is your mum");
+		adjacent_textarea.prop("disabled", false);
+	}
+
+	adjacent_textarea.val("");
+
+	if (!adjacent_textarea.attr("disabled") && !$(input_element).val().length < 1) {
+		adjacent_textarea.attr("disabled", true);
+	}
+}
 
 // Handle 'Theoretical Foundation' section modals
 $("#foundationModal1Button").click(function(){

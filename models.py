@@ -4,8 +4,9 @@ from app import db
 
 
 class Users(db.Model, UserMixin):
+    __tablename__ = 'users'
     
-    id = db.Column(db.String(32), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=True)
@@ -21,3 +22,17 @@ class Users(db.Model, UserMixin):
         self.password = password
         self.account_confirmed = account_confirmed
 
+
+class Games(db.Model):
+    __tablename__ = 'games'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    game = db.Column(db.Text(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    users = db.relationship('Users', backref='games')
+
+
+    def __init__(self, id, game, user_id):
+        self.id = id
+        self.game = game
+        self.user_id = user_id

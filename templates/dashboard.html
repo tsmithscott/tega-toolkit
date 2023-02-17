@@ -258,6 +258,7 @@
                                         </div>
                                     </div>
                                     <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
+                                    <span class="errorSubMessage" style="color:red" hidden>Please select at least one submeasure from the non-green measures!</span>
                                     <br />
                                     <br />
                                     <button onclick="processSection('characteristics')" id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
@@ -425,16 +426,18 @@
                                                 <td>Size of cards</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Size of cards">
+                                                        <input id="testcheck" class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Size of cards">
                                                     </div>
                                                 </td>
-                                                <td><textarea class="form-control" rows="1"></textarea></td>
+                                                <td>
+                                                    <textarea class="form-control" rows="1"></textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Token shape</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Token shape">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Token shape">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -443,7 +446,7 @@
                                                 <td>Regularity of piece manipulation</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Regularity of piece manipulation">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Regularity of piece manipulation">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -452,7 +455,7 @@
                                                 <td>Ease of communicating instructions</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Ease of communicating instructions">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Ease of communicating instructions">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -461,7 +464,7 @@
                                                 <td>Physical acting</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Physical acting">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Physical acting">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -470,7 +473,7 @@
                                                 <td>Paper money</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Paper money">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Paper money">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -479,7 +482,7 @@
                                                 <td>Number of tokens</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Number of tokens">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of tokens">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -488,7 +491,7 @@
                                                 <td>Size of game board elements</td>
                                                 <td>
                                                     <div class="form-check motor-skills">
-                                                        <input class="form-check-input" type="checkbox" value="Size of game board elements">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Size of game board elements">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -498,7 +501,7 @@
                                                 <td>Reading level</td>
                                                 <td>
                                                     <div class="form-check visual-sensory">
-                                                        <input class="form-check-input" type="checkbox" value="Reading level">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -507,7 +510,7 @@
                                                 <td>Lying/bluffing</td>
                                                 <td>
                                                     <div class="form-check visual-sensory">
-                                                        <input class="form-check-input" type="checkbox" value="Lying/bluffing">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -516,7 +519,7 @@
                                                 <td>Communication of strategy</td>
                                                 <td>
                                                     <div class="form-check visual-sensory">
-                                                        <input class="form-check-input" type="checkbox" value="Communication of strategy">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -526,7 +529,7 @@
                                                 <td>Audibility</td>
                                                 <td>
                                                     <div class="form-check sensory-auditory">
-                                                        <input class="form-check-input" type="checkbox" value="Audibility">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Audibility">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -535,7 +538,7 @@
                                                 <td>Lying/bluffing</td>
                                                 <td>
                                                     <div class="form-check sensory-auditory">
-                                                        <input class="form-check-input" type="checkbox" value="Lying/bluffing">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -544,7 +547,7 @@
                                                 <td>Communication of strategy</td>
                                                 <td>
                                                     <div class="form-check sensory-auditory">
-                                                        <input class="form-check-input" type="checkbox" value="Communication of strategy">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -553,7 +556,7 @@
                                                 <td>Need for audible communications</td>
                                                 <td>
                                                     <div class="form-check sensory-auditory">
-                                                        <input class="form-check-input" type="checkbox" value="Need for audible communications">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Need for audible communications">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -563,7 +566,7 @@
                                                 <td>Reading level required</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Reading level required">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level required">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -572,7 +575,7 @@
                                                 <td>Game state complexity</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Game state complexity">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game state complexity">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -581,7 +584,7 @@
                                                 <td>Memory requirements</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Memory requirements">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Memory requirements">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -590,7 +593,7 @@
                                                 <td>Game flow</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Game flow">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game flow">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -599,7 +602,7 @@
                                                 <td>Number of token combinations</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Number of token combinations">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of token combinations">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -608,7 +611,7 @@
                                                 <td>Synergy of rules</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Synergy of rules">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Synergy of rules">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -617,7 +620,7 @@
                                                 <td>Scoring</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Scoring">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Scoring">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -626,7 +629,7 @@
                                                 <td>General knowledge/trivia</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="General knowledge/trivia">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="General knowledge/trivia">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -635,7 +638,7 @@
                                                 <td>Multitasking</td>
                                                 <td>
                                                     <div class="form-check cognitive">
-                                                        <input class="form-check-input" type="checkbox" value="Multitasking">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Multitasking">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -644,7 +647,7 @@
                                                 <td colspan="2">Customisability</td>
                                                 <td>
                                                     <div class="form-check customisability">
-                                                        <input class="form-check-input" type="checkbox" value="Customisability">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Customisability">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -653,7 +656,7 @@
                                                 <td colspan="2">Playtesting</td>
                                                 <td>
                                                     <div class="form-check playtesting">
-                                                        <input class="form-check-input" type="checkbox" value="Playtesting">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Playtesting">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -662,7 +665,7 @@
                                                 <td colspan="2">Fun</td>
                                                 <td>
                                                     <div class="form-check fun">
-                                                        <input class="form-check-input" type="checkbox" value="Fun">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Fun">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -671,7 +674,7 @@
                                                 <td colspan="2">Simplicity</td>
                                                 <td>
                                                     <div class="form-check simplicity">
-                                                        <input class="form-check-input" type="checkbox" value="Simplicity">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Simplicity">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -680,7 +683,7 @@
                                                 <td colspan="2">Co-Operation</td>
                                                 <td>
                                                     <div class="form-check co-operation">
-                                                        <input class="form-check-input" type="checkbox" value="Co-Operation">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Co-Operation">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -689,7 +692,7 @@
                                                 <td colspan="2">Common Goal</td>
                                                 <td>
                                                     <div class="form-check common-goal">
-                                                        <input class="form-check-input" type="checkbox" value="Common Goal">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Common Goal">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -698,7 +701,7 @@
                                                 <td colspan="2">Listening Mechanics</td>
                                                 <td>
                                                     <div class="form-check listening-mechanics">
-                                                        <input class="form-check-input" type="checkbox" value="Listening Mechanics">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Listening Mechanics">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -707,7 +710,7 @@
                                                 <td colspan="2">Team Management</td>
                                                 <td>
                                                     <div class="form-check team-management">
-                                                        <input class="form-check-input" type="checkbox" value="Team Management">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Team Management">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -716,7 +719,7 @@
                                                 <td colspan="2">Communication</td>
                                                 <td>
                                                     <div class="form-check communication">
-                                                        <input class="form-check-input" type="checkbox" value="Communication">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -725,7 +728,7 @@
                                                 <td colspan="2">Lifting language barrier</td>
                                                 <td>
                                                     <div class="form-check lifting-language-barrier">
-                                                        <input class="form-check-input" type="checkbox" value="Lifting language barrier">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lifting language barrier">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -734,7 +737,7 @@
                                                 <td colspan="2">Personality traits</td>
                                                 <td>
                                                     <div class="form-check personality-traits">
-                                                        <input class="form-check-input" type="checkbox" value="Personality traits">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Personality traits">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -743,7 +746,7 @@
                                                 <td colspan="2">Unique engagement</td>
                                                 <td>
                                                     <div class="form-check unique-engagement">
-                                                        <input class="form-check-input" type="checkbox" value="Unique engagement">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Unique engagement">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
@@ -752,13 +755,16 @@
                                                 <td colspan="2">Assigned responsibility</td>
                                                 <td>
                                                     <div class="form-check assigned-responsibility">
-                                                        <input class="form-check-input" type="checkbox" value="Assigned responsibility">
+                                                        <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Assigned responsibility">
                                                     </div>
                                                 </td>
                                                 <td><textarea class="form-control" rows="1"></textarea></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <br />
+                                    <span class="errorMessage" style="color:red" hidden>You must select at least 19 different inclusivity measures tools!</span>
+                                    <br />
                                     <button onclick="processSection('accessibility')" id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
@@ -784,88 +790,88 @@
                                         <tbody>
                                             <tr>
                                                 <td>Magic Circle</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Reward</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Punishment</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Step-based</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Micro-Mechanics</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Macro-mechanics</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Challenge</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Visual</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Narrative</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Rules & regulation</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Assessment</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Learning outcome</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Cybernetic Circuit</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Live Role Game</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Behaviour</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Relationship</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Supervision</td>
-                                                <td><textarea class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
+                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -882,71 +888,73 @@
                                         <sub>(Complete <i><b>all</b></i> rows)</sub>
                                     </p>
                                     <br />
-                                    <table class="table table-bordered" style="color:black;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Instruction Points</th>
-                                                <th scope="col">What is Considered</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Setting the learning outcome</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Setting the type of the game</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Number of players (Maximum, Minimum)</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Narrative</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Game final target</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Step-based challenge</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Opportunities for addressing the challenge</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Consequences (Reward and Punishment)</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rules of magic circle (what to do/what not to do)</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Stop point (When does the game is considered finished).</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Supervision and control rules</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Reflection points within a cybernetic circuit</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Assessment of learning outcome</td>
-                                                <td><textarea class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button onclick="processSection('instruction')" id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                    <form action="javascript:;" onsubmit="processSection('instruction')">
+                                        <table class="table table-bordered" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="col-6">Instruction Points</th>
+                                                    <th scope="col" class="col-6">What is Considered</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Setting the learning outcome</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Setting the type of the game</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Number of players (Maximum, Minimum)</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Narrative</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Game final target</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Step-based challenge</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Opportunities for addressing the challenge</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Consequences (Reward and Punishment)</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Rules of magic circle (what to do/what not to do)</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Stop point (When does the game is considered finished).</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Supervision and control rules</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reflection points within a cybernetic circuit</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Assessment of learning outcome</td>
+                                                    <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
                                         Save & Continue
-                                    </button>
+                                        </button>
+                                    </form>
                                 </div>
                                 <!-- End Drafting Instructions of the Game -->
 
@@ -1016,7 +1024,7 @@
 
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
-                                    Assessment Content
+                                    <p style="color:black;">Game Feedback Questionnaire</p>
                                     <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
