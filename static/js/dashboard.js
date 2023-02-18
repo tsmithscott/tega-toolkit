@@ -240,6 +240,7 @@ function toggleSelection(input) {
 		textarea = $(textarea_td).find("textarea");
 		textarea.val("");
 		textarea.attr("disabled", !textarea.attr("disabled"));
+		textarea.attr("required", !textarea.attr("required"));
 
 		if ($(input).hasClass("selected")) {
 			$(input).removeClass("selected");
@@ -705,6 +706,7 @@ function removeCharacteristicsSubmeasureDropdown(characteristic_for_id) {
 }
 
 
+// Handle form logic for 'Flow Element of the Design' section
 function processDesign(input_element) {
 	// Get adjacent textarea element depending on the class of the input element
 	let adjacent_textarea = $(input_element).hasClass('tools') ? $(input_element).closest("td").next().find("textarea") : $(input_element).closest("td").prev().find("textarea");
