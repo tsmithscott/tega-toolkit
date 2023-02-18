@@ -779,105 +779,107 @@
                                         <sub>(Complete 'Tools Considered' <i><b>or</b></i> 'Why not Considered' for <i><b>all</b></i> rows)</sub>
                                     </p>
                                     <br />
-                                    <table class="table table-bordered" style="color:black;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Elements</th>
-                                                <th scope="col">Tools Considered</th>
-                                                <th scope="col">Why not considered</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Magic Circle</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Reward</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Punishment</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Step-based</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Micro-Mechanics</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Macro-mechanics</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Challenge</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Visual</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Narrative</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rules & regulation</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Assessment</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Learning outcome</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cybernetic Circuit</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Live Role Game</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Behaviour</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Relationship</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Supervision</td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1"></textarea></td>
-                                                <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1"></textarea></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button onclick="processSection('design')" id="design-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
-                                        Save & Continue
-                                    </button>
+                                    <form action="javascript:;" onsubmit="processSection('design')">
+                                        <table class="table table-bordered" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Elements</th>
+                                                    <th scope="col">Tools Considered</th>
+                                                    <th scope="col">Why not considered</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Magic Circle</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reward</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Punishment</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Step-based</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Micro-Mechanics</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Macro-mechanics</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Challenge</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Visual</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Narrative</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Rules & regulation</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Assessment</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Learning outcome</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cybernetic Circuit</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Live Role Game</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Behaviour</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Relationship</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Supervision</td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control tools" rows="1" required></textarea></td>
+                                                    <td><textarea oninput="processDesign(this)" class="form-control reasoning" rows="1" required></textarea></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button id="design-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
+                                            Save & Continue
+                                        </button>
+                                    </form>
                                 </div>
                                 <!-- End Flow Element of the Design -->
 

@@ -19,11 +19,11 @@ app.config.from_object(Config) # Load the config
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy(app) # Create the SQLAlchemy object
 login_manager = LoginManager(app) # Create the login manager
-login_manager.login_view = "login" # Set the login view to the login function
+login_manager.login_view = "login" # Set the login view for @login_required
 
-client = WebApplicationClient(GOOGLE_CLIENT_ID)
+client = WebApplicationClient(GOOGLE_CLIENT_ID) # Create the OAuth client
 
-mail = Mail(app)
+mail = Mail(app) # Create the mail object
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()

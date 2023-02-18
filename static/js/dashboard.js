@@ -242,9 +242,9 @@ function toggleSelection(input) {
 		textarea.attr("disabled", !textarea.attr("disabled"));
 
 		if ($(input).hasClass("selected")) {
-			$(input).addClass("selected");
-		} else {
 			$(input).removeClass("selected");
+		} else {
+			$(input).addClass("selected");
 		}
 	} else if ($(input).hasClass("green")) {
 		$(input).removeClass("green");
@@ -258,51 +258,49 @@ function toggleSelection(input) {
 		$(input).attr("selected", "");
 
 		if ($(input).closest("div").attr("id") === "typology-content") {
-			$(input).closest("td").siblings().children().find("button").attr("disabled", "");
+			$(input).closest("td").siblings().children().find("button").attr("disabled", "disabled");
 		}
 	}
 };
 
 
 function processSection(sectionID) {
+	let section_game = {};
+	let section = $("#" + sectionID + "-content")
+
 	if (sectionID === "introduction") {
 		unlockNextSection(sectionID);
 	// } else if (sectionID === "characteristics") {
 	// 	console.log("characteristics section");
 	// 	unlockNextSection(sectionID);
 	} else if (sectionID === "foundation") {
-		console.log("foundation section");
 		unlockNextSection(sectionID);
 	} else if (sectionID === "model") {
-		console.log("model section");
 		unlockNextSection(sectionID);
-	} else if (sectionID === "design") {
-		console.log("design section");
-		unlockNextSection(sectionID);
+	// } else if (sectionID === "design") {
+	// 	console.log("design section");
+	// 	unlockNextSection(sectionID);
 	} else if (sectionID === "playability") {
-		console.log("playability section");
 		unlockNextSection(sectionID);
 	} else if (sectionID === "assessment") {
-		console.log("assessment section");
 		unlockNextSection(sectionID);
 	} else if (sectionID === "justification") {
-		console.log("justification section");
 		unlockNextSection(sectionID);
 	} else {
+
 		// Game Characteristics
 		if (sectionID === "characteristics") {
-			section_game = {};
+			// section_game = {};
 
 			var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
 				return this.id.split("-")[0];
 			}).get();
 			
 			if (selections.length < 1) {
-				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+				section.find(".errorMessage").removeAttr("hidden");
 				return;
 			} else {
-				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
-				let selectedInputs = [];
+				section.find(".errorMessage").attr("hidden", "");
 				for (let selection of selections) {
 					if ($("#" + selection + "-collapse").find("ul").find(".selected").length > 0) {
 						 let submeasures = [];
@@ -312,7 +310,7 @@ function processSection(sectionID) {
 						 }
 						 section_game[selection] = submeasures;
 					} else {
-						$("#" + sectionID + "-content").find(".errorSubMessage").removeAttr("hidden");
+						section.find(".errorSubMessage").removeAttr("hidden");
 						return;
 					}
 				}
@@ -327,9 +325,10 @@ function processSection(sectionID) {
 				}
 			}
 
+
 		// Clean Slate Game
 		} else if (sectionID === "slate") {
-			let textarea = $("#" + sectionID + "-content").find("textarea");
+			let textarea = section.find("textarea");
 			
 			if (current_game[sectionID]) {
 				current_game[sectionID] = [];
@@ -349,19 +348,75 @@ function processSection(sectionID) {
 				alert("Unable to save progress. Please contact support.");
 			}
 
+
 		// Inclusivity and Accessibility
 		} else if (sectionID === "accessibility") {
-			if ($("#" + sectionID + "-content").find(".selected").length < 1) {
-				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
-			} else {
-				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden");
+			let checked_checkboxes = section.find("input:checkbox").map(function() {
+				return $(this).hasClass("selected") ? $(this) : null;
+			}).get();
+			let unchecked_checkboxes = section.find("input:checkbox").map(function() {
+				return $(this).hasClass("selected") ? null : $(this);
+			}).get();
 
+			if (section.find(".selected").length < 1) {
+				section.find(".errorMessage").removeAttr("hidden");
+			} else {
+				section.find(".errorMessage").attr("hidden");
 			}
+
+			let considered = [];
+			for (let checkbox of checked_checkboxes) {
+				considered.push(checkbox.val());
+			}
+			section_game["considered"] = considered;
+
+			for (let checkbox of unchecked_checkboxes) {
+				let subsection = checkbox.val();
+				let reason = $(checkbox).closest("td").next().find("textarea").val();
+				if (reason.length > 0) {
+					section_game[subsection] = reason;
+				}
+			}
+
+			if (current_game[sectionID]) {
+				current_game[sectionID] = [];
+			}
+			current_game[sectionID] = section_game;
+			save = processGameData();
+
+			if (save) {
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress. Please contact support.");
+			}
+
+
+		// Flow Element of the Design
+		} else if (sectionID === "design") {
+			let fields = section.find("textarea").map(function() {
+				return $(this).val().length > 0 ? this : null;
+			}).get();
+
+			for (let field of fields) {
+				let subsection_td = $(field).parent().siblings()[0];
+				let subsection = $(subsection_td).html();
+				section_game[subsection] = $(field).val();
+			}
+
+			if (current_game[sectionID]) {
+				current_game[sectionID] = [];
+			}
+			current_game[sectionID] = section_game;
+			save = processGameData();
+			if (save) {
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress. Please contact support.");
+			}
+
 
 		// Drafting Game Instructions
 		} else if (sectionID === "instruction") {
-			let section_game = {};
-			let section = $("#" + sectionID + "-content")
 			let inputs = section.find("textarea").map(function() {
 				return $(this).val().length > 0 ? this : null;
 			}).get();
@@ -375,26 +430,25 @@ function processSection(sectionID) {
 			if (current_game[sectionID]) {
 				current_game[sectionID] = [];
 			}
-
 			current_game[sectionID] = section_game;
 			save = processGameData();
-			
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
 				alert("Unable to save progress. Please contact support.");
 			}
 
+
 		} else {
-			var selections = $("#" + sectionID + "-content").find(".green").map(function() {
+			var selections = section.find(".green").map(function() {
 				return this.id.split("-")[2];
 			}).get();
 
 			if (selections.length < 1) {
-				$("#" + sectionID + "-content").find(".errorMessage").removeAttr("hidden");
+				section.find(".errorMessage").removeAttr("hidden");
 				return;
 			} else {
-				$("#" + sectionID + "-content").find(".errorMessage").attr("hidden", "");
+				section.find(".errorMessage").attr("hidden", "");
 
 				if (current_game[sectionID]) {
 					current_game[sectionID] = [];
@@ -657,12 +711,14 @@ function processDesign(input_element) {
 	if ($(input_element).val().length < 1) {
 		console.log("you're dad is your mum");
 		adjacent_textarea.prop("disabled", false);
+		adjacent_textarea.attr("required", true);
 	}
 
 	adjacent_textarea.val("");
 
 	if (!adjacent_textarea.attr("disabled") && !$(input_element).val().length < 1) {
 		adjacent_textarea.attr("disabled", true);
+		adjacent_textarea.removeAttr("required");
 	}
 }
 
