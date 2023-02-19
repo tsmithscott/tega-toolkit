@@ -266,32 +266,33 @@ function toggleSelection(input) {
 
 
 function processSection(sectionID) {
-	let section_game = {};
-	let section = $("#" + sectionID + "-content")
+	// Automatically unlock sections without inputs
+	if (sectionID === "introduction" || sectionID === "foundation") {
+		// updateLatestSection(sectionID)
+		unlockNextSection(sectionID);
 
-	if (sectionID === "introduction") {
-		unlockNextSection(sectionID);
-	// } else if (sectionID === "characteristics") {
-	// 	console.log("characteristics section");
-	// 	unlockNextSection(sectionID);
-	} else if (sectionID === "foundation") {
-		unlockNextSection(sectionID);
+	// Placeholders for sections that require inputs
 	} else if (sectionID === "model") {
+		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
-	// } else if (sectionID === "design") {
-	// 	console.log("design section");
-	// 	unlockNextSection(sectionID);
 	} else if (sectionID === "playability") {
+		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
 	} else if (sectionID === "assessment") {
+		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
 	} else if (sectionID === "justification") {
+		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
+
+	// Individual handling for sections with inputs
 	} else {
+
+		let section_game = {};
+		let section = $("#" + sectionID + "-content")
 
 		// Game Characteristics
 		if (sectionID === "characteristics") {
-			// section_game = {};
 
 			var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
 				return this.id.split("-")[0];
@@ -315,9 +316,9 @@ function processSection(sectionID) {
 						return;
 					}
 				}
+
 				current_game[sectionID] = section_game;
 				save = processGameData();
-
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -330,18 +331,13 @@ function processSection(sectionID) {
 		// Clean Slate Game
 		} else if (sectionID === "slate") {
 			let textarea = section.find("textarea");
-			
-			if (current_game[sectionID]) {
-				current_game[sectionID] = [];
-			}
 
 			if (textarea.val().length > 0) {
 				current_game[sectionID] = textarea.val();
-				save = processGameData();
-			} else {
-				save = processGameData();
 			}
-			
+
+
+			save = processGameData();
 			if (save) {
 				selections = [];
 				unlockNextSection(sectionID);
@@ -379,12 +375,8 @@ function processSection(sectionID) {
 				}
 			}
 
-			if (current_game[sectionID]) {
-				current_game[sectionID] = [];
-			}
 			current_game[sectionID] = section_game;
 			save = processGameData();
-
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -404,9 +396,6 @@ function processSection(sectionID) {
 				section_game[subsection] = $(field).val();
 			}
 
-			if (current_game[sectionID]) {
-				current_game[sectionID] = [];
-			}
 			current_game[sectionID] = section_game;
 			save = processGameData();
 			if (save) {
@@ -428,9 +417,7 @@ function processSection(sectionID) {
 				section_game[subsection] = $(input).val();
 			}
 			
-			if (current_game[sectionID]) {
-				current_game[sectionID] = [];
-			}
+
 			current_game[sectionID] = section_game;
 			save = processGameData();
 			if (save) {
@@ -451,13 +438,9 @@ function processSection(sectionID) {
 			} else {
 				section.find(".errorMessage").attr("hidden", "");
 
-				if (current_game[sectionID]) {
-					current_game[sectionID] = [];
-				}
-
+				current_game[sectionID] = [];
 				current_game[sectionID] = selections;
 				save = processGameData();
-
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -467,6 +450,25 @@ function processSection(sectionID) {
 			}
 		}
 	}
+}
+
+
+// Update the latest section in the game data
+function processLatestSection(latestSection) {
+	let status = '';
+	$.ajax({
+		url: '/ajax-update-section',
+		data: {"section": latestSection},
+		type: 'POST',
+		success: function(response) {
+			status = true;
+		},
+		error: function(error) {
+			status = false;
+	  	},
+		async: false
+	});
+	return status;
 }
 
 
@@ -492,60 +494,67 @@ function processGameData() {
 
 // Load game data from cookie
 function loadGameData() {
-	if (getCookie("_game_data") !== null) {
-		jwt = getCookie("_game_data");
-		current_game = parseJWT(jwt);
+	gameData = getCookie("_game_data");
+	
+	if (gameData !== null) {
+		current_game = gameData;
+	} else {
+		current_game = {};
+	}
 
-		if (!current_game) {
-			return;
+	let latestSection = getCookie("_latest_section");
+	latestSection = parseJWT(latestSection)["section"];
+
+	if (gameData !== null) {
+		if (latestSection !== null) {
+			latestSection = "introduction";
 		}
+	} else if (!latestSection) {
+		latestSection = "introduction";
+	}
 
-		sections_keys = Object.keys(current_game);
-		latestSection = sections_keys[sections_keys.length - 1];
+	removeAllStyling();
 
-		removeAllStyling();
-
-		switch (latestSection) {
-			case('introduction'):
-				addStyling('#introduction');
-				break;
-			case('profile'):
-				addStyling('#profile');
-				break;
-			case('typology'):
-				addStyling('#typology');
-				break;
-			case('characteristics'):
-				addStyling('#characteristics');
-				break;
-			case('foundation'):
-				addStyling('#foundation');
-				break;
-			case('model'):
-				addStyling('#model');
-				break;
-			case('slate'):
-				addStyling('#slate');
-				break;
-			case('accessibility'):
-				addStyling('#accessibility');
-				break;
-			case('design'):
-				addStyling('#design');
-				break;
-			case('instruction'):
-				addStyling('#instruction');
-				break;
-			case('playability'):
-				addStyling('#playability');
-				break;
-			case('assessment'):
-				addStyling('#assessment');
-				break;
-			case('justification'):
-				addStyling('#justification');
-				break;
-		}
+	switch (latestSection) {
+		case('introduction'):
+			addStyling('#introduction');
+			break;
+		case('profile'):
+			addStyling('#profile');
+			break;
+		case('typology'):
+			addStyling('#typology');
+			break;
+		case('characteristics'):
+			addStyling('#characteristics');
+			break;
+		case('foundation'):
+			addStyling('#foundation');
+			break;
+		case('model'):
+			addStyling('#model');
+			break;
+		case('slate'):
+			addStyling('#slate');
+			break;
+		case('accessibility'):
+			addStyling('#accessibility');
+			break;
+		case('design'):
+			addStyling('#design');
+			break;
+		case('instruction'):
+			addStyling('#instruction');
+			break;
+		case('playability'):
+			addStyling('#playability');
+			break;
+		case('assessment'):
+			addStyling('#assessment');
+			break;
+		case('justification'):
+			addStyling('#justification');
+			break;
 	}
 }
 
@@ -606,15 +615,20 @@ function unlockNextSection(currentSection) {
 	let nextSectionButton = $('#' + currentSection).next();
 	let nextSectionContent = $('#' + currentSection + '-content').next();
 
-	if (currentSectionButton.children().val() === "0") {
+	if (nextSectionButton.children().val() === "0") {
 		if (nextSectionButton.length !== 0) {
 			currentSectionButton.removeClass('active').removeAttr('aria-current');
 			nextSectionButton.removeAttr('disabled style');
-			currentSectionButton.children().val(1);
+
+			nextSectionButton.children().val(1);
+
 			nextSectionButton.addClass('active').attr('aria-current', 'true');
 			currentSectionContent.hide();
 			nextSectionContent.scrollTop(0);
 			nextSectionContent.show()
+
+			processLatestSection(nextSectionButton.attr('id'));
+
 			incrementProgressBar();
 		} else {
 			$('#progress-bar').attr('aria-valuenow', 100).css('width', 100 + '%');
@@ -627,7 +641,6 @@ function unlockNextSection(currentSection) {
 		currentSectionContent.hide();
 		nextSectionContent.scrollTop(0);
 		nextSectionContent.show();
-
 	}
 }
 
@@ -638,21 +651,11 @@ $('.list-group-item').click(function() {
 	let currentButton = $('.list-group-item.list-group-item-action.active');
 	let clickedButton = $(this);
 	let clickedButtonContent = clickedButton.attr('id') + '-content';
-
-	$.ajax({
-		url: '/ajax_handler',
-		data: { "data": "TEST" },
-		type: 'POST',
-		success: function(response) {
-			$('.dashboard-content').hide(); // Hide all content sections
-			$('#' + clickedButtonContent).scrollTop(0); // Scroll to top of clicked content section
-			$('#' + clickedButtonContent).show(); // Show clicked content section
-			currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
-			clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
-		},		error: function(error) {
-			console.error(error);
-	  }
-	});
+	$('.dashboard-content').hide(); // Hide all content sections
+	$('#' + clickedButtonContent).scrollTop(0); // Scroll to top of clicked content section
+	$('#' + clickedButtonContent).show(); // Show clicked content section
+	currentButton.removeClass('active').removeAttr('aria-current'); // Remove active styling from previous button
+	clickedButton.addClass('active').attr('aria-current', 'true') // Add styling to clicked button
 });
 
 

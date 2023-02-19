@@ -151,12 +151,21 @@ def ajax_handler():
 
 @app.route('/ajax-autosave', methods=["POST"])
 def ajax_autosave():
+    print(request.form)
     token = JWT.generate_jwt(request.get_json()["current_game"])
     response = make_response()
     response.set_cookie("_game_data", token, secure=True)
     response.status_code = 200
     return response
 
+
+@app.route('/ajax-update-section', methods=["POST"])
+def ajax_update_section():
+    token = JWT.generate_jwt(request.form.to_dict())
+    response = make_response()
+    response.set_cookie("_latest_section", token, secure=True)
+    response.status_code = 200
+    return response
 
 @app.route('/ajax-parse', methods=["POST"])
 def ajax_parse():
