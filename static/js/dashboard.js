@@ -494,23 +494,18 @@ function processGameData() {
 
 // Load game data from cookie
 function loadGameData() {
-	gameData = getCookie("_game_data");
-	
-	if (gameData !== null) {
-		current_game = gameData;
-	} else {
-		current_game = {};
+	let current_game = {};
+	let latestSection = "introduction";
+
+	gameDataCookie = getCookie("_game_data");
+	latestSectionCookie = getCookie("_latest_section");
+
+	if (gameDataCookie !== null) {
+		current_game = parseJWT(gameDataCookie);
 	}
 
-	let latestSection = getCookie("_latest_section");
-	latestSection = parseJWT(latestSection)["section"];
-
-	if (gameData !== null) {
-		if (latestSection !== null) {
-			latestSection = "introduction";
-		}
-	} else if (!latestSection) {
-		latestSection = "introduction";
+	if (latestSectionCookie !== null) {
+		latestSection = parseJWT(latestSectionCookiez)["section"];
 	}
 
 	removeAllStyling();
