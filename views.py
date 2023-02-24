@@ -151,7 +151,6 @@ def ajax_handler():
 
 @app.route('/ajax-autosave', methods=["POST"])
 def ajax_autosave():
-    print(request.form)
     token = JWT.generate_jwt(request.get_json()["current_game"])
     response = make_response()
     response.set_cookie("_game_data", token, secure=True)

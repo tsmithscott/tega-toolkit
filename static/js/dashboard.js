@@ -1,5 +1,7 @@
 var current_game = {};
 
+var accessibility_counter = 0;
+
 var sections = ['introduction', 
 				'profile', 
 				'typology', 
@@ -256,7 +258,7 @@ function toggleSelection(input) {
 		}
 	} else {
 		$(input).addClass("green");
-		$(input).attr("selected", "");
+		$(input).attr("selected", "selected");
 
 		if ($(input).closest("div").attr("id") === "typology-content") {
 			$(input).closest("td").siblings().children().find("button").attr("disabled", "disabled");
@@ -264,6 +266,19 @@ function toggleSelection(input) {
 	}
 };
 
+function accessibilityListener(checkbox) {
+	if ($(this).is(':checked')) {
+		if (accessibilityListener > 0) {
+			accessibilityListener = accessibilityListener - 1;
+		}
+	} else {
+		accessibilityListener = accessibilityListener + 1;
+
+		if (accessibilityListener === 19) {
+			var checkboxes = $('#accessibility-content :checkbox[required]');
+		}
+	}
+}
 
 function processSection(sectionID) {
 	// Automatically unlock sections without inputs
@@ -494,7 +509,6 @@ function processGameData() {
 
 // Load game data from cookie
 function loadGameData() {
-	let current_game = {};
 	let latestSection = "introduction";
 
 	gameDataCookie = getCookie("_game_data");
@@ -505,7 +519,7 @@ function loadGameData() {
 	}
 
 	if (latestSectionCookie !== null) {
-		latestSection = parseJWT(latestSectionCookiez)["section"];
+		latestSection = parseJWT(latestSectionCookie)["section"];
 	}
 
 	removeAllStyling();
@@ -551,6 +565,8 @@ function loadGameData() {
 			addStyling('#justification');
 			break;
 	}
+
+	addGameDataStyling();
 }
 
 
@@ -581,16 +597,75 @@ function removeAllStyling() {
 
 
 // Helper function to add styling to sections on page load
-// Uses saved cookie data to determine which sections to add styling to
+// Uses cookie data to determine which sections to add styling to
 function addStyling(latestSection) {
 	let no_previous_sections = sections.indexOf(latestSection.split("#")[1]);
+
 	for (let i = 0; i < no_previous_sections; i++) {
 		$('#' + sections[i]).removeAttr('disabled style');
 	}
+
 	$('#progress-bar').attr('aria-valuenow', (no_previous_sections) * 8.33333333333).css('width', (no_previous_sections) * 8.33333333333 + '%');
 	$(latestSection).removeAttr('disabled style').addClass('active').attr('aria-current', 'true');
 	$(latestSection + '-content').scrollTop(0);
 	$(latestSection + '-content').show();
+}
+
+// Helper function to add styling to section inputs on page load
+function addGameDataStyling() {
+	// Keys for each section with gamedata
+	let gameData = getCookie("_game_data") !== null ? parseJWT(getCookie("_game_data")) : [];
+	let section_keys = Object.keys(gameData);
+	
+	if (section_keys.length > 0) {
+		for (let i = 0; i < section_keys.length; i++) {
+			section = section_keys[i];
+			switch(section) {
+				case('introduction'):
+				case('foundation'):
+					break;
+				case('profile'): 
+				case('typology'):
+					for (selection_index in gameData[section]) {
+						let selection = gameData[section][selection_index];
+						$('#' + section + '-content-' + selection).addClass('green').attr('selected', 'selected');
+					}
+					break;
+				case('characteristics'):
+					for (subsection in gameData[section]) {
+						processCharacteristicMeasure($('#' + subsection));
+						$('#' + subsection + '-button-dropdown').addClass('green');
+						let characteristics = gameData[section][subsection];
+
+						for (characteristic_index in characteristics) {
+							let characteristic = characteristics[characteristic_index].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+							$('#' + characteristic).prop('checked', true);
+							$('#' + characteristic).addClass('selected');
+						}
+					}
+					break;
+				case('model'):
+					// TODO: Add input loading for model section
+					break;
+				case('slate'):
+					$('textarea#slate-content-notes').text(gameData[section]);
+					break;
+				case('accessibility'):
+					$('#accessibility-content').find('input[type="checkbox"]').each(function() {
+						let textarea = $(this).closest('td').next().find('textarea')
+						if (gameData[section]["considered"].includes($(this).val())) {
+							$(this).prop('checked', true);
+							$(this).addClass('selected');
+							textarea.attr('disabled', 'disabled');
+							textarea.text("");
+						} else {
+							textarea.text(gameData[section][$(this).val()]);
+						}
+					});
+					break;
+			}
+		}
+	}
 }
 
 
@@ -680,11 +755,11 @@ function processCharacteristicMeasure(characteristic) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left:-10px;"></ul></div></div></div></div>');
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
 		let sm = characteristics[characteristic][submeasure];
 		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" lass="form-check-input" type="checkbox" value="'+ characteristic_for_id + '-' + characteristics[characteristic][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
+		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ characteristic_for_id + '-' + characteristics[characteristic][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
 	}
 }
 
