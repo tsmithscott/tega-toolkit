@@ -680,6 +680,16 @@ function addGameDataStyling() {
 						}
 					}
 					break;
+				case('instruction'):
+					let tbody = $('#instruction-content').find('tbody');
+
+					for (instruction in Object.keys(gameData['instruction'])) {
+						instruction = Object.keys(gameData['instruction'])[instruction];
+						td = $(tbody).find('td:contains("' + instruction + '")');
+						textarea = $(td).next().children()[0];
+						$(textarea).val(gameData['instruction'][instruction]);
+					}
+					break;
 			}
 		}
 	}
