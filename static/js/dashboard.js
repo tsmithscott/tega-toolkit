@@ -628,7 +628,10 @@ function addGameDataStyling() {
 				case('typology'):
 					for (selection_index in gameData[section]) {
 						let selection = gameData[section][selection_index];
-						$('#' + section + '-content-' + selection).addClass('green').attr('selected', 'selected');
+						let button = $('#' + section + '-content-' + selection)
+						let opposite_button = button.closest('td').siblings().first().find('button')
+						button.addClass('green').attr('selected', 'selected');
+						opposite_button.attr('disabled', 'disabled');
 					}
 					break;
 				case('characteristics'):
@@ -662,6 +665,8 @@ function addGameDataStyling() {
 							textarea.text(gameData[section][$(this).val()]);
 						}
 					});
+					break;
+				case('design'):
 					break;
 			}
 		}
