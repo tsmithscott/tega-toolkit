@@ -1,7 +1,5 @@
 var current_game = {};
 
-var accessibility_counter = 0;
-
 var sections = ['introduction', 
 				'profile', 
 				'typology',
@@ -266,21 +264,6 @@ function toggleSelection(input) {
 	}
 };
 
-function accessibilityListener(checkbox) {
-	if ($(checkbox).is(':checked')) {
-		if (accessibilityListener > 0) {
-			accessibilityListener = accessibilityListener - 1;
-		}
-	} else {
-		accessibilityListener = accessibilityListener + 1;
-
-		if (accessibilityListener === 19) {
-			var checkboxes = $('#accessibility-content :checkbox[required]');
-			console.log(checkboxes);
-		}
-	}
-}
-
 function processSection(sectionID) {
 	// Automatically unlock sections without inputs
 	if (sectionID === "introduction" || sectionID === "foundation") {
@@ -409,7 +392,7 @@ function processSection(sectionID) {
 			for (let field of fields) {
 				let subsection_td = $(field).parent().siblings()[0];
 				let subsection = $(subsection_td).html();
-				section_game[subsection] = $(field).val();
+				section_game[subsection] = $(field).val() + ($(field).hasClass('tools') ? "_tools" : "_reason");
 			}
 
 			current_game[sectionID] = section_game;
@@ -627,7 +610,8 @@ function addGameDataStyling() {
 				case('introduction'):
 				case('foundation'):
 					break;
-				case('profile'): 
+					
+				case('profile'):
 				case('typology'):
 					for (selection_index in gameData[section]) {
 						let selection = gameData[section][selection_index];
@@ -637,6 +621,7 @@ function addGameDataStyling() {
 						opposite_button.attr('disabled', 'disabled');
 					}
 					break;
+
 				case('characteristics'):
 					for (subsection in gameData[section]) {
 						processCharacteristicMeasure($('#' + subsection));
@@ -650,12 +635,15 @@ function addGameDataStyling() {
 						}
 					}
 					break;
+
 				case('model'):
 					// TODO: Add input loading for model section
 					break;
+
 				case('slate'):
 					$('textarea#slate-content-notes').text(gameData[section]);
 					break;
+
 				case('accessibility'):
 					$('#accessibility-content').find('input[type="checkbox"]').each(function() {
 						let textarea = $(this).closest('td').next().find('textarea')
@@ -669,8 +657,28 @@ function addGameDataStyling() {
 						}
 					});
 					break;
+
 				case('design'):
-					
+					let section_content = $('#design-content')
+					for (subsection in Object.keys(gameData['design'])) {
+						subsection = Object.keys(gameData['design'])[subsection];
+						
+						let textarea_data = gameData['design'][subsection];
+						let text = textarea_data.split('_')[0];
+						let identifier = textarea_data.split('_')[1];
+						
+						let subsection_td = $(section_content).find('#' + subsection.replace(/[^\w\s]/gi, '').replace(/\s+/g, ''));
+						let tools = $(subsection_td.next().children()[0]);
+						let reasoning = $(subsection_td.next().next().children()[0]);
+						
+						if (identifier === "tools") {
+							tools.val(text);
+							reasoning.removeAttr('required').attr('disabled', 'disabled');
+						} else if (identifier === "reason") {
+							reasoning.val(text);
+							tools.removeAttr('required').attr('disabled', 'disabled');
+						}
+					}
 					break;
 			}
 		}
