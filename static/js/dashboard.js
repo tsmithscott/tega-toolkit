@@ -4,7 +4,7 @@ var accessibility_counter = 0;
 
 var sections = ['introduction', 
 				'profile', 
-				'typology', 
+				'typology',
 				'characteristics', 
 				'foundation', 
 				'model',
@@ -267,7 +267,7 @@ function toggleSelection(input) {
 };
 
 function accessibilityListener(checkbox) {
-	if ($(this).is(':checked')) {
+	if ($(checkbox).is(':checked')) {
 		if (accessibilityListener > 0) {
 			accessibilityListener = accessibilityListener - 1;
 		}
@@ -276,6 +276,7 @@ function accessibilityListener(checkbox) {
 
 		if (accessibilityListener === 19) {
 			var checkboxes = $('#accessibility-content :checkbox[required]');
+			console.log(checkboxes);
 		}
 	}
 }
@@ -516,10 +517,10 @@ function loadGameData() {
 
 	if (gameDataCookie !== null) {
 		current_game = parseJWT(gameDataCookie);
-	}
 
-	if (latestSectionCookie !== null) {
-		latestSection = parseJWT(latestSectionCookie)["section"];
+		if (latestSectionCookie !== null) {
+			latestSection = parseJWT(latestSectionCookie)["section"];
+		}
 	}
 
 	removeAllStyling();
@@ -669,6 +670,7 @@ function addGameDataStyling() {
 					});
 					break;
 				case('design'):
+					
 					break;
 			}
 		}
