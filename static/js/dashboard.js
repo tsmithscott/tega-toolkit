@@ -603,10 +603,12 @@ function addStyling(latestSection) {
 
 	for (let i = 0; i < no_previous_sections; i++) {
 		$('#' + sections[i]).removeAttr('disabled style');
+		$('#' + sections[i]).children().val(1);
 	}
 
 	$('#progress-bar').attr('aria-valuenow', (no_previous_sections) * 8.33333333333).css('width', (no_previous_sections) * 8.33333333333 + '%');
 	$(latestSection).removeAttr('disabled style').addClass('active').attr('aria-current', 'true');
+	$(latestSection).children().val(1);
 	$(latestSection + '-content').scrollTop(0);
 	$(latestSection + '-content').show();
 }
