@@ -41,6 +41,7 @@ $.ajax({
 
 $(document).ready(function() {
 	populateCharacteristicsDropdown();
+	populateModelDropdown();
 	loadGameData();
 	disableBodyScroll();
 });
@@ -613,7 +614,90 @@ function processCharacteristicMeasure(characteristic) {
 	$(characteristic).remove();
 }
 
+// Populate dropdown options for 'Theoretical Model' section on click
+function populateModelDropdown() {
+	let models_keys = Object.keys(models);
+	let no_models = models_keys.length;
+	for (let i = 0; i < no_models; i++) {
+		$("#model-content-add-dropdown-button").siblings().append('<li id="'+ models_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick=processModelMeasure(this)><a class="dropdown-item" href="#">' + models_keys[i] + '</a></li>')
+	}
+};
 
+
+// Handle main dropdown option clicks in 'Theoretical Model' section
+function processModelMeasure(model) {
+	let unprocessed_keys = Object.keys(models);
+	let keys = Object.keys(models);
+	for (let i = 0; i < keys.length; i++) {
+		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		if (keys[i] === $(model).attr('id')) {
+			createModelsSubmeasureDropdown(keys[i], unprocessed_keys[i]);
+		}
+	}
+	$(model).remove();
+}
+
+// Create submeasure dropdowns for 'Game Characteristics' section when pressed
+function createModelsSubmeasureDropdown(model_for_id, model) {
+	$('#model-content-accordion-row').prepend('<div class="model-content-accordion-' + model_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + model_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + model_for_id + '-collapse" aria-expanded="true" aria-controls="' + model_for_id + '-collapse">' + model + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + model_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + model_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + model_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');
+	for (submeasure in models[model]) {
+		let sm = models[model][submeasure];
+		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		$('#' + model_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
+	}
+}
+
+
+function removeModelsSubmeasureDropdown(model_for_id) {
+	let unprocessed_keys = Object.keys(model_for_id);
+	let keys = Object.keys(model_for_id);
+	let model;
+	for (let i = 0; i < keys.length; i++) {
+		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		if (keys[i] === model_for_id) {
+			model = unprocessed_keys[i];
+		}
+	}
+	$('.characteristics-content-accordion-' + model_for_id).remove();
+	$("#characteristics-content-add-dropdown-button").siblings().append('<li id="'+ model_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + model + '</a></li>');
+}
+
+
+function createPlayabilityRow(row_button) {
+	let counter = 0;
+	for (let sibling of $(row_button).parent().siblings()) {
+		let child = $(sibling).children()[0];
+		if ($(sibling).children().first().val() === '') {
+			$(child).css("border-color", "red");
+			counter++;
+		} else {
+			$(child).css("border-color", "#ced4da");
+		}
+	}
+
+	if (counter === 0) {
+		let tds = $(row_button).parent().siblings();
+		let input_row = $($("#playability-content-add-record-button").closest("tr"));
+		let row_number = input_row.next().children().first().text();
+		let tr = `<tr></tr>`;
+		$(input_row).after(tr);
+		row_number = Number(row_number) + 1;
+		let first_td = `<td><span><i class='fas fa-trash' style='font-size:16px'></i></span>    ${row_number}</td>`;
+		let new_row = $(input_row).next();
+		$(new_row).append(first_td);
+		for (let td of tds) {
+			$(new_row).append($(td).clone());
+			$(td).children().first().val('');
+		}
+	}
+}
+
+
+function removePlayabilityRow() {
+	return;
+}
+
+	
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
 	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');

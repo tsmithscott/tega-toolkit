@@ -341,42 +341,35 @@
                                     <p style="color:black;">Final theoretical model is a combination of the following models:<br />
                                         <sub>(Press for descriptions)</sub>
                                     </p>
-                                    <div class="centered-div">
-                                        <table class="table table-borderless w-50">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span>
-                                                            <a id="modelModal1Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal1" role="button">
-                                                                Bauer</a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span>
-                                                            <a id="modelModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal2" role="button">
-                                                                Experiential learning/facilitators</a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span>
-                                                            <a id="modelModal3Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal3" role="button">
-                                                                The LM-GM mapping framework</a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
+                                        Press to view Game Theoretical Classifications table</a>
+                                    <p style="color: black;">Please select the characteristic measures and submeasures that you would like to include in your game.</p>
+                                    <div id="model-content-accordion-row" class="row">
+                                        <div id="model-content-dropdown" class="col">
+                                            <!-- Populated by adding using 'model-content-add-dropdown' -->
+                                        </div>
                                     </div>
                                     <br />
-                                    <p class="text-dark">!!! INPUTS TO BE ADDED !!!</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="model-content-add-dropdown" class="dropdown">
+                                                <button id="model-content-add-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/> </svg>
+                                                </button>
+                                                <ul id="model-content-add-dropdown-list" class="dropdown-menu">
+                                                    <!-- Populated by dashboard.js populateModelsDropdown() -->
+                                                    <!-- Also when an measure option is removed -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
+                                    <span class="errorSubMessage" style="color:red" hidden>Please select at least one submeasure from the non-green measures!</span>
                                     <br />
                                     <button onclick="processSection('model')" id="model-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
+                                    <br />
                                 </div>
                                 <!-- End Foundational Model -->
 
@@ -968,59 +961,37 @@
                                     <p style="color:black;">Playtesting is the process of testing your game with a group of players to identify any issues, errors or bugs that may impact the playability of the game. Beta-Play refers to a specific type of playtesting that involves releasing a beta version of the game to a small group of players, often selected from the game's target audience. The players then provide feedback on their experiences with the game, which can be used to improve and refine the game design.</p>
                                     <p style="color:black;">In this section, you will plan and conduct a half-day playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
                                     <p style="color:black;">Please add records accordingly:</p><br />
-                                    <table class="table table-bordered" style="color:black;">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Number of Players</th>
-                                                <th scope="col">Time</th>
-                                                <th scope="col">Feedback</th>
-                                                <th scope="col">Reflection Points</th>
-                                                <th scope="col">Amendment to Playtest</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td scope="row">
-                                                    <button id="playability-content-add-record-button" class="btn btn-secondary btn-sm" type="button">
-                                                        <i class="fa-solid fa-plus"></i>
-                                                    </button>
-                                                </td>
-                                                <td><input type="number" class="form-control number-of-players"></td>
-                                                <td><input type="time" class="form-control time" required></td>
-                                                <td><textarea class="form-control feedback" rows="1"></textarea></td>
-                                                <td><textarea class="form-control reflection-points" rows="1"></textarea></td>
-                                                <td><textarea class="form-control amendment-to-playtest" rows="1"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                                <td>EXAMPLE</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
-                                        Save & Continue
-                                    </button>
+                                    <form action="javascript:;" onsubmit="processSection('playability')"></form>
+                                        <table class="table table-bordered" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Number of Players</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Feedback</th>
+                                                    <th scope="col">Reflection Points</th>
+                                                    <th scope="col">Amendment to Playtest</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td scope="row">
+                                                        <button id="playability-content-add-record-button" class="btn btn-secondary btn-sm" type="button" onclick="createPlayabilityRow(this)">
+                                                            <i class="fa-solid fa-plus"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td><input type="number" class="form-control number-of-players" required></td>
+                                                    <td><input type="time" class="form-control time" required></td>
+                                                    <td><textarea class="form-control feedback" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control reflection-points" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control amendment-to-playtest" rows="1" required></textarea></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
+                                            Save & Continue
+                                        </button>
+                                    </form>
                                 </div>
                                 <!-- End Game Playability -->
 
@@ -1363,10 +1334,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="modelModalLabel1">Bauer</h1>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                 <p class="text-dark">In a game-mechanic framework texts, sounds, graphics, pictures, animations, story bits, social media friends available to the game system through challenges from a simple competition of a body-controlled game, for instance long jump or steering an idle spaceship in space (gaining control), to solving any kind of puzzle.</p>
+                <a class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
+                    Back</a>
             </div>
         </div>
     </div>
@@ -1376,10 +1348,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="modelModalLabel2">Experiential learning/facilitators<br />(Matsuo, 2015 complementing Kolbe’s 1984)</h1>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                 <p class="text-dark">In addition for a game to support intrinsic experiential learning, knowledge acquisition and skill training is obtained through game mechanics [Macro and Micro]. (e.g., quests, cascading information, leader boards, goals, levels, badges, role-play, tokens, etc.).  Although they can causally correlate (Table 1), game mechanics is subjective; whilst game experience is observed and produced objectively.</p>
+                <a class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
+                    Back</a>
             </div>
         </div>
     </div>
@@ -1389,10 +1362,53 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="modelModalLabel3">The LM-GM mapping framework<br />(Arnab et al, 2015)</h1>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                 <p class="text-dark">LM-GM establish relationships between the mechanics present in educational philosophies (pedagogical theories and strategies) and those of games. We formulated this as the learning-game mechanic (LM-GM) model. As they mentioned themselves these game mechanics are non-exhaustive but considering a variety of educational theories (e.g., constructivism, behaviourism, personalism). Lim et al also connects the two through thinking skills as an expansion to blooms taxonomy.</p>
+                <a class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
+                    Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modelClassificationModal" tabindex="-1" aria-labelledby="modelClassificationModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title fs-5 text-dark" id="modelClassificationModalLabel1">Final theoretical model is a combination of the following models:<br>
+                    <sub>(Press for descriptions)</sub>
+                </p>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="centered-div">
+                <table class="table table-borderless w-50">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span>
+                                    <a id="modelModal1Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal1" role="button">
+                                        Bauer</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <a id="modelModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal2" role="button">
+                                        Experiential learning/facilitators</a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <a id="modelModal3Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal3" role="button">
+                                        The LM-GM mapping framework</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
