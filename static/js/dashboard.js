@@ -1,6 +1,7 @@
 var current_game = {};
 var sections;
 var characteristics;
+var models;
 
 $.ajax({
 	url: '/get_sections',
@@ -26,10 +27,22 @@ $.ajax({
 	async: false
 });
 
+$.ajax({
+	url: '/get_model',
+	type: 'GET',
+	success: function(response) {
+		models = response;
+	},
+	error: function(error) {
+		throw new Error(error);
+	},
+	async: false
+});
+
 $(document).ready(function() {
 	populateCharacteristicsDropdown();
 	loadGameData();
-	disableBodyScroll()
+	disableBodyScroll();
 });
 
 function disableBodyScroll() {

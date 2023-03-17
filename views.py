@@ -159,7 +159,16 @@ def ajax_get_characteristics():
     with open('static/json_data/characteristics.json', 'r') as characteristics_file:
         data = json.loads(characteristics_file.read())
         
-    print(data)
+    return make_response(
+        jsonify(data),
+        200
+    )
+    
+    
+@app.route("/get_model", methods=["GET"])
+def ajax_get_model():
+    with open('static/json_data/model.json', 'r') as characteristics_file:
+        data = json.loads(characteristics_file.read())
         
     return make_response(
         jsonify(data),
