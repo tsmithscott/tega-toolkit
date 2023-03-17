@@ -1,215 +1,36 @@
 var current_game = {};
+var sections;
+var characteristics;
 
-var sections = ['introduction', 
-				'profile', 
-				'typology',
-				'characteristics', 
-				'foundation', 
-				'model',
-				'slate',
-				'accessibility',
-				'design', 
-				'instruction', 
-				'playability', 
-				'assessment', 
-				'justification'];
+$.ajax({
+	url: '/get_sections',
+	type: 'GET',
+	success: function(response) {
+		sections = response['sections'];
+	},
+	error: function(error) {
+		throw new Error(error);
+	},
+	async: false
+});
 
-var characteristics = {
-	'Education Game': [
-		'Memory tasks',
-		'Perfection Impossible',
-		'Controllers',
-		'Customisable',
-		'Know your target',
-		'Start Simple'
-	],
-	'Design': [
-		'Restrictions',
-		'Acceptance',
-		'Impede Creativity',
-		'Group Size',
-		'Restrictions are Good',
-		'Fun',
-		'Easier to Learn',
-		'Real World',
-		'Creative',
-		'Visualise'
-	],
-	'Life of Game': [
-		'Having an online',
-		'Editors',
-		'Modelling',
-		'Intrinsically Rewarding',
-		'Explore'
-	],
-	'Engagement': [
-		'Entertaining',
-		'Gameplay Exciting',
-		'Don\'t Force Learning',
-		'Real Life',
-		'Teamwork',
-		'Communication',
-		'Debriefing',
-		'Role Differentiation',
-		'Common Goal',
-		'Prevent Interruptions',
-		'Group Size',
-		'Incentive for Engagement',
-		'Games a Good Tool'
-	],
-	'Assessment': [
-		'Learn via Playing',
-		'External Assessor',
-		'Integrate Learning with Gameplay',
-		'Anonymous Voting',
-		'Focus on Learning Outcomes',
-		'Use of Framework',
-		'Use References',
-		'More Instruction',
-		'Assess Specific Skills',
-		'Methods of assessment',
-		'Peer Assessment',
-		'Matching results with objectives',
-		'Observation and discussion',
-		'Change in Performance & Behaviours',
-		'Challenges in achievement of learning outcomes'
-	],
-	'Mechanics': [
-		'Time Pressure',
-		'Teach Time Management',
-		'Finish within time Limit',
-		'Every Person Talk',
-		'Moderators Time Management',
-		'Facilitator',
-		'Time Limits',
-	],
-	'Human Factor': [
-		'Learn Different Opinions',
-		'Prosocial Behaviours'
-	],
-	'Characteristics of a good game': [
-		'Essence',
-		'GOALS/OBJECTIVE',
-		'Experimenting',
-		'Achievement of outcomes',
-		'Iterative process',
-		'Ability of learners to understand the outcomes',
-		'Integration of objectives with different game element',
-		'Alternative means for achievement',
-		'Fun Element',
-		'Focus motivation for achievement',
-		'Matching Requirements with goals',
-		'Promotion of Autonomy',
-		'Iterative Emergent Process',
-		'Development of different skills',
-		'Low risks',
-		'Link theory with practice',
-		'Promotes Co-Creation of game',
-		'Opportunity for differentiation',
-		'Ability of solve real world problems',
-		'Developing attitude and mindset of learners',
-		'Use of triadic perspective of learning',
-		'Encourage innovative thinking',
-		'Measureable learning outcomes',
-		'Improves learning',
-		'Creative activies',
-		'Eliminates fear of failure',
-		'Easily accessible'
-	],
-	'Social Skills': [
-		'Adaptability',
-		'Empathy',
-		'Interactive',
-		'Communication',
-		'Teamwork'
-	],
-	'What is a failure?': [
-		'Ability to complete task',
-		'Fail as a team',
-		'Not engaging',
-		'Avoid Lack of communication'
-	],
-	'Rules': [
-		'Easy Instruction',
-		'Collective effort to solve problems',
-		'Difficulty level',
-		'Ability to bend the rules to win'
-	],
-	'Interaction': [
-		'Platform for Collective acivity',
-		'Enjoying the process',
-		'Involves collaboration and teamwork'
-	],
-	'Applications of Games': [
-		'Skills and competencies of target audience',
-		'Creativity',
-		'Problem Solving',
-		'Risk Assessment',
-		'Communication',
-		'Critical thinking',
-		'Lifelong learning',
-		'Metacognitive awareness of leaners',
-		'Assessing stake',
-		'Decision making',
-		'Negotiation',
-		'Teamwork',
-		'Adaptation & Recognising Patterns'
-	],
-	'Skills of Educators': [
-		'Assessment of Processes and outcomes',
-		'Learning from Process',
-		'Mapping Learning outcome',
-		'Learning how to engage learners and intervene'
-	],
-	'Inclusivity': [
-		'Consult Students',
-		'Incentives for students',
-		'Game Around Interest',
-		'Mechanics to Ensure Listening',
-		'Ways they Learn',
-		'Each state opinion',
-		'Non-native Gamers',
-		'Small Group (4-6)',
-		'Innacurate Preconceptions',
-		'Don\'t jump between ideas',
-		'Know your target'
-	],
-	'Playtesting': [
-		'Don\'t Expect Rule of Thumb',
-		'Disability',
-		'Information Transmission',
-		'Agile Approach',
-		'Focus Group',
-		'Fun to Lose',
-		'Adapt to Feedback',
-		'No Pressure',
-		'Want to Learn',
-		'Replay-ability',
-		'Customisability',
-		'Simple',
-		'Atomic Parameters',
-		'Co-operation',
-		'Custom Interface',
-		'Common Ground'
-	],
-	'Sustainability of Games': [
-		'Contextualising reusability',
-		'Intermittent dicussion between sessions',
-		'Co-creation of games',
-		'Connecting overall gaming experiences',
-		'Involving old students in new courses',
-		'Replay-ability of the existing games that are naturally compounded of different stages',
-		'Reusability of games'
-	]
-}
-
+$.ajax({
+	url: '/get_characteristics',
+	type: 'GET',
+	success: function(response) {
+		characteristics = response;
+	},
+	error: function(error) {
+		throw new Error(error);
+	},
+	async: false
+});
 
 $(document).ready(function() {
 	populateCharacteristicsDropdown();
 	loadGameData();
 	disableBodyScroll()
 });
-
 
 function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");

@@ -143,6 +143,30 @@ def callback():
     return response
 
 
+@app.route("/get_sections", methods=["GET"])
+def ajax_get_sections():
+    with open('static/json_data/sections.json', 'r') as sections_file:
+        data = json.loads(sections_file.read())
+        
+    return make_response(
+        jsonify(data),
+        200
+    )
+
+
+@app.route("/get_characteristics", methods=["GET"])
+def ajax_get_characteristics():
+    with open('static/json_data/characteristics.json', 'r') as characteristics_file:
+        data = json.loads(characteristics_file.read())
+        
+    print(data)
+        
+    return make_response(
+        jsonify(data),
+        200
+    )
+
+
 @app.route("/ajax_handler", methods=["POST"])
 def ajax_handler():
     print(request.form['data'])
