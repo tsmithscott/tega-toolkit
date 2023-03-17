@@ -664,25 +664,35 @@ function removeModelsSubmeasureDropdown(model_for_id) {
 
 
 function createPlayabilityRow(row_button) {
-	let counter = 0;
+	let invalid = false;
 	for (let sibling of $(row_button).parent().siblings()) {
 		let child = $(sibling).children()[0];
 		if ($(sibling).children().first().val() === '') {
 			$(child).css("border-color", "red");
-			counter++;
+			invalid = true;
 		} else {
-			$(child).css("border-color", "#ced4da");
+			if (sibling === $(row_button).parent().siblings().first()[0]) {
+				if ($(row_button).parent().siblings().first().children().first().val() < 1) {
+					$(child).css("border-color", "red");
+					invalid = true;
+				} else {
+					$(child).css("border-color", "#ced4da");
+				}
+			} else {
+				$(child).css("border-color", "#ced4da");
+			}
 		}
 	}
 
-	if (counter === 0) {
+	
+	if (!invalid) {
 		let tds = $(row_button).parent().siblings();
 		let input_row = $($("#playability-content-add-record-button").closest("tr"));
 		let row_number = input_row.next().children().first().text();
 		let tr = `<tr></tr>`;
 		$(input_row).after(tr);
 		row_number = Number(row_number) + 1;
-		let first_td = `<td><span><i class='fas fa-trash' style='font-size:16px'></i></span>    ${row_number}</td>`;
+		let first_td = `<td><button onclick="removePlayabilityRow(this)" class="btn btn-danger btn-sm"><span class="fas fa-trash" style="font-size:16px"></span>	${row_number}</button></td>`;
 		let new_row = $(input_row).next();
 		$(new_row).append(first_td);
 		for (let td of tds) {
@@ -693,8 +703,8 @@ function createPlayabilityRow(row_button) {
 }
 
 
-function removePlayabilityRow() {
-	return;
+function removePlayabilityRow(delete_button) {
+	$(delete_button).closest("tr").remove();
 }
 
 	
@@ -704,7 +714,7 @@ function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characte
 	for (submeasure in characteristics[characteristic]) {
 		let sm = characteristics[characteristic][submeasure];
 		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-		$('#' + characteristic_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ characteristic_for_id + '-' + characteristics[characteristic][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + characteristics[characteristic][submeasure] + '</label></div></li>');
+		$('#' + characteristic_for_id + '-collapse').find('ul').append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ characteristic_for_id + '-' + characteristics[characteristic][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + characteristics[characteristic][submeasure] + '</label></div></li>`);
 	}
 }
 
