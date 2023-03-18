@@ -338,9 +338,6 @@
 
                                 <!-- Theoretical Model -->
                                 <div id="model-content" class="dashboard-content" style="display:none;">
-                                    <p style="color:black;">Final theoretical model is a combination of the following models:<br />
-                                        <sub>(Press for descriptions)</sub>
-                                    </p>
                                     <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
                                         Press to view Game Theoretical Classifications table</a>
                                     <p style="color: black;">Please select the characteristic measures and submeasures that you would like to include in your game.</p>
@@ -870,6 +867,8 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <span class="errorMessage" style="color:red" hidden>You must select at least 19 different inclusivity measures tools!</span>
+                                        <br />
                                         <button id="design-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
                                             Save & Continue
                                         </button>
@@ -961,7 +960,7 @@
                                     <p style="color:black;">Playtesting is the process of testing your game with a group of players to identify any issues, errors or bugs that may impact the playability of the game. Beta-Play refers to a specific type of playtesting that involves releasing a beta version of the game to a small group of players, often selected from the game's target audience. The players then provide feedback on their experiences with the game, which can be used to improve and refine the game design.</p>
                                     <p style="color:black;">In this section, you will plan and conduct a half-day playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
                                     <p style="color:black;">Please add records accordingly:</p><br />
-                                    <form action="javascript:;" onsubmit="processSection('playability')"></form>
+                                    <form id="playability-form" action="javascript:;" onsubmit="processSection('playability')">
                                         <table class="table table-bordered" style="color:black;">
                                             <thead>
                                                 <tr>
@@ -980,15 +979,15 @@
                                                             <i class="fa-solid fa-plus"></i>
                                                         </button>
                                                     </td>
-                                                    <td><input type="number" min="1" class="form-control number-of-players" required></td>
-                                                    <td><input type="time" class="form-control time" required></td>
-                                                    <td><textarea class="form-control feedback" rows="1" required></textarea></td>
-                                                    <td><textarea class="form-control reflection-points" rows="1" required></textarea></td>
-                                                    <td><textarea class="form-control amendment-to-playtest" rows="1" required></textarea></td>
+                                                    <td><input name="no-players" type="number" min="1" class="form-control number-of-players" required></td>
+                                                    <td><input name="time" type="time" class="form-control time" required></td>
+                                                    <td><textarea name="feedback" class="form-control feedback" rows="1" required></textarea></td>
+                                                    <td><textarea name="reflection" class="form-control reflection-points" rows="1" required></textarea></td>
+                                                    <td><textarea name="playtest" class="form-control amendment-to-playtest" rows="1" required></textarea></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button onclick="processSection('playability')" id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
+                                        <button id="playability-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
                                             Save & Continue
                                         </button>
                                     </form>
@@ -1336,7 +1335,7 @@
                 <h5 class="modal-title fs-5 text-dark" id="modelModalLabel1">Bauer</h1>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
-                <p class="text-dark">In a game-mechanic framework texts, sounds, graphics, pictures, animations, story bits, social media friends available to the game system through challenges from a simple competition of a body-controlled game, for instance long jump or steering an idle spaceship in space (gaining control), to solving any kind of puzzle.</p>
+                <p class="text-dark">In a game-mechanic framework texts, sounds, graphics, pictures, animations, story bits, social media friends available to the game system through challenges from a simple competition of a body-controlled game, for instance long jump or steering an idle spaceship in space (gaining control), to solving any kind of puzzle.</p>
                 <a class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
                     Back</a>
             </div>
@@ -1371,41 +1370,251 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modelClassificationModal" tabindex="-1" aria-labelledby="modelClassificationModal" aria-hidden="true">
+<div class="modal fade" id="modelClassificationModal" tabindex="-1" aria-labelledby="modelClassificationModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="modal-title fs-5 text-dark" id="modelClassificationModalLabel1">Final theoretical model is a combination of the following models:<br>
-                    <sub>(Press for descriptions)</sub>
-                </p>
+                <p class="modal-title fs-5 text-dark" id="modelClassificationModalLabel1">Final theoretical model is a combination of the following models:<br></p>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
+            <div>
+                <span>
+                    <a id="modelModal1Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal1" role="button">
+                        Bauer</a>
+                </span>
+                <span>
+                    <a id="modelModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal2" role="button">
+                        Experiential learning/facilitators</a>
+                </span>
+                <span>
+                    <a id="modelModal3Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal3" role="button">
+                        The LM-GM mapping framework</a>
+                </span>
+            </div>
             <div class="centered-div">
-                <table class="table table-borderless w-50">
+                <table class="table table-bordered" style="color:black;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Models</th>
+                            <th scope="col">Game Learning Mechanics</th>
+                            <th scope="col">Learning Mechanics/Long-term-Macro/Short-term-Micro</th>
+                            <th scope="col">Player Rules/Game mechanics</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <span>
-                                    <a id="modelModal1Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal1" role="button">
-                                        Bauer</a>
-                                </span>
-                            </td>
+                            <td><b>Bauer</b></td>
+                            <td>Mechanics of Motivation</td>
+                            <td>Audio Visual System</td>
+                            <td>Interface System</td>
                         </tr>
                         <tr>
-                            <td>
-                                <span>
-                                    <a id="modelModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal2" role="button">
-                                        Experiential learning/facilitators</a>
-                                </span>
-                            </td>
+                            <td rowspan="6"><b>Matsuo/Kolbe</b></td>
+                            <td rowspan="6">Experiential Learning</td>
+                            <td colspan="2">Active Experiment</td>
                         </tr>
                         <tr>
-                            <td>
-                                <span>
-                                    <a id="modelModal3Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#modelModal3" role="button">
-                                        The LM-GM mapping framework</a>
-                                </span>
-                            </td>
+                            <td colspan="2">Concrete Experiment</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Reflective Observation</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Abstract Conceptualisation</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Fun/Challenge/Reflection</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Learning goal and development network</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="8"><b>Arnab et al</b></td>
+                            <td rowspan="8">Learning/Game Mechanics</td>
+                            <td>Plan</td>
+                        </tr>
+                        <tr>
+                            <td>Demonstration</td>
+                        </tr>
+                        <tr>
+                            <td>Challenge</td>
+                        </tr>
+                        <tr>
+                            <td>Imitation</td>
+                        </tr>
+                        <tr>
+                            <td>Modelling</td>
+                        </tr>
+                        <tr>
+                            <td>Action/Task</td>
+                        </tr>
+                        <tr>
+                            <td>Simulation</td>
+                        </tr>
+                        <tr>
+                            <td>Question and Answer</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="42"><b>Lim/Bloom thinking skills and Arnab Combined</b></td>
+                            <td rowspan="6">Applying</td>
+                            <td>Cooperation</td>
+                            <td>Stimulate/Response</td>
+                        </tr>
+                        <tr>
+                            <td>Competition</td>
+                            <td>Time Pressure</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Movement</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Cooperation</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Capture/Eliminate</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Selecting/Collecting</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6">Analysis</td>
+                            <td>Observation</td>
+                            <td>Shadowing</td>
+                        </tr>
+                        <tr>
+                            <td>Feedback</td>
+                            <td>Analyse</td>
+                        </tr>
+                        <tr>
+                            <td>Mini-Games</td>
+                        </tr>
+                        <tr>
+                            <td>Realism</td>
+                        </tr>
+                        <tr>
+                            <td>Experimentation</td>
+                        </tr>
+                        <tr>
+                            <td>Identity</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="10">Evaluating</td>
+                            <td>Communal Discovery</td>
+                            <td>Resource Management</td>
+                        </tr>
+                        <tr>
+                            <td>Assessment</td>
+                            <td>Action Points</td>
+                        </tr>
+                        <tr>
+                            <td>Urgent Optimism</td>
+                            <td>Game Turns</td>
+                        </tr>
+                        <tr>
+                            <td>Reward/Penalty</td>
+                            <td>Discuss</td>
+                        </tr>
+                        <tr>
+                            <td>Pareto Optimal</td>
+                            <td>Reflect</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Hypothesis</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Motivation</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Incentive</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Collaboration</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Assessment</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="7">Creating</td>
+                            <td>Ownership</td>
+                            <td>Tiles/Grids</td>
+                        </tr>
+                        <tr>
+                            <td>Responsibility</td>
+                            <td>Infinite Game Play</td>
+                        </tr>
+                        <tr>
+                            <td>Accountability</td>
+                            <td>Status</td>
+                        </tr>
+                        <tr>
+                            <td>Planning</td>
+                            <td>Design/Editing</td>
+                        </tr>
+                        <tr>
+                            <td>Protégé-Effect</td>
+                        </tr>
+                        <tr>
+                            <td>Strategy Planning</td>
+                        </tr>
+                        <tr>
+                            <td>Design Editing</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">Understanding</td>
+                            <td>Cascading information</td>
+                            <td>Role Play</td>
+                        </tr>
+                        <tr>
+                            <td>Participation</td>
+                            <td>Question/Answer</td>
+                        </tr>
+                        <tr>
+                            <td>Objectify</td>
+                            <td>Tutorials</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Appointment</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="9">Retention</td>
+                            <td>Instruction</td>
+                            <td>Cut-Scenes</td>
+                        </tr>
+                        <tr>
+                            <td>Guidance</td>
+                            <td>Tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Generalisation</td>
+                            <td>Good Information</td>
+                        </tr>
+                        <tr>
+                            <td>Explore</td>
+                        </tr>
+                        <tr>
+                            <td>Discover</td>
+                        </tr>
+                        <tr>
+                            <td>Repetition</td>
+                        </tr>
+                        <tr>
+                            <td>Pavlovian Reaction</td>
+                        </tr>
+                        <tr>
+                            <td>Behavioural Momentum</td>
+                        </tr>
+                        <tr>
+                            <td>Virality</td>
                         </tr>
                     </tbody>
                 </table>
