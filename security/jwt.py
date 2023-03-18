@@ -1,6 +1,5 @@
 import jwt
 from jwt.exceptions import InvalidSignatureError
-import json
 
 from config import Config
 

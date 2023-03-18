@@ -1,5 +1,6 @@
 import json
 import uuid
+from datetime import datetime
 
 import requests
 from flask import (redirect, render_template, request, session,
@@ -9,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from jwt.exceptions import InvalidSignatureError
 
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
-from models import Users
+from models import Users, Games
 from security.jwt import JWT
 from confirmation.sendmail import SendMail
 
@@ -17,6 +18,11 @@ from confirmation.sendmail import SendMail
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(user_id)
+
+
+@app.route('/fake')
+def test():
+    return generate_password_hash("password"), 200
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -176,17 +182,44 @@ def ajax_get_model():
     )
 
 
-@app.route("/ajax_handler", methods=["POST"])
-def ajax_handler():
-    print(request.form['data'])
-    return "Successful", 200
-
-
 @app.route('/ajax-autosave', methods=["POST"])
 def ajax_autosave():
-    token = JWT.generate_jwt(request.get_json()["current_game"])
+    saved_game_uuid = request.get_json()['gameuuid']
+    complete = request.get_json()['complete']
+    update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+    token = JWT.generate_jwt(request.get_json()['current_game'])
+    
+    if saved_game_uuid:
+        game_uuid = saved_game_uuid
+    else:
+        game_uuid = uuid.uuid4().hex
+    
+    if current_user.is_authenticated:
+        if Games.query.filter_by(id=game_uuid).first():
+            current_game = Games.query.filter_by(id=game_uuid).first()
+            current_game.game = token
+            current_game.last_updated = update_datetime
+            current_game.complete = complete
+            
+            db.session.commit()
+        else:
+            while Games.query.filter_by(id=game_uuid).first():
+                game_uuid = uuid.uuid4().hex
+                
+            new_game = Games(
+                id=game_uuid,
+                game=token,
+                user_id=current_user.id,
+                complete=complete,
+                last_updated=update_datetime
+            )
+            
+            db.session.add(new_game)
+            db.session.commit()
+        
     response = make_response()
     response.set_cookie("_game_data", token, secure=True)
+    response.set_cookie("_game_id", game_uuid, secure=True)
     response.status_code = 200
     return response
 
@@ -198,6 +231,7 @@ def ajax_update_section():
     response.set_cookie("_latest_section", token, secure=True)
     response.status_code = 200
     return response
+
 
 @app.route('/ajax-parse', methods=["POST"])
 def ajax_parse():

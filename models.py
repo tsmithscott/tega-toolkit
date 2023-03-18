@@ -6,7 +6,7 @@ from app import db
 class Users(db.Model, UserMixin):
     __tablename__ = 'users'
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(100), primary_key=True)
     name = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=True)
@@ -26,13 +26,17 @@ class Users(db.Model, UserMixin):
 class Games(db.Model):
     __tablename__ = 'games'
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(100), primary_key=True)
     game = db.Column(db.Text(), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    complete = db.Column(db.Boolean, nullable=False)
+    last_updated = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.String(100), db.ForeignKey('users.id'), nullable=False)
     users = db.relationship('Users', backref='games')
 
 
-    def __init__(self, id, game, user_id):
+    def __init__(self, id, game, complete, last_updated, user_id):
         self.id = id
         self.game = game
+        self.complete = complete
         self.user_id = user_id
+        self.last_updated = last_updated

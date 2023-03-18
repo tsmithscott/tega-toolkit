@@ -104,7 +104,6 @@ function processSection(sectionID) {
 	if (sectionID === "introduction" || sectionID === "foundation") {
 		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
-
 	// Placeholders for sections that require inputs
 	} else if (sectionID === "model") {
 		// updateLatestSection(sectionID)
@@ -112,10 +111,6 @@ function processSection(sectionID) {
 	} else if (sectionID === "assessment") {
 		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
-	} else if (sectionID === "justification") {
-		// updateLatestSection(sectionID)
-		unlockNextSection(sectionID);
-
 	// Individual handling for sections with inputs
 	} else {
 		let section_game = {};
@@ -148,7 +143,7 @@ function processSection(sectionID) {
 				}
 
 				current_game[sectionID] = section_game;
-				save = processGameData();
+				save = processGameData(false);
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -167,7 +162,7 @@ function processSection(sectionID) {
 			}
 
 
-			save = processGameData();
+			save = processGameData(false);
 			if (save) {
 				selections = [];
 				unlockNextSection(sectionID);
@@ -206,7 +201,7 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData();
+			save = processGameData(false);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -227,7 +222,7 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData();
+			save = processGameData(false);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -249,7 +244,7 @@ function processSection(sectionID) {
 			
 
 			current_game[sectionID] = section_game;
-			save = processGameData();
+			save = processGameData(false);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -275,14 +270,24 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData();
+			save = processGameData(false);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
 				alert("Unable to save progress. Please contact support.");
 			}
+		}
 
+		// JUSTIFICATION SECTION: processGameData() must be called with true passed as a parameter.
+		else if (sectionID === "justification") {
+			save = processGameData(true);
 
+			if (save) {
+				alert("DEBUG: SAVED TO DATABASE.");
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress to the database. Please contact support.");
+			}
 		} else {
 			var selections = section.find(".green").map(function() {
 				return this.id.split("-")[2];
@@ -296,7 +301,7 @@ function processSection(sectionID) {
 
 				current_game[sectionID] = [];
 				current_game[sectionID] = selections;
-				save = processGameData();
+				save = processGameData(false);
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -328,13 +333,17 @@ function processLatestSection(latestSection) {
 }
 
 
-function processGameData() {
+function processGameData(complete) {
 	let saved = '';
+	let url = '/ajax-autosave';
+	let test = getCookie('fakecookie');
+	console.log(test);
 	deleteCookie("_game_data");
+
 	$.ajax({
-		url: '/ajax-autosave',
+		url: url,
 		contentType: "application/json;charset=utf-8",
-		data: JSON.stringify({current_game}),
+		data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id")}),
 		type: 'POST',
 		success: function(response) {
 			saved = true;
@@ -547,6 +556,18 @@ function addGameDataStyling() {
 						$(textarea).val(gameData['instruction'][instruction]);
 					}
 					break;
+				case('playability'):
+					let tablebody = $('#playability-content').find('tbody');
+					let empty_row = $(tablebody).children().first()[0];
+					empty_row = $(empty_row).children();
+					let rows = gameData['playability'].reverse();
+
+					for (let row of rows) {
+						for (let td_data in row) {
+							$(empty_row[td_data]).children().first().val(row[td_data]);
+						}
+						createPlayabilityRow($(empty_row[0]).children().first(), true);
+					}
 			}
 		}
 	}
@@ -714,23 +735,26 @@ function removeModelsSubmeasureDropdown(model_for_id) {
 }
 
 
-function createPlayabilityRow(row_button) {
+function createPlayabilityRow(row_button, loading) {
 	let invalid = false;
-	for (let sibling of $(row_button).parent().siblings()) {
-		let child = $(sibling).children()[0];
-		if ($(sibling).children().first().val() === '') {
-			$(child).css("border-color", "red");
-			invalid = true;
-		} else {
-			if (sibling === $(row_button).parent().siblings().first()[0]) {
-				if ($(row_button).parent().siblings().first().children().first().val() < 1) {
-					$(child).css("border-color", "red");
-					invalid = true;
+
+	if (!loading) {
+		for (let sibling of $(row_button).parent().siblings()) {
+			let child = $(sibling).children()[0];
+			if ($(sibling).children().first().val() === '') {
+				$(child).css("border-color", "red");
+				invalid = true;
+			} else {
+				if (sibling === $(row_button).parent().siblings().first()[0]) {
+					if ($(row_button).parent().siblings().first().children().first().val() < 1) {
+						$(child).css("border-color", "red");
+						invalid = true;
+					} else {
+						$(child).css("border-color", "#ced4da");
+					}
 				} else {
 					$(child).css("border-color", "#ced4da");
 				}
-			} else {
-				$(child).css("border-color", "#ced4da");
 			}
 		}
 	}
@@ -742,7 +766,7 @@ function createPlayabilityRow(row_button) {
 		let tr = `<tr></tr>`;
 		$(input_row).after(tr);
 		row_number = Number(row_number) + 1;
-		let first_td = `<td><button onclick="removePlayabilityRow(this)" class="btn btn-danger btn-sm"><span class="fas fa-trash" style="font-size:16px"></span>	${row_number}</button></td>`;
+		let first_td = `<td><button value=${row_number} onclick="removePlayabilityRow(this)" class="btn btn-danger btn-sm"><span class="fas fa-trash" style="font-size:16px"></span>	${row_number}</button></td>`;
 		let new_row = $(input_row).next();
 		$(new_row).append(first_td);
 		for (let td of tds) {
