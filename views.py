@@ -20,11 +20,6 @@ def load_user(user_id):
     return Users.query.get(user_id)
 
 
-@app.route('/fake')
-def test():
-    return generate_password_hash("password"), 200
-
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if current_user.is_authenticated:

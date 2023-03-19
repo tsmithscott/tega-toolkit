@@ -7,7 +7,26 @@
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
                     <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
-                    <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 45px;">
+                    {% if current_user.is_authenticated %}
+                    <div id="dashboard-saved-games" style="min-width:200px; height: 550px; overflow-y: auto; overflow-x:hidden; justify-content:center; align-items: center;">
+                        <p style="color:black;">Select from your current games... <i>or</i> <button class="btn btn-primary">Create a New Game</button></p>
+                        <div class="col-sm-4" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
+                            <ul class="list-group w-sm-50" style="direction: ltr; ">
+                                <button id="introduction" class="list-group-item list-group-item-action" aria-current="true">
+                                    <input type="hidden">
+                                    <div class="col-sm mx-auto text-nowrap">
+                                        <ul class="list-group list-group-horizontal-sm justify-content-center">
+                                            <li class="list-group-item">Latest section: *Section*</li>
+                                            <li class="list-group-item">Complete: *True/False*</li>
+                                            <li class="list-group-item">Last modified: *Datetime*</li>
+                                        </ul>
+                                    </div>
+                                </button>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 45px; {% if current_user.is_authenticated %}display: none{% endif %}">
                         <div class="col-sm-4" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
                             <ul class="list-group w-sm-50" style="direction: ltr;">
                                 <button id="introduction" class="list-group-item list-group-item-action active" aria-current="true">Introduction<input type="hidden" value=1></button>
@@ -339,7 +358,7 @@
                                 <!-- Theoretical Model -->
                                 <div id="model-content" class="dashboard-content" style="display:none;">
                                     <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
-                                        Press to view Game Theoretical Classifications table</a><br /><br />
+                                        Press to view Game Theoretical Models and Classifications table</a><br /><br />
                                     <p style="color: black;">By this time, you should have made some preliminary decisions about the learning mechanics, the thinking skills and game mechanics. The options below give you some inspiration on some Rule designs. So, by eliminating non-viable options from the menu options, you will be limiting your game rule designs. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
                                     <p style="color: black;">Use the button below to add a 'Thinking Skill'. For each thinking skill, there are 3 columns to consider: <b>Learning Mechanics</b>, <b>Game Mechanics</b>, and <b>Game Rule Designs</b></p>
                                     <p style="color: black;">Select <b>one or more</b> options for each dropdown.</p>
@@ -1021,6 +1040,7 @@
                         </div>
                     </div>
                     <br />
+                    {% if not current_user.is_authenticated %}
                     <div class="row">
                         <div id="progress-bar-div" class="col-md-12">
                             <div class="progress">
@@ -1028,6 +1048,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
