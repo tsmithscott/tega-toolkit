@@ -80,8 +80,8 @@
                         </div>
                     </div>
                     {% endif %}
-                    <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 45px; {% if current_user.is_authenticated %}display: none{% endif %}">
-                        <div class="col-sm-5" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
+                    <div id="dashboard-container-left" class="row gx-5 centered-div flex-nowrap" style="padding-bottom: 25px; padding-left: 45px; padding-right: 35px; {% if current_user.is_authenticated %}display: none{% endif %}">
+                        <div class="col-sm-4" style="min-width:200px; height: 550px; overflow-y: scroll; overflow-x:hidden; direction: rtl;">
                             <ul class="list-group w-sm-50" style="direction: ltr;">
                                 <button id="introduction" class="list-group-item list-group-item-action dashboard-section active" aria-current="true">Introduction<input type="hidden" value=1></button>
                                 <button id="profile" class="list-group-item list-group-item-action dashboard-section" disabled style="background-color:lightgray">Player profile<input type="hidden" value=0></button>
@@ -98,16 +98,17 @@
                                 <button id="justification" class="list-group-item list-group-item-action dashboard-section" disabled style="background-color:lightgray">Justification<input type="hidden" value=0></button>
                             </ul>
                         </div>
-                        <div id="dashboard-container-right" class="container justify-content-center text-center p-2" style="max-height:550px; min-height:550px;">
+                        <div id="dashboard-container-right" class="container justify-content-center text-center pt-1 pb-0" style="max-height:550px; min-height:550px;">
 
-                            <div id="dashboard-container-right-column" class="col-12">
+                            <div id="dashboard-container-right-column" class="col-12" style="height: 546px;">
 
 
                                 <!-- Introduction -->
                                 <div id="introduction-content" class="dashboard-content">
-                                    <a id="introductionModal1Button" class="btn btn-primary btn-block text-wrap" data-bs-toggle="modal" href="#introductionModal1" role="button">
-                                        Click for a Detailed Overview of the Toolkit</a>
-                                    <br />
+                                    <a id="introductionModal1Button" class="btn btn-primary text-wrap" data-bs-toggle="modal" href="#introductionModal1" role="button">
+                                        Press to view a more Detailed Overview of the Toolkit
+                                    </a>
+                                    <br /><br />
                                     <p style="color: black">To create a game that meets specific learning outcomes, the TEGA design package provides a systematic process for exploring and applying game characteristics and mechanics, as well as for assessing learning outcomes. By following this process, game designers can create games that effectively leverage motivation and inclusivity, and that are tailored to meet the needs of specific learners and learning goals.</p>
                                     <p style="color: black">We go through the process as follows:</p>
                                     <div class="accordion" style="text-align: center;">
@@ -165,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br /><br />
+                                    <br />
                                     <button onclick="processSection('introduction')" id="introduction-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Continue to next section</button>
                                 </div>
                                 <!-- End Introduction -->
@@ -201,7 +202,6 @@
                                             Adversaries</button>
                                         </div>
                                     </div>
-                                    <br />
                                     <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
                                     <br />
                                     <button onclick="processSection('profile')" id="profile-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">Save & Continue</button>
@@ -332,7 +332,6 @@
                                     </div>
                                     <span class="errorMessage" style="color:red" hidden>You must select at least one option!</span>
                                     <span class="errorSubMessage" style="color:red" hidden>Please select at least one submeasure from the non-green measures!</span>
-                                    <br />
                                     <br />
                                     <button onclick="processSection('characteristics')" id="characteristics-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
@@ -1034,7 +1033,7 @@
                                     <p style="color:black;">In this section, you will be testing your game to ensure that it is enjoyable and functional for players.</p>
                                     <p style="color:black;">Playtesting is the process of testing your game with a group of players to identify any issues, errors or bugs that may impact the playability of the game. Beta-Play refers to a specific type of playtesting that involves releasing a beta version of the game to a small group of players, often selected from the game's target audience. The players then provide feedback on their experiences with the game, which can be used to improve and refine the game design.</p>
                                     <p style="color:black;">In this section, you will plan and conduct a half-day playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
-                                    <p style="color:black;">Please add records accordingly:</p><br />
+                                    <p style="color:black;">Please add records accordingly:</p>
                                     <form id="playability-form" action="javascript:;" onsubmit="processSection('playability')">
                                         <table class="table table-bordered" style="color:black;">
                                             <thead>
@@ -1111,7 +1110,7 @@
 
 <!-- Modals - Introduction -->
 <div class="modal fade" id="introductionModal1" tabindex="-1" aria-labelledby="introductionModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="introductionModalLabel1">Overview</h1>
@@ -1131,7 +1130,7 @@
 
 <!-- Modals - Characteristics of a Game -->
 <div class="modal fade" id="characteristicsModal1" tabindex="-1" aria-labelledby="characteristicsModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="characteristicsModalLabel1">Game Structure</h1>
@@ -1311,7 +1310,7 @@
     </div>
 </div>
 <div class="modal fade" id="foundationModal4" tabindex="-1" aria-labelledby="foundationModalLabel4" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel4">Rule System</h1>
@@ -1369,7 +1368,7 @@
     </div>
 </div>
 <div class="modal fade" id="foundationModal5" tabindex="-1" aria-labelledby="foundationModalLabel5" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel5">Flow Principle</h1>
