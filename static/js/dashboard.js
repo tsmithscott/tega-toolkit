@@ -449,8 +449,8 @@ function parseJWT(jwt) {
 
 // Set all dashboard card component styling to default/disabled/hidden
 function removeAllStyling() {
-	$('.list-group-item.list-group-item-action').removeClass('active').removeAttr('aria-current');
-	$('.list-group-item.list-group-item-action').attr('disabled', true).css('background-color', 'lightgray');
+	$('.list-group-item.list-group-item-action.dashboard-section').removeClass('active').removeAttr('aria-current');
+	$('.list-group-item.list-group-item-action.dashboard-section').attr('disabled', true).css('background-color', 'lightgray');
 	$('.dashboard-content').hide();
 }
 
