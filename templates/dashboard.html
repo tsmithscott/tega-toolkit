@@ -8,11 +8,11 @@
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
                     <div id="dashboard-card-header" class="container text-center" style="height: 90px;">
                         <div class="row">
-                            <div class="col" style="height: 85px;"></div>
-                            <div class="col" style="height: 85px;">
+                            <div class="col-4" style="height: 85px;"></div>
+                            <div class="col-4" style="height: 85px;">
                                 <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
                             </div>
-                            <div class="col" style="height: 85px;">
+                            <div class="col-4" style="height: 85px;">
                                 {% if current_user.is_authenticated %}
                                 <div class="float-right" style="position:relative; top:20px; left:50px;">
                                     <button id="page-switch-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="toggleDashboardPage()">
@@ -105,6 +105,7 @@
 
                                 <!-- Introduction -->
                                 <div id="introduction-content" class="dashboard-content">
+                                    <h2><b>Introduction</b></h2><br />
                                     <a id="introductionModal1Button" class="btn btn-primary text-wrap" data-bs-toggle="modal" href="#introductionModal1" role="button">
                                         Press to view a more Detailed Overview of the Toolkit
                                     </a>
@@ -174,7 +175,7 @@
 
                                 <!-- Player Profile -->
                                 <div id="profile-content" class="dashboard-content" style="display:none;">
-                                    <!-- <img src="{{ url_for('static', filename='images/player-profile.jpg') }}" style="min-width:250px; max-width:400px;"> -->
+                                    <h2><b>Player Profile</b></h2><br />
                                     <p style="color: black">Player Profiles, per Bartle's original 1996 typology for Multi-user Dungeons, which maps to a ACTING-INTERACTING, PLAYERS-WORLD interest graph (adapted from <a href="https://mud.co.uk/richard/hcds.htm">https://mud.co.uk/richard/hcds.htm</a>)</p>
                                     <p style="color: black">Think about what your player profiles are, or what learner profiles you would like to target in your design.<br /><sub>(Select <b><i>one</i></b> or more)</sub></p><br />
                                     <div class="row inline">
@@ -211,6 +212,7 @@
 
                                 <!-- Learner Typology -->
                                 <div id="typology-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Learner Typology</b></h2><br />
                                     <p style="color:black"><b>Learner Profiles</b> (opposite pairs, each pair an axis in the multidimensional typology), roughly citing the seminal typology in Felder & Silverman, 1988 (Learning and Teaching Styles in Engineering Education):</p>
                                     <p style="color: black">Think about what your learner profiles are, or what learner profiles you would like to target in your design.</p>
                                     <p style="color: black">Select <i><b>one</b></i> from each row that applies to your students.<br/><sub>(Hover over options for more information)</sub></p>
@@ -307,6 +309,7 @@
 
                                 <!-- Characteristics of a Game -->
                                 <div id="characteristics-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Characteristics of a Game</b></h2><br />
                                     <p style="color: black;">The measures for a good game extracted from the focus group are listed here. They can be used to make decisions about what characteristics of the game you would like to fit within your game.</p>
                                     <a id="characteristicsModal1Button" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#characteristicsModal1" role="button">
                                         Click for More Info</a>
@@ -342,6 +345,7 @@
 
                                 <!-- Theoretical Foundation -->
                                 <div id="foundation-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Theoretical Foundation</b></h2><br />
                                     <p style="color: black">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>).</p>
                                     <p style="color: black">To add a theoretical foundation, we need to ensure the existence of the following within our game:<br />
                                         <sub>(Press for descriptions)</sub>
@@ -410,9 +414,11 @@
 
                                 <!-- Theoretical Model -->
                                 <div id="model-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Theoretical Model</b></h2><br />
+                                    <p style="color: black;">By this time, you should have made some preliminary decisions about the <b>learning mechanics</b>, the <b>thinking skills</b> and <b>game mechanics</b>. The options below give you some inspiration on some rule designs. So, by eliminating non-viable options from the <b>thinking skill</b> options, you will be limiting your <b>game rule designs</b>. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
                                     <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
-                                        Press to view Game Theoretical Models and Classifications table</a><br /><br />
-                                    <p style="color: black;">By this time, you should have made some preliminary decisions about the learning mechanics, the thinking skills and game mechanics. The options below give you some inspiration on some Rule designs. So, by eliminating non-viable options from the menu options, you will be limiting your game rule designs. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
+                                        Press to view Game Theoretical Models and Classifications table
+                                    </a><br /><br />
                                     <p style="color: black;">Use the button below to add a 'Thinking Skill'. For each thinking skill, there are 3 columns to consider: <b>Learning Mechanics</b>, <b>Game Mechanics</b>, and <b>Game Rule Designs</b></p>
                                     <p style="color: black;">Select <b>one or more</b> options for each dropdown.</p>
                                     <div id="model-content-accordion-row" class="row">
@@ -447,6 +453,7 @@
 
                                 <!-- Selection of Clean Slate Game -->
                                 <div id="slate-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Selection of Clean Slate Game</b></h2><br />
                                     <p style="color:black;">The clean slate of the game (if the educator doesn’t intend to create a game from scratch) can be taken from BGG (<a href="https://boardgamegeek.com/browse/boardgamemechanic">https://boardgamegeek.com/browse/boardgamemechanic</a>) as well as any other desired data based or example.</p>
                                     <p style="color:black;">We then will use this clean slate of the games and add/amend the criteria related to the learner/player typology, game characteristics, mechanics, principle of Playability (The easement of instruction) and Inclusivity/Accessibility.</p>
                                     <p style="color:black;">We then make sure to include some principle of Flow theory in order to design a step-based instruction for the game as well as clear assessment and learning outcomes.</p>
@@ -465,6 +472,7 @@
 
                                 <!-- Accessibility and Inclusivity -->
                                 <div id="accessibility-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Accessibility and Inclusivity</b></h2><br />
                                     <p style="color:black">Inclusive design recognizes accessibility for people with and without disabilities, by including the voices and representations of players in the game.</p>
                                     <img src={{ url_for('static', filename='images/inclusivity-accessibility.jpg') }} class="img-fluid rounded mx-auto" alt="The dimensions of accessibility and inclusive design">
                                     <sub>Figure: The dimensions of accessibility and inclusive design</sub><br /><br />
@@ -839,6 +847,7 @@
 
                                 <!-- Flow Element of the Design -->
                                 <div id="design-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Flow Element of the Design</b></h2><br />
                                     <p style="color:black">The following table has been provided to assist with evaluating the flow element of the design.</p>
                                     <p style="color:black">Please fill it out to ensure that all necessary considerations have been made.<br /><br />
                                         <sub>(Complete 'Tools Considered' <i><b>or</b></i> 'Why not Considered' for <i><b>all</b></i> rows)</sub>
@@ -953,6 +962,7 @@
 
                                 <!-- Drafting Instructions of the Game -->
                                 <div id="instruction-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Drafting Instructions of the Game</b></h2><br />
                                     <p style="color:black;">To make sure your game is comprehensive and well-considered, please complete the table below with all the relevant information.<br /><br />
                                         <sub>(Complete <i><b>all</b></i> rows)</sub>
                                     </p>
@@ -961,8 +971,8 @@
                                         <table class="table table-bordered" style="color:black;">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col" class="col-6">Instruction Points</th>
-                                                    <th scope="col" class="col-6">What is Considered</th>
+                                                    <th scope="col" class="col-5">Instruction Points</th>
+                                                    <th scope="col" class="col-7">What is Considered</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1003,7 +1013,7 @@
                                                     <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Stop point (When does the game is considered finished).</td>
+                                                    <td>Stop point (When is the game considered finished).</td>
                                                     <td><textarea class="form-control reasoning" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
@@ -1030,9 +1040,10 @@
 
                                 <!-- Game Playability-->
                                 <div id="playability-content" class="dashboard-content" style="display:none;">
+                                    <h2><b>Game Playability</b></h2><br />
                                     <p style="color:black;">In this section, you will be testing your game to ensure that it is enjoyable and functional for players.</p>
                                     <p style="color:black;">Playtesting is the process of testing your game with a group of players to identify any issues, errors or bugs that may impact the playability of the game. Beta-Play refers to a specific type of playtesting that involves releasing a beta version of the game to a small group of players, often selected from the game's target audience. The players then provide feedback on their experiences with the game, which can be used to improve and refine the game design.</p>
-                                    <p style="color:black;">In this section, you will plan and conduct a half-day playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
+                                    <p style="color:black;">In this section, you will plan and conduct a <b>half-day</b> playtesting session to gather feedback on your game. This will involve selecting a group of players, creating a testing environment, and facilitating the playtesting session. You will also be responsible for analyzing the feedback collected during the playtesting session, identifying any issues or bugs, and making any necessary adjustments to improve the game's playability.</p>
                                     <p style="color:black;">Please add records accordingly:</p>
                                     <form id="playability-form" action="javascript:;" onsubmit="processSection('playability')">
                                         <table class="table table-bordered" style="color:black;">
@@ -1071,7 +1082,265 @@
 
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
-                                    <p style="color:black;">Game Feedback Questionnaire</p>
+                                    <h2><b>Assessment</b></h2>
+                                    <p style="color:black;">*MOVE THIS CONTENT TO A GENERATED LINK FOR THE GAME OR GOOGLE FORMS*</p>
+
+                                    <!-- Game feedback questionnaire (corrected version based on trainees' feedback) -->
+                                    <div class="container-fluid" id="assessment-content-feedback">
+                                        <h3>Game feedback questionnaire</h3>
+                                        <!-- Question 1 -->
+                                        <div class="row" id="assessment-content-feedback-question-1">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>1.</b> What was your experience of the game?</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 2-->
+                                        <div class="row" id="assessment-content-feedback-question-2">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>2.</b>
+                                                    What was your favourite moment(s) in the game? 
+                                                    Would you change something? If Yes, what would you change?
+                                                    </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 3-->
+                                        <div class="row" id="assessment-content-feedback-question-3">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>3.</b>
+                                                    What would you change about the game?</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 4-->
+                                        <div class="row" id="assessment-content-feedback-question-4">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>4.</b>
+                                                    Was there anything in the rules you didn’t understand? (mechanics)
+                                                    </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 5-->
+                                        <div class="row" id="assessment-content-feedback-question-5">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>5.</b>
+                                                    What do you think is the learning purpose of the game?
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 6-->
+                                        <div class="row" id="assessment-content-feedback-question-6">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>6.</b>
+                                                    What do you feel that you have actually learned?
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <!-- Question 7-->
+                                        <div class="row" id="assessment-content-feedback-question-7">
+                                            <div class="col-12">
+                                                <p class="text-left" style="color:black;"><b>7.</b> What was your favourite moment(s) in the game? 
+                                                    Would you change something? If Yes, what would you change?
+                                                    </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control" row="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Game Feedback Questionnaire -->
+
+                                    <br />
+
+                                    <!-- Post-test questionnaire (based on M. Sousa’s (2021) suggestions) -->
+                                    <div class="container-fluid" id="assessment-content-post-test">
+                                        <h3>Post-test questionnaire</h3>
+                                        <p style="color:black;">Answer <b>all</b> questions <br /><sub>(1=None, 5=Totally)</sub></p>
+                                        <!-- Question 1 -->
+                                        <div class="row" id="assessment-content-post-test-question-1">
+                                            <div class="col-7">
+                                                <p style="color:black;"><b>1.</b> How the game maintains the balance between fun and knowledge acquisition</p>
+                                            </div>
+                                            <div class="col-5 my-auto">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-1-1" value="1">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-1-1">1</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-1-2" value="2">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-1-2">2</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-1-3" value="3">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-1-3">3</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-1-4" value="4">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-1-4">4</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-1-5" value="5">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-1-5">5</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Question 2 -->
+                                        <div class="row" id="assessment-content-post-test-question-2">
+                                            <div class="col-7">
+                                                <p style="color:black;"><b>2.</b> How much you were engaged into the game?</p>
+                                            </div>
+                                            <div class="col-5 my-auto">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-2-1" value="1">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-2-1">1</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-2-2" value="2">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-2-2">2</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-2-3" value="3">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-2-3">3</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-2-4" value="4">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-2-4">4</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-2-5" value="5">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-2-5">5</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Question 3 -->
+                                        <div class="row" id="assessment-content-post-test-question-3">
+                                            <div class="col-7">
+                                                <p style="color:black;"><b>3.</b> How do you classify the level of difficulty of the played game?</p>
+                                            </div>
+                                            <div class="col-5 my-auto">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-3-1" value="1">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-3-1">1</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-3-2" value="2">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-3-2">2</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-3-3" value="3">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-3-3">3</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-3-4" value="4">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-3-4">4</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-3-5" value="5">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-3-5">5</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Question 4 -->
+                                        <div class="row" id="assessment-content-post-test-question-4">
+                                            <div class="col-7">
+                                                <p style="color:black;"><b>4.</b> How do you classify the level of anxiety during playing the game?</p>
+                                            </div>
+                                            <div class="col-5 my-auto">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-4-1" value="1">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-4-1">1</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-4-2" value="2">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-4-2">2</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-4-3" value="3">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-4-3">3</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-4-4" value="4">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-4-4">4</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-4-5" value="5">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-4-5">5</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Question 5 -->
+                                        <div class="row" id="assessment-content-post-test-question-5">
+                                            <div class="col-7">
+                                                <p style="color:black;"><b>5.</b> How do you classify the level of surprise during playing the game? - no needed</p>
+                                            </div>
+                                            <div class="col-5 my-auto">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-5-1" value="1">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-5-1">1</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-5-2" value="2">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-5-2">2</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-5-3" value="3">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-5-3">3</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-5-4" value="4">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-5-4">4</label>
+                                                        </div>
+                                                        <div class="form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="scale" id="assessment-content-post-test-question-5-5" value="5">
+                                                            <label class="form-check-label" for="assessment-content-post-test-question-5-5">5</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Post Test Questionnaire-->
+
                                     <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
@@ -1081,7 +1350,35 @@
 
                                 <!-- Justification -->
                                 <div id="justification-content" class="dashboard-content" style="display:none;">
-                                    Justification Content
+                                    <h2><b>Justification</b></h2><br />
+                                    <p style="color:black;">
+                                        The questions of <b><i>Game feedback questionnaire</i></b> were created based on the publications on following topic, the comments of the trainees during the 1st TEGA training activity, and the notes of the teachers who incorporate games into their training programs and who have been interviewed in a frame of TEGA project (IO1).
+                                    </p>
+                                    <p style="color:black;">
+                                        Researchers (Fokides et al.,2019; Gow et al., 2010; Ijsselsteijn et al., 2013; Sousa, 2021) and teachers state that it is important to get feedback from as many students as possible after testing a new game in the classroom. Therefore, the questionnaire should be short and the answers have to reveal students' emotions, experiences, knowledge acquired and ideas for improvements of the game.
+                                    </p>
+                                    <p style="color:black;">
+                                        The <b><i>Game feedback questionnaire</i></b> consists of six questions:
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 1.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 2.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 3.</b> <i>Would you change something in the game?</i> If yes, what would you change? The aim of this question is to capture the emotions and experience, most likely negative, after playing the game. What students would like to remove from the game may be the part that causes them negative emotions and experiences. What students would like to add can have a positive effect on the dynamics of the game. All coments would help to improve the game.
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 4.</b> <i>What do you think was the learning purpose of the game?</i> The aim of this question is to invite students to evaluate the educational purpose of the game, i.e. experience and knowledge acquired and caused by the game in general.
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 5.</b> <i>What did you actually learn?</i> The aim of this question is to invite students to reflect and self-evaluate the knowledge they acquired through the game.
+                                    </p>
+                                    <p style="color:black;">
+                                        <b>Question No. 6.</b> <i>Do you have any other feedback you'd like the designer or publisher to hear?</i> The answers to this question can give some insights to the game designer and/or publisher on how the particular game can be improved.
+                                    </p>
+                                    
                                     <button onclick="processSection('justification')" id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Save & Continue
                                     </button>
