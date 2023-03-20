@@ -46,6 +46,15 @@ $(document).ready(function() {
 	disableBodyScroll();
 });
 
+$("#page-switch-button").click(function() {
+    var buttonText = $(this).text().trim();
+    if (buttonText === "Return to most recent game") {
+        $(this).text("Return to saved games");
+    } else if (buttonText === "Return to saved games") {
+        $(this).text("Return to most recent game");
+    }
+});
+
 function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
 }
@@ -620,9 +629,8 @@ function unlockNextSection(currentSection) {
 }
 
 
-// TODO: Add cookie functionality, remove redundant testing code (if (clickedButton.children().val() === "0"), etc.) 
 // Handle dashboard list button clicks
-$('.list-group-item').click(function() {
+$('.list-group-item.dashboard-section').click(function() {
 	let currentButton = $('.list-group-item.list-group-item-action.active');
 	let clickedButton = $(this);
 	let clickedButtonContent = clickedButton.attr('id') + '-content';
@@ -809,6 +817,26 @@ function processDesign(input_element) {
 		adjacent_textarea.removeAttr("required");
 	}
 }
+
+
+function toggleDashboardPage() {
+	// Toggle visibility of saved games page
+	if ($("#dashboard-saved-games").is(":hidden")) {
+		$("#dashboard-saved-games").show();
+	} else {
+		$("#dashboard-saved-games").hide();
+	}
+	// Toggle visibility of dashboard page
+	if ($("#dashboard-container-left").is(":hidden")) {
+		$("#dashboard-container-left").show();
+		$("#progress-bar-div").parent().show();
+		loadGameData();
+	} else {
+		$("#dashboard-container-left").hide();
+		$("#progress-bar-div").parent().hide();
+	}
+}
+
 
 // Handle 'Theoretical Foundation' section modals
 $("#foundationModal1Button").click(function(){
