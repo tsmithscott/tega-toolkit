@@ -58,15 +58,36 @@ def login():
 
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
-    '''---ADD LOGIC TO THIS---'''
     if request.method == "POST":
         data = request.form.get("profile_button")
         if data == "test":
             session["input_type"] = data
-    '''-----------------------'''
 
-    return render_template("dashboard.html", title="Tega Toolkit - Dashboard")
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL)
+
+
+@app.route("/form/<game_id>", methods=['GET'])
+def assessment_form(game_id):
+    game = Games.query.filter_by(id=game_id).first()
+    game_exists = False
+    if not game:
+        print("Game not found")
+    else:
+        print("Game found")
+        game_exists = True
+    
+    return render_template("form.html", title="Tega Toolkit - Assessment Form", game=game, game_exists=game_exists)
+
+
+@app.route("/form-submit", methods=['POST'])
+def assessment_form_submit():
+    form_data = request.form.get("data")
+    game_id = request.form.get("gameID")
+    # TODO: Validation & adding record to the database ('Forms' table - amend if required)
+    
+    return redirect(url_for("index"))
         
+
     
 @app.route("/google-login", methods=["GET"])
 def google_login():
