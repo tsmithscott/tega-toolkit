@@ -1248,6 +1248,11 @@ li {
   margin-top: 45px;
 }
 
+.flip {
+  transform: rotate(180deg) translate(0, 2px);
+  transition: transform 0.5s;
+}
+
 @media (max-width: 995px) {
   #index-container {
     padding-top: 50px;

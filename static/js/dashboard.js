@@ -345,8 +345,6 @@ function processLatestSection(latestSection) {
 function processGameData(complete) {
 	let saved = '';
 	let url = '/ajax-autosave';
-	let test = getCookie('fakecookie');
-	console.log(test);
 	deleteCookie("_game_data");
 
 	$.ajax({
@@ -668,7 +666,7 @@ function processCharacteristicMeasure(characteristic) {
 	
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
-	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');
+	$('#characteristics-content-accordion-row').prepend('<div class="characteristics-content-accordion-' + characteristic_for_id + '" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button onclick="flipArrow(this)" id="' + characteristic_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + characteristic_for_id + '-collapse" aria-expanded="true" aria-controls="' + characteristic_for_id + '-collapse">' + characteristic + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeCharacteristicsSubmeasureDropdown("' + characteristic_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="' + characteristic_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + characteristic_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');
 	for (submeasure in characteristics[characteristic]) {
 		let sm = characteristics[characteristic][submeasure];
 		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
@@ -716,9 +714,60 @@ function processModelMeasure(model) {
 }
 
 
+function flipArrow(accordion_button) {
+	let arrow = $(accordion_button).find('span');
+	$(arrow).toggleClass("flip")
+}
+
+
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createModelsSubmeasureDropdown(model_for_id, model) {
-	$("#model-content-add-dropdown-row").before('<div class="row"><div class="col"><div class="model-content-accordion-' + model_for_id + ' centered-div"><div class="centered-div" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + model_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + model_for_id + '-collapse" aria-expanded="true" aria-controls="' + model_for_id + '-collapse">' + model + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeModelsSubmeasureDropdown("' + model_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="Evaluating-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-Evaluating"><div class="accordion-body"><div class="card" style="width: 700px; max-height: 200px;"><div class="card-body"><div class="container-fluid"><div class="row"><div class="col"><h5 style="color:black;">Learning Mechanics</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"> </ul></div><div class="col"><h5 style="color:black;">Game Mechanics</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div><div class="col"><h5 style="color:black;">Game Rule Designs</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div></div></div></div></div></div></div><br />');
+	$("#model-content-add-dropdown-row").before(`
+	<div class="row model-content-accordion-${model_for_id}">
+		<div class="col">
+			<div class="centered-div">
+				<div class="centered-div" style="text-align: left; max-height: 170px; padding:5px;">
+					<div class="accordion-item">
+						<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
+							<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+								<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse">
+									${model} 
+									<span class="fas fa-angle-down"></span>
+								</button>
+								<button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick="removeModelsSubmeasureDropdown('${model_for_id}')" aria-label="Close">
+									<span style="font-size:15pt;" aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						</h2>
+						<div id="${model_for_id}-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-${model_for_id}">
+							<div class="accordion-body">
+								<div class="card" style="width: 700px; max-height: 200px;">
+									<div class="card-body">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col">
+													<h5 style="color:black;">Learning Mechanics</h5>
+													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+												</div>
+												<div class="col">
+													<h5 style="color:black;">Game Mechanics</h5>
+													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+												</div>
+												<div class="col">
+													<h5 style="color:black;">Game Rule Designs</h5>
+													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>`
+	);
 	for (submeasure in models[model]) {
 		let sm = models[model][submeasure];
 
@@ -736,17 +785,17 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 
 
 function removeModelsSubmeasureDropdown(model_for_id) {
-	let unprocessed_keys = Object.keys(model_for_id);
-	let keys = Object.keys(model_for_id);
+	let unprocessed_keys = Object.keys(models);
+	let keys = unprocessed_keys;
 	let model;
-	for (let i = 0; i < keys.length; i++) {
-		keys[i] = keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+	for (let i = 0; i < unprocessed_keys.length; i++) {
+		keys[i] = unprocessed_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
 		if (keys[i] === model_for_id) {
 			model = unprocessed_keys[i];
 		}
 	}
 	$('.model-content-accordion-' + model_for_id).remove();
-	$("#model-content-add-dropdown-button").siblings().append('<li id="'+ model_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + model + '</a></li>');
+	$("#model-content-add-dropdown-button").siblings().append(`<li id="${model_for_id}" onclick="processModelMeasure(this)"><a class="dropdown-item" href="#">${model}</a></li>`);
 }
 
 
