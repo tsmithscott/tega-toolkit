@@ -227,6 +227,7 @@ function processSection(sectionID) {
 			for (let field of fields) {
 				let subsection_td = $(field).parent().siblings()[0];
 				let subsection = $(subsection_td).html();
+				if (subsection === "Assessment1") subsection = "Assessment";
 				section_game[subsection] = $(field).val() + ($(field).hasClass('tools') ? "_tools" : "_reason");
 			}
 
