@@ -417,13 +417,55 @@
                                     </a><br /><br />
                                     <p style="color: black;">Use the button below to add a 'Thinking Skill'. For each thinking skill, there are 3 columns to consider: <b>Learning Mechanics</b>, <b>Game Mechanics</b>, and <b>Game Rule Designs</b></p>
                                     <p style="color: black;">Select <b>one or more</b> options for each dropdown.</p>
-                                    <div id="model-content-accordion-row" class="row">
-                                        <div id="model-content-dropdown" class="col">
-                                            <!-- Populated by adding using 'model-content-add-dropdown' -->
+
+                                    <!-- Accordions added here using JS createModelsSubmeasureDropdown()-->
+                                    <div class="row" style="display:none;">
+                                        <br />
+                                        <div class="col">
+                                            <div class="model-content-accordion-' + model_for_id + ' centered-div" style="text-align: left; max-height: 170px; padding:5px;">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingOne">
+                                                        <div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+                                                        <button id="' + model_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#Evaluating-collapse" aria-expanded="true" aria-controls="' + model_for_id + '-collapse">
+                                                            Evaluating
+                                                            <span class="fas fa-angle-down"></span>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick="removeModelSubmeasureDropdown('Evaluating')" aria-label="Close">
+                                                            <span style="font-size:15pt;" aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="Evaluating-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-Evaluating">
+                                                        <div class="accordion-body">
+                                                            <div class="card" style="width: 700px; max-height: 200px;">
+                                                                <div class="card-body">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <h5 style="color:black;">Learning Mechanics</h5>
+                                                                                <ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"> </ul>
+                                                                            </div>
+                                                                            <div class="col">
+                                                                                <h5 style="color:black;">Game Mechanics</h5>
+                                                                                <ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+                                                                            </div>
+                                                                            <div class="col">
+                                                                                <h5 style="color:black;">Game Rule Designs</h5>
+                                                                                <ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <br />
-                                    <div class="row">
+
+
+
+                                    <div class="row" id="model-content-add-dropdown-row">
                                         <div class="col">
                                             <div id="model-content-add-dropdown" class="dropdown">
                                                 <button id="model-content-add-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -1426,14 +1468,18 @@
     </div>
 </div>
 <div class="modal fade" id="foundationModal6" tabindex="-1" aria-labelledby="foundationModalLabel6" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="foundationModalLabel6">Game Mechanics</h1>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
-                <p class="text-dark">Game mechanics create motivations, a minimal unit for engagement and involvement (Figure 1). A game system usually consists of individual game mechanics in hierarchical, competitive, or mixed units.</p>
+                <p class="text-dark">Game mechanics create motivations, a minimal unit for engagement and involvement (Figure 1). 
+                    <img src={{ url_for('static', filename='images/inclusivity-accessibility.jpg') }} class="img-fluid rounded mx-auto" alt="The dimensions of accessibility and inclusive design">
+                    <sub>Figure 1: The dimensions of accessibility and inclusive design</sub><br /><br /> 
+                    A game system usually consists of individual game mechanics in hierarchical, competitive, or mixed units.
+                </p>
                 <p class="text-dark">Sorting, exploring, and storytelling are examples of macro mechanics. Often storytelling is accompanied by a second macro mechanic such as exploring that is key for setting up sets of supporting micro mechanics. Developers often view storytelling as a method to structure games in plot sequences and purvey meaning. However, meaning can also be purveyed by motivational game mechanics.</p>
                 <p class="text-dark">The simplest game mechanic is a cybernetic control loop of challenges, events, plot options, decisions, actions, and the resulting rewards and punishments (Zurich Game Manifesto-2013). Macro mechanics establish the framework for the decisions and interactions of a game, individual micro mechanics establish playful and purposeful paths and experiences for the player.</p>
                 <p class="text-dark">Micro and macro mechanics are designed as cybernetic circuits or control systems.</p>

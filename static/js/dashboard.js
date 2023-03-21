@@ -718,12 +718,19 @@ function processModelMeasure(model) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createModelsSubmeasureDropdown(model_for_id, model) {
-	$('#model-content-accordion-row').prepend('<div class="model-content-accordion-' + model_for_id + ' centered-div" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + model_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + model_for_id + '-collapse" aria-expanded="true" aria-controls="' + model_for_id + '-collapse">' + model + ' <span class="fas fa-angle-down"></span></button></h2><div id="' + model_for_id + '-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-' + model_for_id + '"><div class="accordion-body"><ul style="max-height:95px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div>');
+	$("#model-content-add-dropdown-row").before('<div class="row"><div class="col"><div class="model-content-accordion-' + model_for_id + ' centered-div"><div class="centered-div" style="text-align: left; max-height: 170px; padding:5px;"><div class="accordion-item"><h2 class="accordion-header" id="headingOne"><div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown"><button id="' + model_for_id + '-button-dropdown" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#' + model_for_id + '-collapse" aria-expanded="true" aria-controls="' + model_for_id + '-collapse">' + model + ' <span class="fas fa-angle-down"></span></button><button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick=removeModelsSubmeasureDropdown("' + model_for_id + '") aria-label="Close"><span style="font-size:15pt;" aria-hidden="true">&times;</span></button></h2><div id="Evaluating-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-Evaluating"><div class="accordion-body"><div class="card" style="width: 700px; max-height: 200px;"><div class="card-body"><div class="container-fluid"><div class="row"><div class="col"><h5 style="color:black;">Learning Mechanics</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"> </ul></div><div class="col"><h5 style="color:black;">Game Mechanics</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div><div class="col"><h5 style="color:black;">Game Rule Designs</h5><ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul></div></div></div></div></div></div></div></div></div></div><br />');
 	for (submeasure in models[model]) {
 		let sm = models[model][submeasure];
-		console.log(sm);
-		sm = sm.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-		$('#' + model_for_id + '-collapse').find('ul').append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
+
+		for (let i=0; i < sm.length; i++) {
+			sm[i] = sm[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		}
+	// 	// Populate 'Learning Mechanics' list
+	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
+	// 	// Populate 'Game Mechanics' List
+	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
+	// 	// Populate 'Game Rule Designs' List
+	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
 	}
 }
 
@@ -738,8 +745,8 @@ function removeModelsSubmeasureDropdown(model_for_id) {
 			model = unprocessed_keys[i];
 		}
 	}
-	$('.characteristics-content-accordion-' + model_for_id).remove();
-	$("#characteristics-content-add-dropdown-button").siblings().append('<li id="'+ model_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + model + '</a></li>');
+	$('.model-content-accordion-' + model_for_id).remove();
+	$("#model-content-add-dropdown-button").siblings().append('<li id="'+ model_for_id +'" onclick=processCharacteristicMeasure(this)><a class="dropdown-item" href="#">' + model + '</a></li>');
 }
 
 

@@ -1244,6 +1244,10 @@ li {
   overflow-y: auto;
 }
 
+.move-down {
+  margin-top: 45px;
+}
+
 @media (max-width: 995px) {
   #index-container {
     padding-top: 50px;
