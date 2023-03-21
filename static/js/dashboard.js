@@ -695,7 +695,7 @@ function populateModelDropdown() {
 	let models_keys = Object.keys(models);
 	let no_models = models_keys.length;
 	for (let i = 0; i < no_models; i++) {
-		$("#model-content-add-dropdown-button").siblings().append('<li id="'+ models_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick=processModelMeasure(this)><a class="dropdown-item" href="#">' + models_keys[i] + '</a></li>')
+		$("#model-content-add-dropdown-button").siblings().append('<li id="'+ models_keys[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '') +'" onclick="processModelMeasure(this);"><a class="dropdown-item" href="#">' + models_keys[i] + '</a></li>')
 	}
 };
 
@@ -725,38 +725,36 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 	$("#model-content-add-dropdown-row").before(`
 	<div class="row model-content-accordion-${model_for_id}">
 		<div class="col">
-			<div class="centered-div">
-				<div class="centered-div" style="text-align: left; max-height: 170px; padding:5px;">
-					<div class="accordion-item">
-						<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
-							<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
-								<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse">
-									${model} 
-									<span class="fas fa-angle-down"></span>
-								</button>
-								<button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick="removeModelsSubmeasureDropdown('${model_for_id}')" aria-label="Close">
-									<span style="font-size:15pt;" aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</h2>
-						<div id="${model_for_id}-collapse" style="position:relative; top:-7px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-${model_for_id}">
-							<div class="accordion-body">
-								<div class="card" style="width: 700px; max-height: 200px;">
-									<div class="card-body">
-										<div class="container-fluid">
-											<div class="row">
-												<div class="col">
-													<h5 style="color:black;">Learning Mechanics</h5>
-													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
-												</div>
-												<div class="col">
-													<h5 style="color:black;">Game Mechanics</h5>
-													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
-												</div>
-												<div class="col">
-													<h5 style="color:black;">Game Rule Designs</h5>
-													<ul style="max-height:130px; overflow-x:hidden; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
-												</div>
+			<div class="centered-div" style="text-align: left; max-height: 170px;">
+				<div class="accordion-item">
+					<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
+						<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+							<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse">
+								${model} 
+								<span class="fas fa-angle-down"></span>
+							</button>
+							<button type="button" class="btn btn-danger btn-sm" style="text-align:center;" onclick="removeModelsSubmeasureDropdown('${model_for_id}')" aria-label="Close">
+								<span style="font-size:15pt;" aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</h2>
+					<div id="${model_for_id}-collapse" style="position:relative; top:-8px; padding-bottom:50px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-${model_for_id}">
+						<div class="accordion-body">
+							<div class="card" style="width: auto; max-height: auto;">
+								<div class="card-body">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-4 text-nowrap">
+												<h5 style="color:black;">Learning Mechanics</h5>
+												<ul style="max-height:200px; overflow-x:auto; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+											</div>
+											<div class="col-4 text-nowrap">
+												<h5 style="color:black;">Game Mechanics</h5>
+												<ul style="max-height:200px; overflow-x:auto; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
+											</div>
+											<div class="col-4 text-nowrap">
+												<h5 style="color:black;">Game Rule Designs</h5>
+												<ul style="max-height:200px; overflow-x:auto; overflow-y:auto; padding-left:0px; position:relative; left: 5px"></ul>
 											</div>
 										</div>
 									</div>
@@ -765,21 +763,41 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 						</div>
 					</div>
 				</div>
+			</div>
 		</div>
 	</div>`
 	);
-	for (submeasure in models[model]) {
-		let sm = models[model][submeasure];
 
-		for (let i=0; i < sm.length; i++) {
-			sm[i] = sm[i].replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+	let uls = $("#" + model_for_id + "-collapse").find("ul");
+	let learning_mechanics_ul = $(uls[0]);
+	let game_mechanics_ul = $(uls[1]);
+	let game_rule_designs_ul = $(uls[2]);
+
+	for (let key in models) {
+		let value = models[key];
+		for (let subKey in value) {
+			let subValue = value[subKey];
+			switch (subKey) {
+				case "Game mechanics":
+					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+					for (let element of subValue) {
+						game_mechanics_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
+					}
+					break;
+				case "Game rule designs":
+					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+					for (let element of subValue) {
+						game_rule_designs_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
+					}
+					break;
+				case "Learning mechanics":
+					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+					for (let element of subValue) {
+						learning_mechanics_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${subValue}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
+					}
+					break;
+			}
 		}
-	// 	// Populate 'Learning Mechanics' list
-	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
-	// 	// Populate 'Game Mechanics' List
-	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
-	// 	// Populate 'Game Rule Designs' List
-	// 	$('#' + model_for_id + '-collapse').find('row').children().append('<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="'+ model_for_id + '-' + models[model][submeasure] +'" id="' + sm +'"><label class="form-check-label" style="color:black; padding-left: 5px;" for="' + sm + '">' + models[model][submeasure] + '</label></div></li>');
 	}
 }
 
