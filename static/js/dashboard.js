@@ -908,10 +908,17 @@ function toggleDashboardPage() {
 
 
 function createNewGame() {
-	deleteCookie('_latest_section');
-	deleteCookie('_game_data');
-	deleteCookie('_game_id');
+	if (getCookie('_game_id')) {
+		deleteCookie('_game_id');
+	}
+	if (getCookie('_latest_section')) {
+		deleteCookie('_latest_section');
+	}
+	if (getCookie('_game_data')) {
+		deleteCookie('_game_data');
+	}
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
+	addStyling("#introduction");
 	toggleDashboardPage();
 }
 
