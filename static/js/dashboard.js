@@ -726,7 +726,7 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 	<div class="row model-content-accordion-${model_for_id}">
 		<div class="col">
 			<div class="centered-div" style="text-align: left; max-height: 170px;">
-				<div class="accordion-item">
+				<div class="accordion-item" style="margin-top: 50px; margin-bottom: 50px;">
 					<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
 						<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
 							<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse">
@@ -773,32 +773,27 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 	let game_mechanics_ul = $(uls[1]);
 	let game_rule_designs_ul = $(uls[2]);
 
-	for (let key in models) {
-		let value = models[key];
-		for (let subKey in value) {
-			let subValue = value[subKey];
-			switch (subKey) {
-				case "Game mechanics":
-					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-					for (let element of subValue) {
-						game_mechanics_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
-					}
-					break;
-				case "Game rule designs":
-					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-					for (let element of subValue) {
-						game_rule_designs_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
-					}
-					break;
-				case "Learning mechanics":
-					subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
-					for (let element of subValue) {
-						learning_mechanics_ul.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${subValue}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
-					}
-					break;
-			}
+	let value = models[model];
+	for (let subKey in value) {
+		let subValue = value[subKey];
+		let ulElement;
+		switch (subKey) {
+			case "Game mechanics":
+				ulElement = game_mechanics_ul;
+				break;
+			case "Game rule designs":
+				ulElement = game_rule_designs_ul;
+				break;
+			case "Learning mechanics":
+				ulElement = learning_mechanics_ul;
+				break;
+		}
+		subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+		for (let element of subValue) {
+			ulElement.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
 		}
 	}
+
 }
 
 
