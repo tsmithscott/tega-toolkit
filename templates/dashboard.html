@@ -69,7 +69,7 @@
                             <div class="col-sm-5 text-center" style="min-width:200px; height: 550px; overflow-y:hidden; overflow-x:hidden; direction: rtl;"">
                                 <div class="centered-div my-auto" style="height:100%; position: relative; top: -35px;">
                                     <p style="color:black;">Select from your saved games on the left <br /><br /><b><i>or</i></b><br /><br />
-                                         <button class="btn btn-primary" onclick="toggleDashboardPage()">Create a New Game</button>
+                                         <button class="btn btn-primary" onclick="createNewGame()">Create a New Game</button>
                                     </p>
                                 </div>
                             </div>
@@ -420,20 +420,10 @@
                                             <p style="color: black;">Use the button below to add a 'Thinking Skill'. For each thinking skill, there are 3 columns to consider: <b>Learning Mechanics</b>, <b>Game Mechanics</b> and <b>Thinking Skills</b> - add at least <b>one</b> for each column. You can add as many thinking skills as you want. You can also remove thinking skills by clicking on the 'X' button.</p>
                                         </div>
                                     </div>
-                    
-                                    <!-- <h2><b>Theoretical Model</b></h2><br />
-                                    <p style="color: black;">By this time, you should have made some preliminary decisions about the <b>learning mechanics</b>, the <b>thinking skills</b> and <b>game mechanics</b>. The options below give you some inspiration on some rule designs. So, by eliminating non-viable options from the <b>thinking skill</b> options, you will be limiting your <b>game rule designs</b>. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
-                                    <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
-                                        Press to view Game Theoretical Models and Classifications table
-                                    </a><br /><br />
-                                    <p style="color: black;">Use the button below to add a 'Thinking Skill'. For each thinking skill, there are 3 columns to consider: <b>Learning Mechanics</b>, <b>Game Mechanics</b>, and <b>Game Rule Designs</b></p>
-                                    <p style="color: black;">Select <b>one or more</b> options for each dropdown.</p> -->
 
                                     <!-- Accordions added here using JS createModelsSubmeasureDropdown()-->
-
+                                    <br />
                                     <div class="row" id="model-content-add-dropdown-row">
-                                        <br />
-                                        <br />
                                         <div class="col">
                                             <div id="model-content-add-dropdown" class="dropdown">
                                                 <button id="model-content-add-dropdown-button" class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -722,8 +722,8 @@ function flipArrow(accordion_button) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createModelsSubmeasureDropdown(model_for_id, model) {
-	$("#model-content-add-dropdown-row").before(`
-	<div class="row model-content-accordion-${model_for_id}">
+	$("#model-content-add-dropdown-row").prev().before(`
+	<div class="row model-content-accordion-${model_for_id}" style="min-height:auto;">
 		<div class="col">
 			<div class="centered-div" style="text-align: left; max-height: 170px;">
 				<div class="accordion-item" style="margin-top: 50px; margin-bottom: 50px;">
@@ -904,6 +904,15 @@ function toggleDashboardPage() {
 		$("#dashboard-container-left").hide();
 		$("#progress-bar-div").parent().hide();
 	}
+}
+
+
+function createNewGame() {
+	deleteCookie('_latest_section');
+	deleteCookie('_game_data');
+	deleteCookie('_game_id');
+	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
+	toggleDashboardPage();
 }
 
 
