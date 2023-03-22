@@ -28,7 +28,7 @@ class Games(db.Model):
     
     id = db.Column(db.String(100), primary_key=True)
     game = db.Column(db.Text(), nullable=False)
-    # name = db.Column(db.String(100), nullable=True)
+    name = db.Column(db.String(100), nullable=True)
     complete = db.Column(db.Boolean, nullable=False)
     last_updated = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.String(100), db.ForeignKey('users.id'), nullable=False)
@@ -36,9 +36,10 @@ class Games(db.Model):
     forms = db.relationship('Forms', backref='games')
 
 
-    def __init__(self, id, game, complete, last_updated, user_id):
+    def __init__(self, id, game, name, complete, last_updated, user_id):
         self.id = id
         self.game = game
+        self.name = name
         self.complete = complete
         self.user_id = user_id
         self.last_updated = last_updated

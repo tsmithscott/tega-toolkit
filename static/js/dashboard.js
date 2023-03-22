@@ -46,14 +46,6 @@ $(document).ready(function() {
 	disableBodyScroll();
 });
 
-$("#page-switch-button").click(function() {
-    var buttonText = $(this).text().trim();
-    if (buttonText === "Return to most recent game") {
-        $(this).text("Return to saved games");
-    } else if (buttonText === "Return to saved games") {
-        $(this).text("Return to most recent game");
-    }
-});
 
 function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
@@ -875,7 +867,6 @@ function processDesign(input_element) {
 	// Get adjacent textarea element depending on the class of the input element
 	let adjacent_textarea = $(input_element).hasClass('tools') ? $(input_element).closest("td").next().find("textarea") : $(input_element).closest("td").prev().find("textarea");
 	if ($(input_element).val().length < 1) {
-		console.log("you're dad is your mum");
 		adjacent_textarea.prop("disabled", false);
 		adjacent_textarea.attr("required", true);
 	}
@@ -887,6 +878,16 @@ function processDesign(input_element) {
 		adjacent_textarea.removeAttr("required");
 	}
 }
+
+
+function dynamicGameButton() {
+    let buttonText = $("#page-switch-button").text().trim();
+    if (buttonText === "Return to most recent game") {
+        $("#page-switch-button").text("Return to saved games");
+    } else if (buttonText === "Return to saved games") {
+        $("#page-switch-button").text("Return to most recent game");
+    }
+};
 
 
 function toggleDashboardPage() {
@@ -905,19 +906,15 @@ function toggleDashboardPage() {
 		$("#dashboard-container-left").hide();
 		$("#progress-bar-div").parent().hide();
 	}
+	dynamicGameButton();
 }
 
 
 function createNewGame() {
-	if (getCookie('_game_id')) {
-		deleteCookie('_game_id');
-	}
-	if (getCookie('_latest_section')) {
-		deleteCookie('_latest_section');
-	}
-	if (getCookie('_game_data')) {
-		deleteCookie('_game_data');
-	}
+	deleteCookie('_game_id');
+	deleteCookie('_latest_section');
+	deleteCookie('_game_data');
+	current_game = {};
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
 	addStyling("#introduction");
 	toggleDashboardPage();

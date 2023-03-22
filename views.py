@@ -225,6 +225,7 @@ def ajax_autosave():
             new_game = Games(
                 id=game_uuid,
                 game=token,
+                name="TEST",
                 user_id=current_user.id,
                 complete=complete,
                 last_updated=update_datetime
