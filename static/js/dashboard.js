@@ -144,7 +144,7 @@ function processSection(sectionID) {
 				}
 
 				current_game[sectionID] = section_game;
-				save = processGameData(false);
+				save = processGameData(false, sectionID);
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -163,7 +163,7 @@ function processSection(sectionID) {
 			}
 
 
-			save = processGameData(false);
+			save = processGameData(false, sectionID);
 			if (save) {
 				selections = [];
 				unlockNextSection(sectionID);
@@ -202,7 +202,7 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData(false);
+			save = processGameData(false, sectionID);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -224,7 +224,7 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData(false);
+			save = processGameData(false, sectionID);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -246,7 +246,7 @@ function processSection(sectionID) {
 			
 
 			current_game[sectionID] = section_game;
-			save = processGameData(false);
+			save = processGameData(false, sectionID);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -272,7 +272,7 @@ function processSection(sectionID) {
 			}
 
 			current_game[sectionID] = section_game;
-			save = processGameData(false);
+			save = processGameData(false, sectionID);
 			if (save) {
 				unlockNextSection(sectionID);
 			} else {
@@ -282,7 +282,7 @@ function processSection(sectionID) {
 
 		// JUSTIFICATION SECTION: processGameData() must be called with true passed as a parameter.
 		else if (sectionID === "justification") {
-			save = processGameData(true);
+			save = processGameData(true, sectionID);
 
 			if (save) {
 				alert("DEBUG: SAVED TO DATABASE.");
@@ -303,7 +303,7 @@ function processSection(sectionID) {
 
 				current_game[sectionID] = [];
 				current_game[sectionID] = selections;
-				save = processGameData(false);
+				save = processGameData(false, sectionID);
 				if (save) {
 					selections = [];
 					unlockNextSection(sectionID);
@@ -335,7 +335,7 @@ function processLatestSection(latestSection) {
 }
 
 
-function processGameData(complete) {
+function processGameData(complete, section) {
 	let saved = '';
 	let url = '/ajax-autosave';
 	deleteCookie("_game_data");
@@ -343,7 +343,7 @@ function processGameData(complete) {
 	$.ajax({
 		url: url,
 		contentType: "application/json;charset=utf-8",
-		data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id")}),
+		data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id"), "latestsection": section}),
 		type: 'POST',
 		success: function(response) {
 			saved = true;
@@ -354,6 +354,11 @@ function processGameData(complete) {
 		async: false
 	});
 	return saved;
+}
+
+// Load game data from database
+function loadGame() {
+	console.log("Reached loadGame() function")
 }
 
 
@@ -722,7 +727,7 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 				<div class="accordion-item" style="margin-top: 50px; margin-bottom: 50px;">
 					<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
 						<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
-							<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse">
+							<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse" value="0">
 								${model} 
 								<span class="fas fa-angle-down"></span>
 							</button>
@@ -906,6 +911,7 @@ function toggleDashboardPage() {
 		$("#dashboard-container-left").hide();
 		$("#progress-bar-div").parent().hide();
 	}
+	
 	dynamicGameButton();
 }
 

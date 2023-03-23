@@ -26,48 +26,36 @@
                     {% if current_user.is_authenticated %}
                     <div id="dashboard-saved-games" style="min-width:200px; height: 550px; overflow-y: hidden; overflow-x:hidden; justify-content:center; align-items: center;">
                         <div class="row">
-                            <div class="col-sm-6 text-center ml-4" style="min-width:200px; height: 550px; overflow-y:hidden; overflow-x:hidden; direction: rtl;">
-                                <ul class="list-group mx-auto ml-2" style="direction: rtl; overflow-x: hidden; overflow-y: scroll; height: 550px;">
-                                    <button class="list-group-item list-group-item-action">
-                                        <div class="col-sm mx-auto text-nowrap">
-                                            <ul class="list-group list-group-horizontal-sm justify-content-center">
-                                                <li class="list-group-item">Latest section: *Section*</li>
-                                                <li class="list-group-item">Complete: *True/False*</li>
-                                                <li class="list-group-item">Last modified: *Datetime*</li>
-                                            </ul>
+                            <div class="col-6 text-center ml-4" style="height: 550px; width: 800px; overflow-y:hidden; overflow-x:hidden; direction: rtl;">
+                                <div class="card" style="position: relative; height: 100%; width: 100%;">
+                                    {% if games %}
+                                    <div class="centered-div" style="height: 550px;">
+                                        <ul class="list-group mx-auto p-1" style="direction: rtl; padding-right: 0px; overflow-x: hidden; overflow-y: scroll; height: 100%; width: 100%;">
+                                            {% for game in games %}
+                                            <button class="list-group-item list-group-item-action" onclick="loadGame()">
+                                                <div class="col-sm mx-auto text-nowrap">
+                                                    <ul class="list-group list-group-horizontal-sm justify-content-center">
+                                                        <li class="list-group-item">Name: {% if game.name %}{{ game.name }}{% endif %}</li>
+                                                        <li class="list-group-item">Complete: {{ game.complete }}</li>
+                                                        <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
+                                                        <li class="list-group-item fas fa-trash" onclick="alert('Deleting game! (Not yet)')"></li>
+                                                    </ul>
+                                                </div>
+                                            </button>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% else %}
+                                    <div style="min-height: auto;">
+                                        <div class="alert alert-info" role="alert" style="width: 100%;">
+                                            You have no saved games. Please click the button below to create a new game
                                         </div>
-                                    </button>
-                                    <button class="list-group-item list-group-item-action">
-                                        <div class="col-sm mx-auto text-nowrap">
-                                            <ul class="list-group list-group-horizontal-sm justify-content-center">
-                                                <li class="list-group-item">Latest section: *Section*</li>
-                                                <li class="list-group-item">Complete: *True/False*</li>
-                                                <li class="list-group-item">Last modified: *Datetime*</li>
-                                            </ul>
-                                        </div>
-                                    </button>
-                                    <button class="list-group-item list-group-item-action">
-                                        <div class="col-sm mx-auto text-nowrap">
-                                            <ul class="list-group list-group-horizontal-sm justify-content-center">
-                                                <li class="list-group-item">Latest section: *Section*</li>
-                                                <li class="list-group-item">Complete: *True/False*</li>
-                                                <li class="list-group-item">Last modified: *Datetime*</li>
-                                            </ul>
-                                        </div>
-                                    </button>
-                                    <button class="list-group-item list-group-item-action">
-                                        <div class="col-sm mx-auto text-nowrap">
-                                            <ul class="list-group list-group-horizontal-sm justify-content-center">
-                                                <li class="list-group-item">Latest section: *Section*</li>
-                                                <li class="list-group-item">Complete: *True/False*</li>
-                                                <li class="list-group-item">Last modified: *Datetime*</li>
-                                            </ul>
-                                        </div>
-                                    </button>
-                                </ul>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                             <div class="col-sm-5 text-center" style="min-width:200px; height: 550px; overflow-y:hidden; overflow-x:hidden; direction: rtl;"">
-                                <div class="centered-div my-auto" style="height:100%; position: relative; top: -35px;">
+                                <div class="centered-div my-auto" style="height:100%; position: relative;">
                                     <p style="color:black;">Select from your saved games on the left <br /><br /><b><i>or</i></b><br /><br />
                                          <button class="btn btn-primary" onclick="createNewGame()">Create a New Game</button>
                                     </p>

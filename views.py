@@ -62,8 +62,17 @@ def dashboard():
         data = request.form.get("profile_button")
         if data == "test":
             session["input_type"] = data
+    
+    games = None
+    
+    if current_user.is_authenticated:
+        games = Games.query.filter_by(user_id=current_user.id)
+        if games:
+            games = [game.to_dict() for game in games]
+        
+    print(games)
 
-    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL)
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games)
 
 
 @app.route("/form/<game_id>", methods=['GET'])
@@ -202,6 +211,7 @@ def ajax_get_model():
 def ajax_autosave():
     saved_game_uuid = request.get_json()['gameuuid']
     complete = request.get_json()['complete']
+    latest_section = request.get_json()['latestsection']
     update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
     token = JWT.generate_jwt(request.get_json()['current_game'])
     
@@ -228,6 +238,7 @@ def ajax_autosave():
                 name="TEST",
                 user_id=current_user.id,
                 complete=complete,
+                latest_section=latest_section,
                 last_updated=update_datetime
             )
             
