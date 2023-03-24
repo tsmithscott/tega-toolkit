@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from jwt.exceptions import InvalidSignatureError
 
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
-from models import Users, Games
+from models import Users, Games, Forms
 from security.jwt import JWT
 from confirmation.sendmail import SendMail
 
@@ -79,10 +79,7 @@ def dashboard():
 def assessment_form(game_id):
     game = Games.query.filter_by(id=game_id).first()
     game_exists = False
-    if not game:
-        print("Game not found")
-    else:
-        print("Game found")
+    if game:
         game_exists = True
     
     return render_template("form.html", title="Tega Toolkit - Assessment Form", game=game, game_exists=game_exists)
@@ -92,7 +89,33 @@ def assessment_form(game_id):
 def assessment_form_submit():
     form_data = request.form.get("data")
     game_id = request.form.get("gameID")
+    if form_data and game_id:
+        # Create 
+        form_id = uuid.uuid4().hex
+        while Forms.query.filter_by(id=form_id).first():
+            game_id = uuid.uuid4().hex
+        
+        form = Forms(
+                id = form_id,
+                data = form_data,
+                game_id = game_id,
+                datetime_submitted=datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+            )
+        
+        if current_user.is_authenticated:
+            form.user_id = current_user.id
+        
+        try:
+            db.session.add(form)
+            db.session.commit()
+            response = make_response(redirect(url_for('index')), 200)
+        except Exception as e:
+            print(e)
+            return '', 500
+        
     # TODO: Validation & adding record to the database ('Forms' table - amend if required)
+    print(form_data)
+    print(game_id)
     
     return redirect(url_for("index"))
         

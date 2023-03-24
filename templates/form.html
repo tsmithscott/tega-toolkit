@@ -15,13 +15,15 @@
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 {% if game_exists == True %}
-                                <h5 class="text-right" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">*TODO: GIVE GAMES A NAME*</h3>
+                                    {% if game.name != None %}
+                                    <h5 class="text-right" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">Game Name: {{game.name}}</h3>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                     {% if game_exists == True %}
-                    <form action="javascript:submitForm('{{game.id}}')">
+                    <form onsubmit="return submitAssessmentForm('{{game.id}}')">
                         <div class="container text-center" style="height:625px; overflow-y: auto;">
                             <div class="row">
                                 <div class="col-12">
@@ -32,7 +34,10 @@
                                         <!-- Question 1 -->
                                         <div class="row" id="assessment-content-feedback-question-1">
                                             <div class="col-12">
-                                                <p class="text-left" style="color:black;"><b>1.</b> What was your experience of the game?</p>
+                                                <p class="text-left" style="color:black;"><b>1.</b> What was your experience of the game?
+                                                    <span class="fa fa-info-circle" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                    data-bs-content="Think about emotions, experience, knowledge acquired" style="font-size: 13px;"></span>
+                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>
@@ -45,7 +50,7 @@
                                                 <p class="text-left" style="color:black;"><b>2.</b>
                                                     What was your favourite moment(s) in the game? 
                                                     Would you change something? If Yes, what would you change?
-                                                    </p>
+                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>
@@ -56,7 +61,8 @@
                                         <div class="row" id="assessment-content-feedback-question-3">
                                             <div class="col-12">
                                                 <p class="text-left" style="color:black;"><b>3.</b>
-                                                    What would you change about the game?</p>
+                                                    What would you change about the game?
+                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>
@@ -68,7 +74,7 @@
                                             <div class="col-12">
                                                 <p class="text-left" style="color:black;"><b>4.</b>
                                                     Was there anything in the rules you didn’t understand? (mechanics)
-                                                    </p>
+                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>
@@ -80,7 +86,6 @@
                                             <div class="col-12">
                                                 <p class="text-left" style="color:black;"><b>5.</b>
                                                     What do you think is the learning purpose of the game?
-                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>
@@ -104,7 +109,7 @@
                                             <div class="col-12">
                                                 <p class="text-left" style="color:black;"><b>7.</b> What was your favourite moment(s) in the game? 
                                                     Would you change something? If Yes, what would you change?
-                                                    </p>
+                                                </p>
                                             </div>
                                             <div class="col-12">
                                                 <textarea class="form-control" row="3"></textarea>

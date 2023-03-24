@@ -38,7 +38,7 @@
                                                         <li class="list-group-item">Name: {% if game.name %}{{ game.name }}{% endif %}</li>
                                                         <li class="list-group-item">Complete: {{ game.complete }}</li>
                                                         <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
-                                                        <li class="list-group-item fas fa-trash" onclick="alert('Deleting game! (Not yet)')"></li>
+                                                        <li class="list-group-item fas fa-trash" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></li>
                                                     </ul>
                                                 </div>
                                             </button>
@@ -1777,6 +1777,27 @@
     </div>
 </div>
 <!-- End of Modals - Theoretical Model -->
+
+<!-- Delete games modal - Dashboard -->
+<div class="modal fade" id="dashboardGameModal" tabindex="-1" aria-labelledby="dashboardGameModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="modelModalLabel3">Are you sure?</h1>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark">Do you want to delete this game? This action cannot be undone.</p>
+                <a class="btn btn-secondary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="" role="button">
+                    Cancel
+                </a>
+                <a class="btn btn-danger text-wrap mb-2 mt-0" data-bs-toggle="modal" onclick="deleteGame()" href="" role="button">
+                    Delete
+                </a>
+                <input type="text" value="" id="modal-data-id" hidden>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 {% block scripts %}

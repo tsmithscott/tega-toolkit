@@ -1253,6 +1253,14 @@ li {
   transition: transform 0.5s;
 }
 
+@media (max-height: 850px) {
+  #dashboard-container {
+    zoom: 0.90;
+    -moz-transform: scale(0.9);
+    -moz-transform-origin: 0 0;
+  }
+}
+
 @media (max-width: 995px) {
   #index-container {
     padding-top: 50px;
@@ -1269,6 +1277,6 @@ li {
   }
 
   #no-mobile-users-div {
-    display: inline-block!important;
+    display: inline!important;
   }
 }

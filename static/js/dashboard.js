@@ -46,6 +46,14 @@ $(document).ready(function() {
 	disableBodyScroll();
 });
 
+// $(document).click("click", ".list-group-item .fa-trash", function() {
+// 	let dataid = $(this).data('id');
+// 	$("#modal-data-id").val(dataid);
+// })
+
+function deleteGame() {
+	console.log($("#modal-data-id").val());
+}
 
 function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
