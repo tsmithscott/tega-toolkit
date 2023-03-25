@@ -46,13 +46,23 @@ $(document).ready(function() {
 	disableBodyScroll();
 });
 
-// $(document).click("click", ".list-group-item .fa-trash", function() {
-// 	let dataid = $(this).data('id');
-// 	$("#modal-data-id").val(dataid);
-// })
+$(document).on("click", ".fa-trash", function() {
+	let dataid = $(this).data('id');
+	$("#modal-data-id").val(dataid);
+})
 
 function deleteGame() {
-	console.log($("#modal-data-id").val());
+	$.ajax({
+		url: '/delete_game/' + $('#modal-data-id').val(),
+		type: 'POST',
+		success: function(response) {
+			location.reload();
+		},
+		error: function(error) {
+			throw new Error(error);
+		},
+		async: false
+	});
 }
 
 function disableBodyScroll() {
@@ -120,6 +130,7 @@ function processSection(sectionID) {
 	} else if (sectionID === "assessment") {
 		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
+		$("#form-copy-link").html().append(`${current_game['game_id']}`);
 	// Individual handling for sections with inputs
 	} else {
 		let section_game = {};
@@ -906,7 +917,7 @@ function dynamicGameButton() {
 function toggleDashboardPage() {
 	// Toggle visibility of saved games page
 	if ($("#dashboard-saved-games").is(":hidden")) {
-		$("#dashboard-saved-games").show();
+		location.reload();
 	} else {
 		$("#dashboard-saved-games").hide();
 	}
@@ -915,10 +926,8 @@ function toggleDashboardPage() {
 		$("#dashboard-container-left").show();
 		$("#progress-bar-div").parent().show();
 		loadGameData();
-	} else {
-		$("#dashboard-container-left").hide();
-		$("#progress-bar-div").parent().hide();
 	}
+
 	
 	dynamicGameButton();
 }

@@ -32,13 +32,22 @@
                                     <div class="centered-div" style="height: 550px;">
                                         <ul class="list-group mx-auto p-1" style="direction: rtl; padding-right: 0px; overflow-x: hidden; overflow-y: scroll; height: 100%; width: 100%;">
                                             {% for game in games %}
-                                            <button class="list-group-item list-group-item-action" onclick="loadGame()">
+                                            <button class="list-group-item" style="direction:ltr;">
                                                 <div class="col-sm mx-auto text-nowrap">
                                                     <ul class="list-group list-group-horizontal-sm justify-content-center">
-                                                        <li class="list-group-item">Name: {% if game.name %}{{ game.name }}{% endif %}</li>
+                                                        {% if game.name %}<li class="list-group-item">Name: {{ game.name }}</li>{% endif %}
                                                         <li class="list-group-item">Complete: {{ game.complete }}</li>
                                                         <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
-                                                        <li class="list-group-item fas fa-trash" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <a class="fa fa-pencil" onclick="loadGame()" href="#" data-id={{ game.id }} role="button"></a>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <a class="fas fa-trash" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </button>
@@ -91,7 +100,7 @@
                                 <div id="introduction-content" class="dashboard-content">
                                     <h2><b>Introduction</b></h2><br />
                                     <a id="introductionModal1Button" class="btn btn-primary text-wrap" data-bs-toggle="modal" href="#introductionModal1" role="button">
-                                        Press to view a more Detailed Overview of the Toolkit
+                                        Press for a more Detailed Overview of the Toolkit
                                     </a>
                                     <br /><br />
                                     <p style="color: black">To create a game that meets specific learning outcomes, the TEGA design package provides a systematic process for exploring and applying game characteristics and mechanics, as well as for assessing learning outcomes. By following this process, game designers can create games that effectively leverage motivation and inclusivity, and that are tailored to meet the needs of specific learners and learning goals.</p>
@@ -1066,10 +1075,17 @@
 
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
-                                    <h2><b>Assessment</b></h2><br />
-                                    <p>*Add game naming here*</p>
+                                    <h2><b>Assessment</b></h2>
+                                    <p style="color:black;">Please feel free to create a friendly name for your game:</p>
+                                    <div class="centered-div">
+                                        <input id="game-name" type="text" style="width: 40%;" class="form-control" placeholder="Game Name">
+                                    </div>
+                                    <button onclick="nameGame()" id="game-name-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
+                                        Save
+                                    </button>
+                                    <br />
                                     <p style="color:black;">
-                                        Share the following link to your beta-test players: <a>{{base_url}}/form/*GAME_ID_HERE*</a>
+                                        Share the following link to your beta-test players: <a id="form-copy-link">{{base_url}}/form/</a>
                                     </p>
                                     <p style="color:black">
                                         They are required to fill in the following questionnaire after playing your game.

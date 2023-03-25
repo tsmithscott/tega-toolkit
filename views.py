@@ -69,8 +69,6 @@ def dashboard():
         games = Games.query.filter_by(user_id=current_user.id)
         if games:
             games = [game.to_dict() for game in games]
-        
-    print(games)
 
     return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games)
 
@@ -105,20 +103,14 @@ def assessment_form_submit():
         if current_user.is_authenticated:
             form.user_id = current_user.id
         
-        try:
-            db.session.add(form)
-            db.session.commit()
-            response = make_response(redirect(url_for('index')), 200)
-        except Exception as e:
-            print(e)
-            return '', 500
-        
+        print("Adding form to database...")
+        db.session.add(form)
+        db.session.commit()
+        print("Form added to database.")
+    
     # TODO: Validation & adding record to the database ('Forms' table - amend if required)
     print(form_data)
     print(game_id)
-    
-    return redirect(url_for("index"))
-        
 
     
 @app.route("/google-login", methods=["GET"])
@@ -228,6 +220,23 @@ def ajax_get_model():
         jsonify(data),
         200
     )
+    
+    
+@app.route("/delete_game/<game_id>", methods=["POST"])
+def delete_games(game_id):
+    game = Games.query.filter_by(id=game_id).first()
+    forms = Forms.query.filter_by(game_id=game_id)
+    
+    if forms:
+        for form in forms:
+            db.session.delete(form)
+    if game:
+        db.session.delete(game)
+        db.session.commit()
+        
+        return '', 200
+    else:
+        return 'Error occurred, please contact support', 404
 
 
 @app.route('/ajax-autosave', methods=["POST"])
@@ -235,8 +244,11 @@ def ajax_autosave():
     saved_game_uuid = request.get_json()['gameuuid']
     complete = request.get_json()['complete']
     latest_section = request.get_json()['latestsection']
+    name = request.get_json()['name'] if request.get_json()['name'] else None
     update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
     token = JWT.generate_jwt(request.get_json()['current_game'])
+    
+    print(name)
     
     if saved_game_uuid:
         game_uuid = saved_game_uuid
