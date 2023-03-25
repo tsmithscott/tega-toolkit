@@ -352,6 +352,9 @@ function processSection(sectionID) {
 
 	// Assessment
 	} else if (sectionID === "assessment") {
+		if ($("#game-name").val().length > 0) {
+			nameGame();
+		}
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 
@@ -1040,11 +1043,22 @@ function nameGame() {
 		type: 'POST',
 		success: function(response) {
 			saved = true;
+			$("#game-name-submit").text("Saved!");
+			$("#game-name-submit").addClass("green");
+			setTimeout(function(){
+				$('#game-name-submit').removeClass("green").text("Save");
+			}, 2000);
 		},
 		error: function(error) {
 			saved = false;
+			$("#game-name-submit").text("Failure!");
+			$("#game-name-submit").removeClass("btn-seconday green");
+			$("#game-name-submit").addClass("btn-danger");
+			setTimeout(function() {
+				$('#game-name-submit').removeClass("btn-danger").addClass("btn-secondary").text("Save");
+			}, 5000);
 	  	},
-		async: false
+		async: true
 	});
 }
 
