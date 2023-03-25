@@ -208,7 +208,7 @@ def ajax_get_characteristics():
     
 @app.route("/get_model", methods=["GET"])
 def ajax_get_model():
-    with open('static/json_data/model.json', 'r') as characteristics_file:
+    with open('static/json_data/model.json', 'r', encoding="utf-8") as characteristics_file:
         data = json.loads(characteristics_file.read())
         
     return make_response(
