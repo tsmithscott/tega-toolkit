@@ -14,11 +14,14 @@
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 {% if current_user.is_authenticated %}
-                                <div class="float-right" style="position:relative; top:20px; left:50px;">
-                                    <button id="page-switch-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="toggleDashboardPage()">
-                                        Return to most recent game
-                                    </button>
-                                </div>
+                                    <div class="float-right" style="position:relative; top:20px; left:50px;">
+                                        <button id="load-most-recent-game-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="loadMostRecentGame()" style="{% if not games %}display:none;{% endif %}">
+                                            Return to most recent game
+                                        </button>
+                                        <button id="page-switch-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="toggleDashboardPage()" style="display:none;">
+                                            Return to saved games
+                                        </button>
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -36,15 +39,20 @@
                                                 <div class="col-sm mx-auto text-nowrap">
                                                     <ul class="list-group list-group-horizontal-sm justify-content-center" style="color:black;">
                                                         {% if game.name %}<li class="list-group-item">Name: {{ game.name }}</li>{% endif %}
-                                                        <li class="list-group-item">Complete: {{ game.complete }}</li>
+                                                        <li class="list-group-item">{% if game.complete == False %}Incomplete{% else %}Complete{% endif %}</li>
                                                         <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
                                                         <li class="list-group-item">
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <a class="fa fa-pencil" onclick="loadGame(this)" href="#" data-id={{ game.id }} role="button"></a>
+                                                                    <a class="fa fa-pencil float" onclick="loadGame(this)" data-id={{ game.id }} href="#" role="button"></a>
                                                                 </div>
+                                                                {% if game.complete == True %}
                                                                 <div class="col">
-                                                                    <a class="fas fa-trash" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
+                                                                    <a class="fa fa-file-download" data-id={{ game.id }} href="#" role="button"></a>
+                                                                </div>
+                                                                {% endif %}
+                                                                <div class="col">
+                                                                    <a class="fas fa-trash float" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -55,9 +63,11 @@
                                         </ul>
                                     </div>
                                     {% else %}
-                                    <div style="min-height: auto;">
-                                        <div class="alert alert-info" role="alert" style="width: 100%;">
-                                            You have no saved games. Please click the button below to create a new game
+                                    <div class="centered-div" style="min-height: 100%;">
+                                        <div>
+                                            <div class="alert alert-info ml-4 mr-4" role="alert" style="direction: ltr; position:relative; top: -25px;">
+                                                You have no saved games.<br />Please press the button on the right to create a new game.
+                                            </div>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -1809,12 +1819,18 @@
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                 <p class="text-dark">Do you want to delete this game? This action cannot be undone.</p>
-                <a class="btn btn-secondary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="" role="button">
-                    Cancel
-                </a>
-                <a class="btn btn-danger text-wrap mb-2 mt-0" data-bs-toggle="modal" onclick="deleteGame()" href="" role="button">
-                    Delete
-                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" data-bs-toggle="modal" href="" role="button">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-danger text-wrap mb-2 mt-0 float-left" data-bs-toggle="modal" onclick="deleteGame()" href="" role="button">
+                            Delete
+                        </a>
+                    </div>
+                </div>
                 <input type="text" value="" id="modal-data-id" hidden>
             </div>
         </div>

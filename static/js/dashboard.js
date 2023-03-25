@@ -60,6 +60,16 @@ $(document).on("click", ".fa-trash", function() {
 	$("#modal-data-id").val(dataid);
 })
 
+function loadMostRecentGame() {
+	$("#dashboard-saved-games").find(".list-group-item").first().find("a").first().click();
+	$("#load-most-recent-game-button").hide();
+	$("#page-switch-button").show();
+}
+
+function downloadGame() {
+	console.log("Downloading game...");
+}
+
 function deleteGame() {
 	$.ajax({
 		url: '/delete_game/' + $('#modal-data-id').val(),
@@ -144,7 +154,7 @@ function processSection(sectionID) {
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 
-		
+
 	// Theoretical Model
 	} else if (sectionID === "model") {
 		processGameData(false, sectionID);
@@ -966,16 +976,6 @@ function processDesign(input_element) {
 }
 
 
-function dynamicGameButton() {
-    let buttonText = $("#page-switch-button").text().trim();
-    if (buttonText === "Return to most recent game") {
-        $("#page-switch-button").text("Return to saved games");
-    } else if (buttonText === "Return to saved games") {
-        $("#page-switch-button").text("Return to most recent game");
-    }
-};
-
-
 function toggleDashboardPage() {
 	// Toggle visibility of saved games page
 	if ($("#dashboard-saved-games").is(":hidden")) {
@@ -989,9 +989,6 @@ function toggleDashboardPage() {
 		$("#progress-bar-div").parent().show();
 		loadGameData();
 	}
-
-	
-	dynamicGameButton();
 }
 
 
@@ -1004,6 +1001,8 @@ function createNewGame() {
 	$("#dashboard-container-right").replaceWith(cleanDashboardClone.clone());
 	addStyling("#introduction");
 	toggleDashboardPage();
+	$("#load-most-recent-game-button").hide();
+	$("#page-switch-button").show();
 }
 
 function nameGame() {
