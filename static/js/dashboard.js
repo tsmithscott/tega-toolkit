@@ -128,221 +128,231 @@ function toggleSelection(input) {
 };
 
 function processSection(sectionID) {
-	
-	// Automatically unlock sections without inputs
+
+	let section_game = {};
+	let section = $("#" + sectionID + "-content")
+
+
+	// Introduction
 	if (sectionID === "introduction") {
 		processGameData(sectionID);
 		unlockNextSection(sectionID);
+
+
+	// Theoretical Foundation
 	} else if (sectionID ===  "foundation") {
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
-	// Placeholders for sections that require inputs
+
+		
+	// Theoretical Model
 	} else if (sectionID === "model") {
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
+
+
+	// Characteristics
+	} else if (sectionID === "characteristics") {
+
+		var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
+			return this.id.split("-")[0];
+		}).get();
+		
+		if (selections.length < 1) {
+			section.find(".errorMessage").removeAttr("hidden");
+			return;
+		} else {
+			section.find(".errorMessage").attr("hidden", "");
+			for (let selection of selections) {
+				if ($("#" + selection + "-collapse").find("ul").find(".selected").length > 0) {
+						let submeasures = [];
+						for (let submeasure of $("#" + selection + "-collapse").find("ul").find(".selected")) {
+						let submeasure_string = $(submeasure).val().split("-")[1];
+						submeasures.push(submeasure_string);
+						}
+						section_game[selection] = submeasures;
+				} else {
+					section.find(".errorSubMessage").removeAttr("hidden");
+					return;
+				}
+			}
+
+			current_game[sectionID] = section_game;
+			save = processGameData(false, sectionID);
+			if (save) {
+				selections = [];
+				unlockNextSection(sectionID);
+			} else {
+				alert("unable to save progress. Please contact support.");
+			}
+		}
+
+
+	// Clean Slate Game
+	} else if (sectionID === "slate") {
+		let textarea = section.find("textarea");
+
+		if (textarea.val().length > 0) {
+			current_game[sectionID] = textarea.val();
+		}
+
+
+		save = processGameData(false, sectionID);
+		if (save) {
+			selections = [];
+			unlockNextSection(sectionID);
+		} else {
+			alert("Unable to save progress. Please contact support.");
+		}
+
+
+	// Inclusivity and Accessibility
+	} else if (sectionID === "accessibility") {
+		let checked_checkboxes = section.find("input:checkbox").map(function() {
+			return $(this).hasClass("selected") ? $(this) : null;
+		}).get();
+		let unchecked_checkboxes = section.find("input:checkbox").map(function() {
+			return $(this).hasClass("selected") ? null : $(this);
+		}).get();
+
+		if (section.find(".selected").length < 1) {
+			section.find(".errorMessage").removeAttr("hidden");
+		} else {
+			section.find(".errorMessage").attr("hidden");
+		}
+
+		let considered = [];
+		for (let checkbox of checked_checkboxes) {
+			considered.push(checkbox.val());
+		}
+		section_game["considered"] = considered;
+
+		for (let checkbox of unchecked_checkboxes) {
+			let subsection = checkbox.val();
+			let reason = $(checkbox).closest("td").next().find("textarea").val();
+			if (reason.length > 0) {
+				section_game[subsection] = reason;
+			}
+		}
+
+		current_game[sectionID] = section_game;
+		save = processGameData(false, sectionID);
+		if (save) {
+			unlockNextSection(sectionID);
+		} else {
+			alert("Unable to save progress. Please contact support.");
+		}
+
+
+	// Flow Element of the Design
+	} else if (sectionID === "design") {
+		let fields = section.find("textarea").map(function() {
+			return $(this).val().length > 0 ? this : null;
+		}).get();
+
+		for (let field of fields) {
+			let subsection_td = $(field).parent().siblings()[0];
+			let subsection = $(subsection_td).html();
+			if (subsection === "Assessment1") subsection = "Assessment";
+			section_game[subsection] = $(field).val() + ($(field).hasClass('tools') ? "_tools" : "_reason");
+		}
+
+		current_game[sectionID] = section_game;
+		save = processGameData(false, sectionID);
+		if (save) {
+			unlockNextSection(sectionID);
+		} else {
+			alert("Unable to save progress. Please contact support.");
+		}
+
+
+	// Drafting Game Instructions
+	} else if (sectionID === "instruction") {
+		let inputs = section.find("textarea").map(function() {
+			return $(this).val().length > 0 ? this : null;
+		}).get();
+
+		for (let input of inputs) {
+			let previous = $(input).parent().siblings()[0];
+			let subsection = $(previous).html();
+			section_game[subsection] = $(input).val();
+		}
+		
+
+		current_game[sectionID] = section_game;
+		save = processGameData(false, sectionID);
+		if (save) {
+			unlockNextSection(sectionID);
+		} else {
+			alert("Unable to save progress. Please contact support.");
+		}
+
+
+	// Game Playability
+	} else if (sectionID === "playability") {
+		let section_game = [];
+		let trs = $("#playability-content").find('tr');
+
+		trs.splice(0, 2);
+
+		for (let tr of trs) {
+			let subsection = [];
+
+			for (let td of $(tr).children()) {
+				subsection.push($(td).children().first().val());
+			}
+
+			section_game.push(subsection);
+		}
+
+		current_game[sectionID] = section_game;
+		save = processGameData(false, sectionID);
+		if (save) {
+			unlockNextSection(sectionID);
+			$("#form-copy-link").append(getCookie("_game_id"));
+		} else {
+			alert("Unable to save progress. Please contact support.");
+		}
+
+
+	// Assessment
 	} else if (sectionID === "assessment") {
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 
-	// Individual handling for sections with inputs
+
+	// Justification
+	} else if (sectionID === "justification") {
+		save = processGameData(true, sectionID);
+
+		if (save) {
+			unlockNextSection(sectionID);
+			toggleDashboardPage();
+		} else {
+			alert("Unable to save progress to the database. Please contact support.");
+		}
+
+
+	// If section is Profile, and other sections
 	} else {
-		let section_game = {};
-		let section = $("#" + sectionID + "-content")
+		var selections = section.find(".green").map(function() {
+			return this.id.split("-")[2];
+		}).get();
 
-		// Game Characteristics
-		if (sectionID === "characteristics") {
+		if (selections.length < 1) {
+			section.find(".errorMessage").removeAttr("hidden");
+			return;
+		} else {
+			section.find(".errorMessage").attr("hidden", "");
 
-			var selections = $("#" + sectionID + "-content-accordion-row").find(".accordion-button").map(function() {
-				return this.id.split("-")[0];
-			}).get();
-			
-			if (selections.length < 1) {
-				section.find(".errorMessage").removeAttr("hidden");
-				return;
-			} else {
-				section.find(".errorMessage").attr("hidden", "");
-				for (let selection of selections) {
-					if ($("#" + selection + "-collapse").find("ul").find(".selected").length > 0) {
-						 let submeasures = [];
-						 for (let submeasure of $("#" + selection + "-collapse").find("ul").find(".selected")) {
-							let submeasure_string = $(submeasure).val().split("-")[1];
-							submeasures.push(submeasure_string);
-						 }
-						 section_game[selection] = submeasures;
-					} else {
-						section.find(".errorSubMessage").removeAttr("hidden");
-						return;
-					}
-				}
-
-				current_game[sectionID] = section_game;
-				save = processGameData(false, sectionID);
-				if (save) {
-					selections = [];
-					unlockNextSection(sectionID);
-				} else {
-					alert("unable to save progress. Please contact support.");
-				}
-			}
-
-
-		// Clean Slate Game
-		} else if (sectionID === "slate") {
-			let textarea = section.find("textarea");
-
-			if (textarea.val().length > 0) {
-				current_game[sectionID] = textarea.val();
-			}
-
-
+			current_game[sectionID] = [];
+			current_game[sectionID] = selections;
 			save = processGameData(false, sectionID);
 			if (save) {
 				selections = [];
 				unlockNextSection(sectionID);
 			} else {
 				alert("Unable to save progress. Please contact support.");
-			}
-
-
-		// Inclusivity and Accessibility
-		} else if (sectionID === "accessibility") {
-			let checked_checkboxes = section.find("input:checkbox").map(function() {
-				return $(this).hasClass("selected") ? $(this) : null;
-			}).get();
-			let unchecked_checkboxes = section.find("input:checkbox").map(function() {
-				return $(this).hasClass("selected") ? null : $(this);
-			}).get();
-
-			if (section.find(".selected").length < 1) {
-				section.find(".errorMessage").removeAttr("hidden");
-			} else {
-				section.find(".errorMessage").attr("hidden");
-			}
-
-			let considered = [];
-			for (let checkbox of checked_checkboxes) {
-				considered.push(checkbox.val());
-			}
-			section_game["considered"] = considered;
-
-			for (let checkbox of unchecked_checkboxes) {
-				let subsection = checkbox.val();
-				let reason = $(checkbox).closest("td").next().find("textarea").val();
-				if (reason.length > 0) {
-					section_game[subsection] = reason;
-				}
-			}
-
-			current_game[sectionID] = section_game;
-			save = processGameData(false, sectionID);
-			if (save) {
-				unlockNextSection(sectionID);
-			} else {
-				alert("Unable to save progress. Please contact support.");
-			}
-
-
-		// Flow Element of the Design
-		} else if (sectionID === "design") {
-			let fields = section.find("textarea").map(function() {
-				return $(this).val().length > 0 ? this : null;
-			}).get();
-
-			for (let field of fields) {
-				let subsection_td = $(field).parent().siblings()[0];
-				let subsection = $(subsection_td).html();
-				if (subsection === "Assessment1") subsection = "Assessment";
-				section_game[subsection] = $(field).val() + ($(field).hasClass('tools') ? "_tools" : "_reason");
-			}
-
-			current_game[sectionID] = section_game;
-			save = processGameData(false, sectionID);
-			if (save) {
-				unlockNextSection(sectionID);
-			} else {
-				alert("Unable to save progress. Please contact support.");
-			}
-
-
-		// Drafting Game Instructions
-		} else if (sectionID === "instruction") {
-			let inputs = section.find("textarea").map(function() {
-				return $(this).val().length > 0 ? this : null;
-			}).get();
-
-			for (let input of inputs) {
-				let previous = $(input).parent().siblings()[0];
-				let subsection = $(previous).html();
-				section_game[subsection] = $(input).val();
-			}
-			
-
-			current_game[sectionID] = section_game;
-			save = processGameData(false, sectionID);
-			if (save) {
-				unlockNextSection(sectionID);
-			} else {
-				alert("Unable to save progress. Please contact support.");
-			}
-
-
-		// Game Playability
-		} else if (sectionID === "playability") {
-			let section_game = [];
-			let trs = $("#playability-content").find('tr');
-
-			trs.splice(0, 2);
-
-			for (let tr of trs) {
-				let subsection = [];
-
-				for (let td of $(tr).children()) {
-					subsection.push($(td).children().first().val());
-				}
-
-				section_game.push(subsection);
-			}
-
-			current_game[sectionID] = section_game;
-			save = processGameData(false, sectionID);
-			if (save) {
-				unlockNextSection(sectionID);
-				$("#form-copy-link").append(getCookie("_game_id"));
-			} else {
-				alert("Unable to save progress. Please contact support.");
-			}
-		}
-
-		// JUSTIFICATION SECTION: processGameData() must be called with true passed as a parameter.
-		else if (sectionID === "justification") {
-			save = processGameData(true, sectionID);
-
-			if (save) {
-				unlockNextSection(sectionID);
-				toggleDashboardPage();
-			} else {
-				alert("Unable to save progress to the database. Please contact support.");
-			}
-		} else {
-			var selections = section.find(".green").map(function() {
-				return this.id.split("-")[2];
-			}).get();
-
-			if (selections.length < 1) {
-				section.find(".errorMessage").removeAttr("hidden");
-				return;
-			} else {
-				section.find(".errorMessage").attr("hidden", "");
-
-				current_game[sectionID] = [];
-				current_game[sectionID] = selections;
-				save = processGameData(false, sectionID);
-				if (save) {
-					selections = [];
-					unlockNextSection(sectionID);
-				} else {
-					alert("Unable to save progress. Please contact support.");
-				}
 			}
 		}
 	}
