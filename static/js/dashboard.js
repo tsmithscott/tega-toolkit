@@ -128,17 +128,22 @@ function toggleSelection(input) {
 };
 
 function processSection(sectionID) {
+	
 	// Automatically unlock sections without inputs
-	if (sectionID === "introduction" || sectionID === "foundation") {
-		// updateLatestSection(sectionID)
+	if (sectionID === "introduction") {
+		processGameData(sectionID);
+		unlockNextSection(sectionID);
+	} else if (sectionID ===  "foundation") {
+		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 	// Placeholders for sections that require inputs
 	} else if (sectionID === "model") {
-		// updateLatestSection(sectionID)
+		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 	} else if (sectionID === "assessment") {
-		// updateLatestSection(sectionID)
+		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
+
 	// Individual handling for sections with inputs
 	} else {
 		let section_game = {};
@@ -505,6 +510,7 @@ function parseJWT(jwt) {
 function removeAllStyling() {
 	$('.list-group-item.list-group-item-action.dashboard-section').removeClass('active').removeAttr('aria-current');
 	$('.list-group-item.list-group-item-action.dashboard-section').attr('disabled', true).css('background-color', 'lightgray');
+	$('.list-group-item.list-group-item-action.dashboard-section').children().val(0);
 	$('.dashboard-content').hide();
 }
 
@@ -659,6 +665,7 @@ function unlockNextSection(currentSection) {
 	let nextSectionButton = $('#' + currentSection).next();
 	let nextSectionContent = $('#' + currentSection + '-content').next();
 
+		
 	if (nextSectionButton.children().val() === "0") {
 		if (nextSectionButton.length !== 0) {
 			currentSectionButton.removeClass('active').removeAttr('aria-current');
