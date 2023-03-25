@@ -46,11 +46,14 @@
                                                                 <div class="col">
                                                                     <a class="fa fa-pencil float" onclick="loadGame(this)" data-id={{ game.id }} href="#" role="button"></a>
                                                                 </div>
-                                                                {% if game.complete == True %}
                                                                 <div class="col">
-                                                                    <a class="fa fa-file-download" data-id={{ game.id }} href="#" role="button"></a>
+                                                                    {% if game.complete == True %}
+                                                                    <a class="fa fa-file-download" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModalDownload" role="button"></a>
+                                                                    {% else %}
+                                                                    <a class="fa fa-file-download" style="color:lightgray" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                                    data-bs-content="You must complete the game before downloading" data-id={{ game.id }} role="button"></a>
+                                                                    {% endif %}
                                                                 </div>
-                                                                {% endif %}
                                                                 <div class="col">
                                                                     <a class="fas fa-trash float" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
                                                                 </div>
@@ -1832,6 +1835,33 @@
                     </div>
                 </div>
                 <input type="text" value="" id="modal-data-id" hidden>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Delete games modal - Dashboard -->
+<!-- Download games modal - Dashboard -->
+<div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownload" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownload">Game Download</h1>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark text-center">How do you want to download the game? We recommend <i>pdf</i>, however json allows for greater manipulation.</p>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" onclick="downloadGamePDF()" href="" role="button">
+                            PDF
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-left" id="json-download-option" href="" role="button">
+                            JSON
+                        </a>
+                    </div>
+                </div>
+                <input type="text" value="" id="download-modal-data-id" hidden>
             </div>
         </div>
     </div>

@@ -1,10 +1,11 @@
 import json
 import uuid
+import threading
 from datetime import datetime
 
 import requests
 from flask import (redirect, render_template, request, session,
-                   url_for, make_response, jsonify, send_from_directory)
+                   url_for, make_response, jsonify, send_from_directory, send_file)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from jwt.exceptions import InvalidSignatureError
@@ -13,6 +14,7 @@ from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users, Games, Forms
 from security.jwt import JWT
 from confirmation.sendmail import SendMail
+from utilities.fileutils import Fileutils
 
 
 @login_manager.user_loader
@@ -250,6 +252,31 @@ def delete_games(game_id):
         return '', 200
     else:
         return 'Error occurred, please contact support', 404
+    
+    
+@app.route('/download-game-json/<game_id>', methods=["GET"])
+def download_ajax_json(game_id):
+    if current_user.is_authenticated:
+        game = Games.query.filter_by(id=game_id).first()
+        
+        if game:
+            if game.user_id == current_user.id:
+                game_dict = JWT.decode_jwt(game.game)
+                
+                with open(f'./tmp/{game_id}.json', 'w', encoding="utf-8") as file:
+                    file.write(json.dumps(game_dict))
+                    
+                garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 15), daemon=True)
+                garbage_thread.start()
+                    
+                return send_file(f'./tmp/{game_id}.json', as_attachment=True)
+            else:
+                return "This game does not belong to this user.", 500
+        else:
+            return "", 404
+    else:
+        return "", 400
+            
 
 
 @app.route('/ajax-autosave', methods=["POST"])

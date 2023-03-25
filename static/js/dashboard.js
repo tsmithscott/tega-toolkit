@@ -60,13 +60,20 @@ $(document).on("click", ".fa-trash", function() {
 	$("#modal-data-id").val(dataid);
 })
 
+$(document).on("click", ".fa-file-download", function() {
+	let dataid = $(this).data('id');
+	let url = "/download-game-json/" + dataid;
+
+	$("#json-download-option").attr("href", url);
+})
+
 function loadMostRecentGame() {
 	$("#dashboard-saved-games").find(".list-group-item").first().find("a").first().click();
 	$("#load-most-recent-game-button").hide();
 	$("#page-switch-button").show();
 }
 
-function downloadGame() {
+function downloadGamePDF() {
 	console.log("Downloading game...");
 }
 
@@ -1137,3 +1144,7 @@ $("#foundationModal6Button").click(function(){
 $(document).on('hidden.bs.modal', function () {
 	disableBodyScroll();
 });
+
+$(function () {
+	$('[data-toggle="popover"]').popover()
+})
