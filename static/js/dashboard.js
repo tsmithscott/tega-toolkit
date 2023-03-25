@@ -137,6 +137,31 @@ function toggleSelection(input) {
 	}
 };
 
+function toggleModelSelection(input) {
+	if ($(input).hasClass("selected")) {
+		$(input).removeClass("selected");
+	} else {
+		$(input).addClass("selected");
+	}
+
+	var cols = [];
+	cols.push($(input).closest(".col-4")[0]);
+	cols.push($(input).closest(".col-4").siblings()[0]);
+	cols.push($(input).closest(".col-4").siblings()[1]);
+	
+	for (let col of cols) {
+		if (!$(col).find(".selected").length >= 1) {
+			cols.pop(col)
+		}
+	}
+
+	if (cols.length === 3) {
+		$(input).closest(".accordion-collapse").prev().find("button").first().addClass("green");
+	} else {
+		$(input).closest(".accordion-collapse").prev().find("button").first().removeClass("green");
+	}
+}
+
 function processSection(sectionID) {
 
 	let section_game = {};
@@ -879,7 +904,7 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 		}
 		subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
 		for (let element of subValue) {
-			ulElement.append(`<li><div class="form-check"><input onchange="toggleSubmeasure(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
+			ulElement.append(`<li><div class="form-check"><input onchange="toggleModelSelection(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
 		}
 	}
 

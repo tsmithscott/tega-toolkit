@@ -1249,8 +1249,8 @@ li {
 }
 
 .flip {
-  transform: rotate(180deg) translate(0, 2px);
-  transition: transform 0.5s;
+  transform: rotate(-180deg) translate(0, 2px);
+  transition: transform 0.3s;
 }
 
 @media (max-height: 850px) {
