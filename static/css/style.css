@@ -1249,7 +1249,7 @@ li {
 }
 
 .flip {
-  transform: rotate(-180deg) translate(0, 2px);
+  transform: rotate(180deg) translate(0, 2px);
   transition: transform 0.3s;
 }
 

@@ -840,10 +840,10 @@ function flipArrow(accordion_button) {
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createModelsSubmeasureDropdown(model_for_id, model) {
 	$("#model-content-add-dropdown-row").prev().before(`
-	<div class="row model-content-accordion-${model_for_id}" style="min-height:auto;">
+	<div class="row model-content-accordion-${model_for_id}">
 		<div class="col">
-			<div class="centered-div" style="text-align: left; max-height: 170px;">
-				<div class="accordion-item" style="margin-top: 50px; margin-bottom: 50px;">
+			<div class="centered-div">
+				<div class="accordion-item" style="text-align: left;">
 					<h2 class="accordion-header d-flex justify-content-center" id="headingOne">
 						<div class="accordion-button btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
 							<button id="${model_for_id}-button-dropdown" onclick="flipArrow(this)" class="btn btn-primary accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${model_for_id}-collapse" aria-expanded="true" aria-controls="${model_for_id}-collapse" value="0">
@@ -855,7 +855,7 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 							</button>
 						</div>
 					</h2>
-					<div id="${model_for_id}-collapse" style="position:relative; top:-8px; padding-bottom:50px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-${model_for_id}">
+					<div id="${model_for_id}-collapse" style="position:relative; top:-8px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#model-content-accordion-${model_for_id}">
 						<div class="accordion-body">
 							<div class="card" style="width: auto; max-height: auto;">
 								<div class="card-body">
