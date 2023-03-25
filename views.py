@@ -61,7 +61,7 @@ def dashboard():
     games = None
     
     if current_user.is_authenticated:
-        games = Games.query.filter_by(user_id=current_user.id)
+        games = Games.query.filter_by(user_id=current_user.id).order_by(Games.last_updated.desc()).all()
         if games:
             games = [game.to_dict() for game in games]
 
