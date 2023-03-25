@@ -221,10 +221,13 @@ def get_game(game_id):
     game = Games.query.filter_by(id=game_id).first()
     
     if game:
-        return make_response(
-            jsonify(game.serialise()),
-            200
-        )
+        if game.user_id == current_user.id:
+            return make_response(
+                jsonify(game.serialise()),
+                200
+            )
+        else:
+            return "This game does not belong to this user.", 500
     else:
         return make_response(
             jsonify({}),

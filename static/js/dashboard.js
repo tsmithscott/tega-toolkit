@@ -157,8 +157,10 @@ function toggleModelSelection(input) {
 
 	if (cols.length === 3) {
 		$(input).closest(".accordion-collapse").prev().find("button").first().addClass("green");
+		$(input).closest(".accordion-collapse").prev().find("button").first().addClass("selected");
 	} else {
 		$(input).closest(".accordion-collapse").prev().find("button").first().removeClass("green");
+		$(input).closest(".accordion-collapse").prev().find("button").first().removeClass("selected");
 	}
 }
 
@@ -182,8 +184,58 @@ function processSection(sectionID) {
 
 	// Theoretical Model
 	} else if (sectionID === "model") {
-		processGameData(false, sectionID);
-		unlockNextSection(sectionID);
+		if ($("#model-content").find(".btn-primary.accordion-button").length > 0) {
+			let thinking_skills = $("#model-content").find(".btn-primary.accordion-button");
+
+			let section_game = {};
+
+			for (let skill of thinking_skills) {
+				if (!$(skill).hasClass("selected")) {
+					$("#model-content").find(".errorMessage").attr("hidden", "hidden");
+					$("#model-content").find(".errorSubMessage").removeAttr("hidden");
+					return;
+				}
+			}
+
+			for (let skill of thinking_skills) {
+				let thinking_skill = $(skill).attr("id").split("-")[0];
+				let cols = $(skill).closest("h2").next().find(".col-4");
+
+				let learning_mechanics = [];
+				let game_mechanics = [];
+				let rule_designs = [];
+				
+				for (let selection of $(cols[0]).find(".selected")) {
+					learning_mechanics.push($(selection).val().split(/-(.*)/s)[1]);
+				}
+
+				for (let selection of $(cols[1]).find(".selected")) {
+					game_mechanics.push($(selection).val().split(/-(.*)/s)[1]);
+				}
+
+				for (let selection of $(cols[2]).find(".selected")) {
+					rule_designs.push($(selection).val().split(/-(.*)/s)[1]);
+				}
+
+				section_game[thinking_skill] = {
+					"learning_mechanics": learning_mechanics,
+					"game_mechanics": game_mechanics,
+					"rule_designs": rule_designs
+				}
+			}
+
+			current_game[sectionID] = section_game;
+			save = processGameData(false, sectionID);
+			if (save) {
+				unlockNextSection(sectionID);
+			} else {
+				alert("unable to save progress. Please contact support.");
+			}
+
+		} else {
+			$("#model-content").find(".errorSubMessage").attr("hidden", "hidden");
+			$("#model-content").find(".errorMessage").removeAttr("hidden");
+		}
 
 
 	// Characteristics
@@ -907,7 +959,7 @@ function createModelsSubmeasureDropdown(model_for_id, model) {
 		}
 		subKey = subKey.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
 		for (let element of subValue) {
-			ulElement.append(`<li><div class="form-check"><input onchange="toggleModelSelection(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
+			ulElement.append(`<li><div class="form-check"><input onchange="toggleModelSelection(this)" class="form-check-input" type="checkbox" value="${model_for_id}-${element}" id="${subKey}-${element}"><label class="form-check-label" style="color:black; position: relative; top: -3px; padding-left: 5px; font-size:14px;" for="${subKey}-${element}">${element}</label></div></li>`)
 		}
 	}
 
