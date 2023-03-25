@@ -58,11 +58,6 @@ def login():
 
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
-    if request.method == "POST":
-        data = request.form.get("profile_button")
-        if data == "test":
-            session["input_type"] = data
-    
     games = None
     
     if current_user.is_authenticated:
@@ -220,7 +215,22 @@ def ajax_get_model():
         jsonify(data),
         200
     )
+
+@app.route("/get_game/<game_id>", methods=["GET"])
+def get_game(game_id):
+    game = Games.query.filter_by(id=game_id).first()
     
+    if game:
+        return make_response(
+            jsonify(game.serialise()),
+            200
+        )
+    else:
+        return make_response(
+            jsonify({}),
+            404
+        )
+
     
 @app.route("/delete_game/<game_id>", methods=["POST"])
 def delete_games(game_id):
@@ -244,11 +254,9 @@ def ajax_autosave():
     saved_game_uuid = request.get_json()['gameuuid']
     complete = request.get_json()['complete']
     latest_section = request.get_json()['latestsection']
-    name = request.get_json()['name'] if request.get_json()['name'] else None
+    name = None if not "name" in (request.get_json()).keys() else request.get_json()['name']
     update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
     token = JWT.generate_jwt(request.get_json()['current_game'])
-    
-    print(name)
     
     if saved_game_uuid:
         game_uuid = saved_game_uuid
@@ -270,7 +278,7 @@ def ajax_autosave():
             new_game = Games(
                 id=game_uuid,
                 game=token,
-                name="TEST",
+                name=name,
                 user_id=current_user.id,
                 complete=complete,
                 latest_section=latest_section,
@@ -287,6 +295,27 @@ def ajax_autosave():
     return response
 
 
+@app.route('/ajax-update-name', methods=["POST"])
+def ajax_update_name():
+    saved_game_uuid = request.get_json()['gameuuid']
+    name = request.get_json()['name'] if request.get_json()['name'] else None
+    update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+    
+    if current_user.is_authenticated:
+        if Games.query.filter_by(id=saved_game_uuid).first():
+            current_game = Games.query.filter_by(id=saved_game_uuid).first()
+            current_game.last_updated = update_datetime
+            current_game.name = name
+            
+            db.session.commit()
+            
+            return "", 200
+        else:
+            return "", 404
+    else:
+        return "", 200
+
+
 @app.route('/ajax-update-section', methods=["POST"])
 def ajax_update_section():
     token = JWT.generate_jwt(request.form.to_dict())
@@ -299,6 +328,7 @@ def ajax_update_section():
 @app.route('/ajax-parse', methods=["POST"])
 def ajax_parse():
     try:
+        print(request.form['jwt'].strip(" "))
         game_data = JWT.decode_jwt(request.form['jwt'])
         response = make_response(
             jsonify(

@@ -54,6 +54,16 @@ class Games(db.Model):
             "last_updated": self.last_updated,
             "user_id": self.user_id
         }
+        
+    
+    def serialise(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "complete": self.complete,
+            "latest_section": self.latest_section,
+            "game": self.game
+        }
 
 
 class Forms(db.Model):

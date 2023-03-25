@@ -32,16 +32,16 @@
                                     <div class="centered-div" style="height: 550px;">
                                         <ul class="list-group mx-auto p-1" style="direction: rtl; padding-right: 0px; overflow-x: hidden; overflow-y: scroll; height: 100%; width: 100%;">
                                             {% for game in games %}
-                                            <button class="list-group-item" style="direction:ltr;">
+                                            <button class="list-group-item" disabled style="direction:ltr; border: 0px;">
                                                 <div class="col-sm mx-auto text-nowrap">
-                                                    <ul class="list-group list-group-horizontal-sm justify-content-center">
+                                                    <ul class="list-group list-group-horizontal-sm justify-content-center" style="color:black;">
                                                         {% if game.name %}<li class="list-group-item">Name: {{ game.name }}</li>{% endif %}
                                                         <li class="list-group-item">Complete: {{ game.complete }}</li>
                                                         <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
                                                         <li class="list-group-item">
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <a class="fa fa-pencil" onclick="loadGame()" href="#" data-id={{ game.id }} role="button"></a>
+                                                                    <a class="fa fa-pencil" onclick="loadGame(this)" href="#" data-id={{ game.id }} role="button"></a>
                                                                 </div>
                                                                 <div class="col">
                                                                     <a class="fas fa-trash" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
@@ -1076,13 +1076,19 @@
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
                                     <h2><b>Assessment</b></h2>
-                                    <p style="color:black;">Please feel free to create a friendly name for your game:</p>
+                                    <p style="color:black;">Please feel free to create a name for your game:</p>
                                     <div class="centered-div">
-                                        <input id="game-name" type="text" style="width: 40%;" class="form-control" placeholder="Game Name">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input id="game-name" type="text" class="form-control" placeholder="Game Name">
+                                            </div>
+                                            <div class="col">
+                                                <button onclick="nameGame()" id="game-name-submit" class='btn btn-secondary dashboard-content-submit float-left' type="button" class="btn btn-secondary">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button onclick="nameGame()" id="game-name-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
-                                        Save
-                                    </button>
                                     <br />
                                     <p style="color:black;">
                                         Share the following link to your beta-test players: <a id="form-copy-link">{{base_url}}/form/</a>
@@ -1092,7 +1098,7 @@
                                     </p>
 
                                     <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
-                                        Save & Continue
+                                        Continue
                                     </button>
                                 </div>
                                 <!-- End Assessment -->

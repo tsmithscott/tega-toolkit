@@ -2,6 +2,9 @@ var current_game = {};
 var sections;
 var characteristics;
 var models;
+var gameName;
+var update;
+var complete_status;
 
 $.ajax({
 	url: '/get_sections',
@@ -306,6 +309,7 @@ function processSection(sectionID) {
 			if (save) {
 				alert("DEBUG: SAVED TO DATABASE.");
 				unlockNextSection(sectionID);
+				toggleDashboardPage();
 			} else {
 				alert("Unable to save progress to the database. Please contact support.");
 			}
@@ -359,6 +363,10 @@ function processGameData(complete, section) {
 	let url = '/ajax-autosave';
 	deleteCookie("_game_data");
 
+	if (update) {
+		complete = complete_status;
+	}
+
 	$.ajax({
 		url: url,
 		contentType: "application/json;charset=utf-8",
@@ -375,9 +383,36 @@ function processGameData(complete, section) {
 	return saved;
 }
 
+
 // Load game data from database
-function loadGame() {
-	console.log("Reached loadGame() function")
+function loadGame(edit_button) {
+	let dataid = $(edit_button).data('id');
+	let url = '/get_game/' + dataid;
+	
+	$.ajax({
+		url: url,
+		type: 'GET',
+		success: function(response) {
+			update = true;
+			complete_status = response['complete'];
+			gameName = response['name'];
+
+			console.log(response['game']);
+			console.log(response);
+
+			setCookie("_game_data", response['game']);
+			setCookie("_latest_section", response['latest_section']);
+			setCookie("_game_id", response['id']);
+
+			loadGameData();
+			toggleDashboardPage();
+
+		},
+		error: function(error) {
+			saved = false;
+	  	},
+		async: false
+	});
 }
 
 
@@ -385,12 +420,13 @@ function loadGame() {
 function loadGameData() {
 	let latestSection = "introduction";
 
-	gameDataCookie = getCookie("_game_data");
-	latestSectionCookie = getCookie("_latest_section");
+	let gameDataCookie = getCookie("_game_data");
+
+	let latestSectionCookie = getCookie("_latest_section");
 
 	if (gameDataCookie !== null) {
 		current_game = parseJWT(gameDataCookie);
-
+ 
 		if (latestSectionCookie !== null) {
 			latestSection = parseJWT(latestSectionCookie)["section"];
 		}
@@ -448,7 +484,7 @@ function parseJWT(jwt) {
 	let data = '';
 	$.ajax({
 		url: '/ajax-parse',
-		data: {"jwt": jwt},
+		data: {"jwt": Stringjwt},
 		type: 'POST',
 		success: function(response) {
 			data = response;
@@ -941,6 +977,24 @@ function createNewGame() {
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
 	addStyling("#introduction");
 	toggleDashboardPage();
+}
+
+function nameGame() {
+	let name = $("#game-name").val();
+
+	$.ajax({
+		url: "/ajax-update-name",
+		contentType: "application/json;charset=utf-8",
+		data: JSON.stringify({"gameuuid": getCookie("_game_id"), "name":name}),
+		type: 'POST',
+		success: function(response) {
+			saved = true;
+		},
+		error: function(error) {
+			saved = false;
+	  	},
+		async: false
+	});
 }
 
 
