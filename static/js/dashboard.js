@@ -47,6 +47,10 @@ $(document).ready(function() {
 	populateCharacteristicsDropdown();
 	populateModelDropdown();
 	cleanDashboardClone = $("#dashboard-container-right").clone();
+
+	let game_id = getCookie("_game_id");
+	$("#form-copy-link").append(game_id);
+
 	loadGameData();
 	disableBodyScroll();
 });
@@ -135,7 +139,6 @@ function processSection(sectionID) {
 	} else if (sectionID === "assessment") {
 		// updateLatestSection(sectionID)
 		unlockNextSection(sectionID);
-		$("#form-copy-link").html().append(`${current_game['game_id']}`);
 	// Individual handling for sections with inputs
 	} else {
 		let section_game = {};
@@ -299,6 +302,7 @@ function processSection(sectionID) {
 			save = processGameData(false, sectionID);
 			if (save) {
 				unlockNextSection(sectionID);
+				$("#form-copy-link").append(getCookie("_game_id"));
 			} else {
 				alert("Unable to save progress. Please contact support.");
 			}
@@ -608,6 +612,7 @@ function addGameDataStyling() {
 						}
 					}
 					break;
+
 				case('instruction'):
 					let tbody = $('#instruction-content').find('tbody');
 
@@ -618,6 +623,7 @@ function addGameDataStyling() {
 						$(textarea).val(gameData['instruction'][instruction]);
 					}
 					break;
+
 				case('playability'):
 					let tablebody = $('#playability-content').find('tbody');
 					let empty_row = $(tablebody).children().first()[0];
@@ -630,6 +636,7 @@ function addGameDataStyling() {
 						}
 						createPlayabilityRow($(empty_row[0]).children().first(), true);
 					}
+					break;
 			}
 		}
 	}
