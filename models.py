@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 
+from security.jwt import JWT
 from app import db
 
 
@@ -61,7 +62,7 @@ class Games(db.Model):
             "id": self.id,
             "name": self.name,
             "complete": self.complete,
-            "latest_section": self.latest_section,
+            "latest_section": JWT.generate_jwt({"section": self.latest_section}),
             "game": self.game
         }
 

@@ -318,7 +318,16 @@ def ajax_update_name():
 
 @app.route('/ajax-update-section', methods=["POST"])
 def ajax_update_section():
-    token = JWT.generate_jwt(request.form.to_dict())
+    gameid = request.form['gameid']
+    section = request.form['section']
+    token = JWT.generate_jwt({'section': section})
+    
+    if current_user.is_authenticated:
+        if Games.query.filter_by(id=gameid).first():
+            game = Games.query.filter_by(id=gameid).first()
+            game.latest_section = section
+            db.session.commit()
+    
     response = make_response()
     response.set_cookie("_latest_section", token, secure=True)
     response.status_code = 200
@@ -328,7 +337,6 @@ def ajax_update_section():
 @app.route('/ajax-parse', methods=["POST"])
 def ajax_parse():
     try:
-        print(request.form['jwt'].strip(" "))
         game_data = JWT.decode_jwt(request.form['jwt'])
         response = make_response(
             jsonify(
@@ -338,6 +346,7 @@ def ajax_parse():
         response.headers['Content-Type'] == 'application/json'
         return response
     except InvalidSignatureError:
+        print(request.get_json()['jwt'])
         response = make_response()
         response.status_code = 400
 

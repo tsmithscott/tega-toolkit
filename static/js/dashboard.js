@@ -307,7 +307,6 @@ function processSection(sectionID) {
 			save = processGameData(true, sectionID);
 
 			if (save) {
-				alert("DEBUG: SAVED TO DATABASE.");
 				unlockNextSection(sectionID);
 				toggleDashboardPage();
 			} else {
@@ -344,7 +343,7 @@ function processLatestSection(latestSection) {
 	let status = '';
 	$.ajax({
 		url: '/ajax-update-section',
-		data: {"section": latestSection},
+		data: {"section": latestSection, "gameid": getCookie("_game_id")},
 		type: 'POST',
 		success: function(response) {
 			status = true;
@@ -396,9 +395,6 @@ function loadGame(edit_button) {
 			update = true;
 			complete_status = response['complete'];
 			gameName = response['name'];
-
-			console.log(response['game']);
-			console.log(response);
 
 			setCookie("_game_data", response['game']);
 			setCookie("_latest_section", response['latest_section']);
@@ -482,9 +478,10 @@ function loadGameData() {
 
 function parseJWT(jwt) {
 	let data = '';
+
 	$.ajax({
 		url: '/ajax-parse',
-		data: {"jwt": Stringjwt},
+		data: {"jwt": jwt},
 		type: 'POST',
 		success: function(response) {
 			data = response;
