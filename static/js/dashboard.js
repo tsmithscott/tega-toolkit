@@ -5,6 +5,7 @@ var models;
 var gameName;
 var update;
 var complete_status;
+var cleanDashboardClone;
 
 $.ajax({
 	url: '/get_sections',
@@ -45,6 +46,7 @@ $.ajax({
 $(document).ready(function() {
 	populateCharacteristicsDropdown();
 	populateModelDropdown();
+	cleanDashboardClone = $("#dashboard-container-right").clone();
 	loadGameData();
 	disableBodyScroll();
 });
@@ -590,6 +592,9 @@ function addGameDataStyling() {
 						let text = textarea_data.split('_')[0];
 						let identifier = textarea_data.split('_')[1];
 						
+						if (subsection === "Assessment") {
+							subsection = "Assessment1"
+						}
 						let subsection_td = $(section_content).find('#' + subsection.replace(/[^\w\s]/gi, '').replace(/\s+/g, ''));
 						let tools = $(subsection_td.next().children()[0]);
 						let reasoning = $(subsection_td.next().next().children()[0]);
@@ -972,6 +977,7 @@ function createNewGame() {
 	deleteCookie('_game_data');
 	current_game = {};
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
+	$("#dashboard-container-right").replaceWith(cleanDashboardClone.clone());
 	addStyling("#introduction");
 	toggleDashboardPage();
 }
