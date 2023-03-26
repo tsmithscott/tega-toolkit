@@ -24,5 +24,5 @@ class TestJWT(TestCase):
             self.assertEqual(str(exception.exception), 'JWT signature is unverified. This token has been modified.')
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

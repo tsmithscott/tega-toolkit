@@ -79,35 +79,21 @@ $(document).on("click", "#justification-submit-anonymous", function() {
 })
 
 
-// function downloadGameJSONAnonymous() {
-// 	$.ajax({
-// 		url: '/download-game-anonymous',
-// 		type: 'POST',
-// 		data: {"cookie": getCookie("_game_data"), "type": "JSON"},
-// 		success: function(response) {
-// 			console.log(response);
-// 		},
-// 		error: function(error) {
-// 			throw new Error(error);
-// 		},
-// 		async: false
-// 	});
-// }
-
-// function downloadGamePDFAnonymous() {
-// 	$.ajax({
-// 		url: '/download-game-anonymous',
-// 		type: 'POST',
-// 		data: {"cookie": getCookie("_game_data"), "type": "PDF"},
-// 		success: function(response) {
-// 			console.log(response);
-// 		},
-// 		error: function(error) {
-// 			throw new Error(error);
-// 		},
-// 		async: false
-// 	});
-// }
+function importGame() {
+	console.log($('#upload-game-form')[0]);
+	var form_data = new FormData($('#upload-game-form')[0]);
+	$.ajax({
+		type: 'POST',
+		url: '/upload-game',
+		data: form_data,
+		contentType: false,
+		cache: false,
+		processData: false,
+		success: function(data) {
+			console.log('Success!');
+		},
+	});
+}
 
 function loadMostRecentGame() {
 	$("#dashboard-saved-games").find(".list-group-item").first().find("a").first().click();
@@ -217,7 +203,7 @@ function processSection(sectionID) {
 
 	// Introduction
 	if (sectionID === "introduction") {
-		processGameData(sectionID);
+		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
 
 
@@ -521,7 +507,6 @@ function processGameData(complete, section) {
 	if (update) {
 		complete = complete_status;
 	}
-
 	$.ajax({
 		url: url,
 		contentType: "application/json;charset=utf-8",

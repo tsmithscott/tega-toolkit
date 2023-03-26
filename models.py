@@ -52,6 +52,7 @@ class Games(db.Model):
             "id": self.id,
             "name": self.name,
             "complete": self.complete,
+            "latest_section": self.latest_section,
             "last_updated": self.last_updated,
             "user_id": self.user_id
         }

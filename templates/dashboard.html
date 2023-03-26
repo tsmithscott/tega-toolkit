@@ -8,7 +8,11 @@
                 <div id="dashboard-card" class="card" style="min-width: 350px;">
                     <div id="dashboard-card-header" class="container text-center" style="height: 90px;">
                         <div class="row">
-                            <div class="col-4" style="height: 85px;"></div>
+                            <div class="col-4" style="height: 85px;">
+                                <a class="btn btn-primary float-left" data-bs-toggle="modal" href="#dashboardGameModalImport" style="position:relative; top:20px; left: -45px;">
+                                    Import Game<span class="fa fa-file-import ml-2"></span>
+                                </a>
+                            </div>
                             <div class="col-4" style="height: 85px;">
                                 <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
                             </div>
@@ -38,14 +42,14 @@
                             <div class="col-6 text-center ml-4" style="height: 550px; width: 800px; overflow-y:hidden; overflow-x:hidden; direction: rtl;">
                                 <div class="card" style="position: relative; height: 100%; width: 100%;">
                                     {% if games %}
-                                    <div class="centered-div" style="height: 550px;">
+                                    <div class="centered-div pb-1" style="height: 550px;">
                                         <ul class="list-group mx-auto p-1" style="direction: rtl; padding-right: 0px; overflow-x: hidden; overflow-y: scroll; height: 100%; width: 100%;">
                                             {% for game in games %}
                                             <button class="list-group-item" disabled style="direction:ltr; border: 0px;">
                                                 <div class="col-sm mx-auto text-nowrap">
                                                     <ul class="list-group list-group-horizontal-sm justify-content-center" style="color:black;">
                                                         {% if game.name %}<li class="list-group-item">Name: {{ game.name }}</li>{% endif %}
-                                                        <li class="list-group-item">{% if game.complete == False %}Incomplete{% else %}Complete{% endif %}</li>
+                                                        <li class="list-group-item">{% if game.complete == False %}Incomplete (Latest section: {{ game.latest_section }}){% else %}Complete{% endif %}</li>
                                                         <li class="list-group-item">Last modified: {{ game.last_updated }}</li>
                                                         <li class="list-group-item">
                                                             <div class="row">
@@ -429,7 +433,7 @@
                                     <div class="row" style="position:relative;">
                                         <div class="col">
                                             <h2><b>Theoretical Model</b></h2><br />
-                                            <p style="color: black;">By this time, you should have made some preliminary decisions about the <b>learning mechanics</b>, the <b>thinking skills</b> and <b>game mechanics</b>. The options below give you some inspiration on some rule designs. So, by eliminating non-viable options from the <b>thinking skill</b> options, you will be limiting your <b>game rule designs</b>. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
+                                            <p style="color: black;">By this time, you should have made some preliminary decisions about the <b>learning mechanics</b>, the <b>thinking skills</b>, and <b>game mechanics</b>. The options below give you some inspiration on some rule designs. So, by eliminating non-viable options from the <b>thinking skill</b> options, you will be limiting your <b>game rule designs</b>. This is in no way prescriptive. It is only designed to help you choose between a myriad of available rules and designs.</p>
                                             <a id="modelClassificationModalButton" class="btn btn-primary text-wrap mb-2 mt-0" data-bs-toggle="modal" href="#modelClassificationModal" role="button">
                                                 Press to view Game Theoretical Models and Classifications table
                                             </a><br /><br />
@@ -1854,27 +1858,26 @@
     </div>
 </div>
 <!-- End of Delete games modal - Dashboard -->
-{% if current_user.is_authenticated %}
 <!-- Download games modal - Dashboard -->
 <div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownloadLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownloadLabel">Game Download</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
-                <p class="text-dark text-center">How do you want to download the game? We recommend <i>pdf</i>, however json allows for greater manipulation.</p>
+                <p class="text-dark text-center">You can download your game and import it, or send it to somebody else.</p>
                 <div class="row">
-                    <div class="col-6">
-                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" id="pdf-download-option" href="" role="button">
-                            PDF
-                        </a>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="centered-div">
+                            <a class="btn btn-secondary text-wrap mb-2 mt-0 text-center" id="json-download-option" href="" role="button">
+                                Download as JSON
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-left" id="json-download-option" href="" role="button">
-                            JSON
-                        </a>
-                    </div>
+                    <div class="col-4"></div>
                 </div>
                 <input type="text" value="" id="download-modal-data-id" hidden>
             </div>
@@ -1882,35 +1885,38 @@
     </div>
 </div>
 <!-- End of Download games modal - Dashboard -->
-{% else %}
-<!-- Download games modal - Dashboard -->
-<div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownloadLabel" aria-hidden="true">
+<!-- Import game modal - Dashboard -->
+<div class="modal fade" id="dashboardGameModalImport" tabindex="-1" aria-labelledby="dashboardGameModalImportLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownloadLabel">Game Download</h1>
+                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalImportLabel">Game Import</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
-                <p class="text-dark text-center">How do you want to download the game? We recommend <i>pdf</i>, however json allows for greater manipulation.</p>
-                <div class="row">
-                    <div class="col-6">
-                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" href="" target="_blank" id="pdf-download-option" role="button">
-                            PDF
-                        </a>
+                <form id="upload-game-form" onsubmit="importGame()">
+                    <div class="row mb-3 d-flex justify-content-center">
+                        <input type="text" class="form-control w-50 " id="import-game-file-name" placeholder="Enter game name">
                     </div>
-                    <div class="col-6">
-                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-left" href="" target="_blank" id="json-download-option" role="button">
-                            JSON
-                        </a>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" accept="application/JSON" id="import-game-file" name="import-game-file">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-secondary text-wrap mb-2 mt-0 text-center" id="json-download-option" type="submit" role="button">
+                                Import
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <input type="text" value="" id="download-modal-data-id" hidden>
             </div>
         </div>
     </div>
 </div>
-<!-- End of Download games modal - Dashboard -->
-{% endif %}
+<!-- End of Import game modal - Dashboard -->
 
 
 {% endblock content %}

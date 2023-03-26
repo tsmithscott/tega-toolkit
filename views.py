@@ -283,39 +283,34 @@ def download_ajax_json(game_id):
         garbage_thread.start()
         
         return send_file(f'./tmp/{game_id}.json', as_attachment=True)
+    
+    
+@app.route('/upload-game', methods=["POST"])
+def upload_game():
+    if current_user.is_authenticated:
+        if 'file' not in request.files:
+            return "No file submitted", 400
+        else:
+            file = request.files['file']
+            name = request.form['game_name']
             
-            
-# @app.route('/download-game-pdf/<game_id>', methods=["GET"])
-# def download_ajax_pdf(game_id):
-#     if current_user.is_authenticated:
-#         game = Games.query.filter_by(id=game_id).first()
-        
-#         if game:
-#             if game.user_id == current_user.id:
-#                 game_dict = JWT.decode_jwt(game.game)
-                
-#                 with open(f'./tmp/{game_id}.json', 'w', encoding="utf-8") as file:
-#                     file.write(json.dumps(game_dict))
+            if file.filename == '':
+                return "No file submitted", 400
+            else:
+                if file.filename.split('.', 1)[1] == 'json':
+                    game_id = uuid.uuid4().hex
                     
-#                 garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 15), daemon=True)
-#                 garbage_thread.start()
+                    while game_id in Games.query.filter_by(id=game_id).first():
+                        game_id = uuid.uuid4().hex
+                        
+                    file.save('./tmp', f'{game_id}.json')
                     
-#                 return send_file(f'./tmp/{game_id}.json', as_attachment=True)
-#             else:
-#                 return "This game does not belong to this user.", 500
-#         else:
-#             return "", 404
-#     else:
-#         game = JWT.decode_jwt(request.cookies.get("_game_data"))
-#         print(game)
-        
-#         with open(f'./tmp/{game_id}.json', 'w', encoding="utf-8") as file:
-#             file.write(json.dumps(game))
-            
-#         garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 30), daemon=True)
-#         garbage_thread.start()
-        
-#         return send_file(f'./tmp/{game_id}.json', as_attachment=True)
+                    with open(f'./tmp/{game_id}.json', 'r', encoding='utf-8') as tmp_file:
+                        game = json.loads(tmp_file.read())
+                        
+                    
+                else:
+                    return "Incorrent file type", 400
 
 
 @app.route('/ajax-autosave', methods=["POST"])
