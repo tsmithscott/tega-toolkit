@@ -564,6 +564,7 @@ function loadGame(edit_button) {
 			loadGameData();
 			toggleDashboardPage();
 			$("#load-most-recent-game-button").hide();
+			$("#import-game-button").hide();
 			$("#page-switch-button").show();
 
 		},
