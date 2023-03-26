@@ -679,7 +679,15 @@ function addGameDataStyling() {
 					break;
 
 				case('model'):
-					// TODO: Add input loading for model section
+					// let thinking_skills = Object.keys(gameData[section])
+
+					// for (let skill of thinking_skills) {
+					// 	console.log(skill)
+					// 	processModelMeasure(skill);
+					// }
+					
+					// let cols = $('#model-content').find('.accordion-collapse').find('.accordion-body').find('.col');
+
 					break;
 
 				case('slate'):
@@ -1145,6 +1153,3 @@ $(document).on('hidden.bs.modal', function () {
 	disableBodyScroll();
 });
 
-$(function () {
-	$('[data-toggle="popover"]').popover()
-})
