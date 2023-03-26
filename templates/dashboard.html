@@ -9,9 +9,11 @@
                     <div id="dashboard-card-header" class="container text-center" style="height: 90px;">
                         <div class="row">
                             <div class="col-4" style="height: 85px;">
-                                <a class="btn btn-primary float-left" data-bs-toggle="modal" href="#dashboardGameModalImport" style="position:relative; top:20px; left: -45px;">
+                                {% if current_user.is_authenticated %}
+                                <a id="import-game-button" class="btn btn-primary float-left" data-bs-toggle="modal" href="#dashboardGameModalImport" style="position:relative; top:20px; left: -45px;">
                                     Import Game<span class="fa fa-file-import ml-2"></span>
                                 </a>
+                                {% endif %}
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 <h1 style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Dashboard</h1>
@@ -1922,5 +1924,10 @@
 {% endblock content %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dashboard.js') }}" charset='iso-8859-1'></script>
-<script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cookies.js') }}"></script>#
+{% if not current_user.is_authenticated %}
+<script>
+    loadGameData();
+</script>
+{% endif %}
 {% endblock scripts %}

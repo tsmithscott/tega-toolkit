@@ -51,7 +51,6 @@ $(document).ready(function() {
 	let game_id = getCookie("_game_id");
 	$("#form-copy-link").append(game_id);
 
-	loadGameData();
 	disableBodyScroll();
 });
 
@@ -1133,7 +1132,6 @@ function toggleDashboardPage() {
 	if ($("#dashboard-container-left").is(":hidden")) {
 		$("#dashboard-container-left").show();
 		$("#progress-bar-div").parent().show();
-		loadGameData();
 	}
 }
 
