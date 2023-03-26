@@ -78,6 +78,26 @@ $(document).on("click", "#justification-submit-anonymous", function() {
 })
 
 
+$("#upload-game-form").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: "/upload-game",
+        type: "POST",
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data) {
+            console.log("Successful upload");
+			location.reload();
+        },
+        error: function(data) {
+            console.log("Error uploading game");
+        }
+    });
+});
+
+
 function importGame() {
 	console.log($('#upload-game-form')[0]);
 	var form_data = new FormData($('#upload-game-form')[0]);
