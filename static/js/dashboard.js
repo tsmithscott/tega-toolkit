@@ -97,6 +97,7 @@ function importGame() {
 function loadMostRecentGame() {
 	$("#dashboard-saved-games").find(".list-group-item").first().find("a").first().click();
 	$("#load-most-recent-game-button").hide();
+	$("#import-game-button").hide();
 	$("#page-switch-button").show();
 }
 
@@ -1149,6 +1150,7 @@ function createNewGame() {
 	addStyling("#introduction");
 	toggleDashboardPage();
 	$("#load-most-recent-game-button").hide();
+	$("#import-game-button").hide();
 	$("#page-switch-button").show();
 }
 
