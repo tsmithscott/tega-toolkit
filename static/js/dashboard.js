@@ -62,19 +62,57 @@ $(document).on("click", ".fa-trash", function() {
 
 $(document).on("click", ".fa-file-download", function() {
 	let dataid = $(this).data('id');
-	let url = "/download-game-json/" + dataid;
+	let pdf_url = "/download-game-pdf/" + dataid;
+	let json_url = "/download-game-json/" + dataid;
 
-	$("#json-download-option").attr("href", url);
+	$("#pdf-download-option").attr("href", pdf_url);
+	$("#json-download-option").attr("href", json_url);
 })
+
+$(document).on("click", "#justification-submit-anonymous", function() {
+	let gameid = getCookie("_game_id");
+	let pdf_url = "/download-game-pdf/" + gameid;
+	let json_url = "/download-game-json/" + gameid;
+
+	$("#pdf-download-option").attr("href", pdf_url);
+	$("#json-download-option").attr("href", json_url);
+})
+
+
+// function downloadGameJSONAnonymous() {
+// 	$.ajax({
+// 		url: '/download-game-anonymous',
+// 		type: 'POST',
+// 		data: {"cookie": getCookie("_game_data"), "type": "JSON"},
+// 		success: function(response) {
+// 			console.log(response);
+// 		},
+// 		error: function(error) {
+// 			throw new Error(error);
+// 		},
+// 		async: false
+// 	});
+// }
+
+// function downloadGamePDFAnonymous() {
+// 	$.ajax({
+// 		url: '/download-game-anonymous',
+// 		type: 'POST',
+// 		data: {"cookie": getCookie("_game_data"), "type": "PDF"},
+// 		success: function(response) {
+// 			console.log(response);
+// 		},
+// 		error: function(error) {
+// 			throw new Error(error);
+// 		},
+// 		async: false
+// 	});
+// }
 
 function loadMostRecentGame() {
 	$("#dashboard-saved-games").find(".list-group-item").first().find("a").first().click();
 	$("#load-most-recent-game-button").hide();
 	$("#page-switch-button").show();
-}
-
-function downloadGamePDF() {
-	console.log("Downloading game...");
 }
 
 function deleteGame() {
@@ -411,8 +449,8 @@ function processSection(sectionID) {
 
 	// Assessment
 	} else if (sectionID === "assessment") {
-		if ($("#game-name").val().length > 0) {
-			nameGame();
+		if ($("#game-name").length && $("#game-name").val().length > 0) {
+			nameGame()
 		}
 		processGameData(false, sectionID);
 		unlockNextSection(sectionID);
@@ -421,7 +459,7 @@ function processSection(sectionID) {
 	// Justification
 	} else if (sectionID === "justification") {
 		save = processGameData(true, sectionID);
-
+		
 		if (save) {
 			unlockNextSection(sectionID);
 			toggleDashboardPage();
@@ -520,6 +558,8 @@ function loadGame(edit_button) {
 
 			loadGameData();
 			toggleDashboardPage();
+			$("#load-most-recent-game-button").hide();
+			$("#page-switch-button").show();
 
 		},
 		error: function(error) {
@@ -639,6 +679,7 @@ function addStyling(latestSection) {
 	$(latestSection + '-content').show();
 }
 
+
 // Helper function to add styling to section inputs on page load
 function addGameDataStyling() {
 	// Keys for each section with gamedata
@@ -679,15 +720,38 @@ function addGameDataStyling() {
 					break;
 
 				case('model'):
-					// let thinking_skills = Object.keys(gameData[section])
+					let thinking_skills = Object.keys(gameData[section])
 
-					// for (let skill of thinking_skills) {
-					// 	console.log(skill)
-					// 	processModelMeasure(skill);
-					// }
+					for (let skill of thinking_skills) {
+						processModelMeasure("#" + skill);
+
+						let cols = $('#model-content').find('.accordion-collapse').find('.accordion-body').find('.col-4');
+						
+						let learning_mechanics = gameData[section][skill]["learning_mechanics"];
+						let game_mechanics = gameData[section][skill]["game_mechanics"];
+						let rule_designs = gameData[section][skill]["rule_designs"]
+
+						for (let mechanic of learning_mechanics) {
+							let id = "[id='Learningmechanics-" + mechanic + "']";
+							$(cols[0]).find(id).attr("checked", true);
+							$(cols[0]).find(id).addClass("selected");
+						}
+
+						for (let mechanic of game_mechanics) {
+							let id = "[id='Gamemechanics-" + mechanic + "']";
+							$(cols[1]).find(id).attr("checked", true);
+							$(cols[1]).find(id).addClass("selected");
+						}
+
+						for (let mechanic of rule_designs) {
+							let id = "[id='Gameruledesigns-" + mechanic + "']";
+							$(cols[2]).find(id).attr("checked", true);
+							$(cols[2]).find(id).addClass("selected");
+						}
+
+						$("#" + skill + "-button-dropdown").addClass("green").addClass("selected");
+					}
 					
-					// let cols = $('#model-content').find('.accordion-collapse').find('.accordion-body').find('.col');
-
 					break;
 
 				case('slate'):
@@ -779,10 +843,10 @@ function unlockNextSection(currentSection) {
 
 	let nextSectionButton = $('#' + currentSection).next();
 	let nextSectionContent = $('#' + currentSection + '-content').next();
-
-		
-	if (nextSectionButton.children().val() === "0") {
-		if (nextSectionButton.length !== 0) {
+	
+	// If the next section is not the last section
+	if (nextSectionButton.length !== 0) {
+		if (nextSectionButton.children().val() == 0) {
 			currentSectionButton.removeClass('active').removeAttr('aria-current');
 			nextSectionButton.removeAttr('disabled style');
 
@@ -797,16 +861,18 @@ function unlockNextSection(currentSection) {
 
 			incrementProgressBar();
 		} else {
-			$('#progress-bar').attr('aria-valuenow', 100).css('width', 100 + '%');
+			// Change button styling
+			currentSectionButton.removeClass('active').removeAttr('aria-current');
+			nextSectionButton.addClass('active').attr('aria-current', 'true')
+			// Change content section
+			currentSectionContent.hide();
+			nextSectionContent.scrollTop(0);
+			nextSectionContent.show();
 		}
+	// If the next section is the last section
 	} else {
-		// Change button styling
-		currentSectionButton.removeClass('active').removeAttr('aria-current');
-		nextSectionButton.addClass('active').attr('aria-current', 'true')
-		// Change content section
-		currentSectionContent.hide();
-		nextSectionContent.scrollTop(0);
-		nextSectionContent.show();
+		$("#dashboardGameModalDownload").modal('show');
+		$('#progress-bar').attr('aria-valuenow', 100).css('width', 100 + '%');
 	}
 }
 
@@ -1094,11 +1160,13 @@ function createNewGame() {
 	current_game = {};
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
 	$("#dashboard-container-right").replaceWith(cleanDashboardClone.clone());
+	removeAllStyling();
 	addStyling("#introduction");
 	toggleDashboardPage();
 	$("#load-most-recent-game-button").hide();
 	$("#page-switch-button").show();
 }
+
 
 function nameGame() {
 	let name = $("#game-name").val();

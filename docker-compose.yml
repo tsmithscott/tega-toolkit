@@ -6,5 +6,18 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    volumes:
+      - <ADD LOCAL CONFIG FILE PATH>:/app/config.py
     ports:
       - 5001:5001
+    depends_on:
+      - tega-db
+    
+  tega-db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=<ADD PASSWORD HERE>
+      - MYSQL_DATABASE=tega
+    restart: always

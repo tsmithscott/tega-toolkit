@@ -14,14 +14,20 @@
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 {% if current_user.is_authenticated %}
-                                    <div class="float-right" style="position:relative; top:20px; left:50px;">
-                                        <button id="load-most-recent-game-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="loadMostRecentGame()" style="{% if not games %}display:none;{% endif %}">
-                                            Return to most recent game
-                                        </button>
-                                        <button id="page-switch-button" class="btn btn-primary" id="dashboard-to-saved-games-button" onclick="toggleDashboardPage()" style="display:none;">
-                                            Return to saved games
-                                        </button>
-                                    </div>
+                                <div class="float-right" style="position:relative; top:20px; left:50px;">
+                                    <button id="load-most-recent-game-button" class="btn btn-primary" onclick="loadMostRecentGame()" style="{% if not games %}display:none;{% endif %}">
+                                        Return to most recent game
+                                    </button>
+                                    <button id="page-switch-button" class="btn btn-primary" onclick="toggleDashboardPage()" style="display:none;">
+                                        Return to saved games
+                                    </button>
+                                </div>
+                                {% else %}
+                                <div class="float-right" style="position:relative; top:20px; left:50px;">
+                                    <button  class="btn btn-primary" id="reset-game-unauthenticated" onclick="createNewGame()">
+                                        Reset Game
+                                    </button>
+                                </div>
                                 {% endif %}
                             </div>
                         </div>
@@ -1089,6 +1095,7 @@
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
                                     <h2><b>Assessment</b></h2>
+                                    {% if current_user.is_authenticated %}
                                     <p style="color:black;">Please feel free to create a name for your game:</p>
                                     <div class="centered-div">
                                         <div class="row">
@@ -1109,6 +1116,13 @@
                                     <p style="color:black">
                                         They are required to fill in the following questionnaire after playing your game.
                                     </p>
+                                    {% else %}
+                                    <br />
+                                    <p style="color:black;">
+                                        Please <a href="{{base_url}}/login">login</a> to name your game and to send a questionnaire form to your beta-testers.
+                                    </p>
+                                    <br />
+                                    {% endif %}
 
                                     <button onclick="processSection('assessment')" id="assessment-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
                                         Continue
@@ -1148,8 +1162,8 @@
                                         <b>Question No. 6.</b> <i>Do you have any other feedback you'd like the designer or publisher to hear?</i> The answers to this question can give some insights to the game designer and/or publisher on how the particular game can be improved.
                                     </p>
                                     
-                                    <button onclick="processSection('justification')" id="justification-submit" class='btn btn-secondary dashboard-content-submit' type="button" class="btn btn-secondary">
-                                        Save & Continue
+                                    <button onclick="processSection('justification')" id="{% if current_user.is_authenticated %}justification-submit{% else %}justification-submit-anonymous{% endif %}" class="btn btn-secondary dashboard-content-submit" type="button" class="btn btn-secondary">
+                                        {% if current_user.is_authenticated %}Complete Game{% else %}Complete Game and Download{% endif %}
                                     </button>
                                 </div>
                                 <!-- End Justification -->
@@ -1840,18 +1854,19 @@
     </div>
 </div>
 <!-- End of Delete games modal - Dashboard -->
+{% if current_user.is_authenticated %}
 <!-- Download games modal - Dashboard -->
-<div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownload" aria-hidden="true">
+<div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownloadLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownload">Game Download</h1>
+                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownloadLabel">Game Download</h1>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                 <p class="text-dark text-center">How do you want to download the game? We recommend <i>pdf</i>, however json allows for greater manipulation.</p>
                 <div class="row">
                     <div class="col-6">
-                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" onclick="downloadGamePDF()" href="" role="button">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" id="pdf-download-option" href="" role="button">
                             PDF
                         </a>
                     </div>
@@ -1866,6 +1881,37 @@
         </div>
     </div>
 </div>
+<!-- End of Download games modal - Dashboard -->
+{% else %}
+<!-- Download games modal - Dashboard -->
+<div class="modal fade" id="dashboardGameModalDownload" tabindex="-1" aria-labelledby="dashboardGameModalDownloadLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="dashboardGameModalDownloadLabel">Game Download</h1>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p class="text-dark text-center">How do you want to download the game? We recommend <i>pdf</i>, however json allows for greater manipulation.</p>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-right" href="" target="_blank" id="pdf-download-option" role="button">
+                            PDF
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-secondary text-wrap mb-2 mt-0 float-left" href="" target="_blank" id="json-download-option" role="button">
+                            JSON
+                        </a>
+                    </div>
+                </div>
+                <input type="text" value="" id="download-modal-data-id" hidden>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Download games modal - Dashboard -->
+{% endif %}
+
 
 {% endblock content %}
 {% block scripts %}
