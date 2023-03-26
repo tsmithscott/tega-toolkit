@@ -705,11 +705,12 @@ function addGameDataStyling() {
 
 				case('model'):
 					let thinking_skills = Object.keys(gameData[section])
-
+					let i = 0;
 					for (let skill of thinking_skills) {
 						processModelMeasure("#" + skill);
 
-						let cols = $('#model-content').find('.accordion-collapse').find('.accordion-body').find('.col-4');
+						let accordion_body = $('#model-thinking-skill-col').find('.accordion-collapse').find('.accordion-body');
+						let cols = $(accordion_body[i]).find('.col-4');
 						
 						let learning_mechanics = gameData[section][skill]["learning_mechanics"];
 						let game_mechanics = gameData[section][skill]["game_mechanics"];
@@ -734,6 +735,7 @@ function addGameDataStyling() {
 						}
 
 						$("#" + skill + "-button-dropdown").addClass("green").addClass("selected");
+						i++;
 					}
 					
 					break;
@@ -956,7 +958,7 @@ function flipArrow(accordion_button) {
 
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createModelsSubmeasureDropdown(model_for_id, model) {
-	$("#model-content-add-dropdown-row").prev().before(`
+	$("#model-content-add-dropdown-row").prev().prev().children().first().append(`
 	<div class="row model-content-accordion-${model_for_id}">
 		<div class="col">
 			<div class="centered-div">
