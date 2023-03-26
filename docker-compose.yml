@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  tega:
+    image: tega
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5001:5001
