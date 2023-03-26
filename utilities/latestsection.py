@@ -17,7 +17,3 @@ class LatestSection:
             "justification"
         ]
         return max(sections, key=lambda x: known_sections.index(x))
-
-
-if __name__ == "__main__":
-    print(LatestSection.find(["justification", "typology", "profile"]))

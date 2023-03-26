@@ -15,6 +15,7 @@ from models import Users, Games, Forms
 from security.jwt import JWT
 from confirmation.sendmail import SendMail
 from utilities.fileutils import Fileutils
+from utilities.latestsection import LatestSection
 
 
 @login_manager.user_loader
@@ -300,14 +301,33 @@ def upload_game():
                 if file.filename.split('.', 1)[1] == 'json':
                     game_id = uuid.uuid4().hex
                     
-                    while game_id in Games.query.filter_by(id=game_id).first():
-                        game_id = uuid.uuid4().hex
-                        
-                    file.save('./tmp', f'{game_id}.json')
+                    if Games.query.filter_by(id=game_id).first():
+                        while game_id in Games.query.filter_by(id=game_id).first():
+                            game_id = uuid.uuid4().hex
+                            
+                    game = json.loads(file.read())
+                    latest_section = LatestSection.find(game.keys())
                     
-                    with open(f'./tmp/{game_id}.json', 'r', encoding='utf-8') as tmp_file:
-                        game = json.loads(tmp_file.read())
-                        
+                    print(game.keys())
+                    print(latest_section)
+                    
+                    game_jwt = JWT.generate_jwt(game)
+                    complete = True if latest_section == "justification" else False
+                    update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+                    
+                    new_game = Games(
+                        id=game_id,
+                        game=game_jwt,
+                        name=name,
+                        user_id=current_user.id,
+                        complete=complete,
+                        latest_section=latest_section,
+                        last_updated=update_datetime
+                    )
+                    db.session.add(new_game)
+                    db.session.commit()
+                    
+                    return "", 200
                     
                 else:
                     return "Incorrent file type", 400

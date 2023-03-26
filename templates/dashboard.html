@@ -1899,14 +1899,14 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
-                <form id="upload-game-form" onsubmit="importGame()">
+                <form id="upload-game-form" method="post" action="/upload-game" enctype="multipart/form-data">
                     <div class="row mb-3 d-flex justify-content-center">
-                        <input type="text" class="form-control w-50 " id="import-game-file-name" placeholder="Enter game name">
+                        <input type="text" name="game_name" class="form-control w-50 " id="import-game-file-name" placeholder="Enter game name">
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="mb-3">
-                                <input class="form-control" type="file" accept="application/JSON" id="import-game-file" name="import-game-file">
+                                <input class="form-control" type="file" name="file"accept="application/JSON" id="import-game-file" name="import-game-file">
                             </div>
                         </div>
                         <div class="col-4">
@@ -1927,10 +1927,12 @@
 {% endblock content %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dashboard.js') }}" charset='iso-8859-1'></script>
-<script src="{{ url_for('static', filename='js/cookies.js') }}"></script>#
+<script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
 {% if not current_user.is_authenticated %}
 <script>
+$(document).ready(function(){
     loadGameData();
+});
 </script>
 {% endif %}
 {% endblock scripts %}
