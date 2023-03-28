@@ -1103,7 +1103,7 @@
 
                                 <!-- Assessment -->
                                 <div id="assessment-content" class="dashboard-content" style="display:none;">
-                                    <h2><b>Assessment</b></h2>
+                                    <h2><b>Assessment</b></h2><br />
                                     {% if current_user.is_authenticated %}
                                     <p style="color:black;">Please feel free to create a name for your game:</p>
                                     <div class="centered-div">
@@ -1120,15 +1120,21 @@
                                     </div>
                                     <br />
                                     <p style="color:black;">
-                                        Share the following link to your beta-test players: <a id="form-copy-link">{{base_url}}/form/</a>
+                                        Share the following link to your beta-test players: <a id="form-copy-link"></a><input baseurl="{{ base_url }}" hidden>
                                     </p>
                                     <p style="color:black">
                                         They are required to fill in the following questionnaire after playing your game.
                                     </p>
+                                        <br />
+                                        {% if forms %}
+                                        <a id="form-download-button" class="btn btn-primary" href="/download-form/{{game.id}}" role="button">Download submitted forms</a>
+                                        {% else %}
+                                        <p style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out.</i></p>
+                                        {% endif %}
                                     {% else %}
                                     <br />
                                     <p style="color:black;">
-                                        Please <a href="{{base_url}}/login">login</a> to name your game and to send a questionnaire form to your beta-testers.
+                                        You must <a href="{{base_url}}/login">login/signup</a> to name your game and to send a questionnaire form to your beta-testers.
                                     </p>
                                     <br />
                                     {% endif %}
@@ -1903,14 +1909,14 @@
                     <div class="row mb-3 d-flex justify-content-center">
                         <input type="text" name="game_name" class="form-control w-50 " id="import-game-file-name" placeholder="Enter game name">
                     </div>
-                    <div class="row">
+                    <div class="row" style="position: relative; bottom: -10px;">
                         <div class="col-8">
                             <div class="mb-3">
                                 <input class="form-control" type="file" name="file"accept="application/JSON" id="import-game-file" name="import-game-file">
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-secondary text-wrap mb-2 mt-0 text-center" id="json-download-option" type="submit" role="button">
+                            <button class="btn btn-secondary text-wrap mb-2 mt-0 text-center" style="position: relative; right: -12px;" id="json-download-option" type="submit" role="button">
                                 Import
                             </button>
                         </div>

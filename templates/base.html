@@ -68,17 +68,16 @@
             {% endblock footer %}
         </div> <!-- .site-wrap -->
 
+
         <!-- Contact Us Modal -->
-        <div class="modal" tabindex="-1" role="dialog" id="contactUsModal">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Contact Us</h5>
-                        <button type="button" class="close" onclick="closeContactModal()" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height:500px; overflow-y:auto;">
                         <p>Please fill in the contact form below, we endeavour to respond in 48 hours.</p>
                         <form>
                             <div class="mb-3">
@@ -93,12 +92,14 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeConfirmModal()">Close</button>
+                        <div class="centered-div">
+                            <button type="button" class="btn btn-primary">Submit</button>
+                        </div> 
                     </div>
                 </div>
             </div>
         </div>
+        <!-- End Contact Us Modal-->
 
         <div class="modal" tabindex="-1" role="dialog" id="confirmModal">
             <div class="modal-dialog" role="document">

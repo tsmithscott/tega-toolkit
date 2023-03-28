@@ -447,7 +447,11 @@ function processSection(sectionID) {
 		save = processGameData(false, sectionID);
 		if (save) {
 			unlockNextSection(sectionID);
-			$("#form-copy-link").append(getCookie("_game_id"));
+			let base_url = $("#form-copy-link").next().attr("baseurl");
+			let game_id = getCookie("_game_id");
+			let combined = base_url + '/form/' + game_id;
+			$("#form-copy-link").html(combined);
+			$("#form-copy-link").attr("href", combined);
 		} else {
 			alert("Unable to save progress. Please contact support.");
 		}

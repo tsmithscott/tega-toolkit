@@ -74,7 +74,6 @@ class Forms(db.Model):
     id = db.Column(db.String(100), primary_key=True)
     data = db.Column(db.Text(), nullable=False)
     game_id = db.Column(db.String(100), db.ForeignKey('games.id'), nullable=False)
-    user_id = db.Column(db.String(100), db.ForeignKey('users.id'), nullable=True)
     datetime_submitted = db.Column(db.String(20), nullable=False)
 
     def __init__(self, id, data, game_id, datetime_submitted):

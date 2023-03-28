@@ -311,7 +311,7 @@ jQuery(document).ready(function($) {
 const myModal = document.getElementById('contactUsModal')
 const myInput = document.getElementById('contact-us-modal-button')
 myModal.addEventListener('shown.bs.modal', () => {
-	window.scrollTo({top: 0, behavior: 'smooth'});
+	window.scrollTo({top: 400, behavior: 'smooth'});
 });
 
 // Popovers
