@@ -372,12 +372,8 @@ def ajax_autosave():
             
             db.session.add(new_game)
             db.session.commit()
-        
-    response = make_response()
-    response.set_cookie("_game_data", token, secure=True)
-    response.set_cookie("_game_id", game_uuid, secure=True)
-    response.status_code = 200
-    return response
+    
+    return {"_game_data": token, "_game_id": game_uuid}, 200
 
 
 @app.route('/ajax-update-name', methods=["POST"])

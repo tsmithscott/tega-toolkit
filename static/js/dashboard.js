@@ -550,6 +550,9 @@ function processGameData(complete, section) {
 		data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id"), "latestsection": section}),
 		type: 'POST',
 		success: function(response) {
+			let data = JSON.parse(JSON.stringify(response));
+			localStorage.setItem("_game_data", data["_game_data"]);
+			setCookie("_game_id", data["_game_id"]);
 			saved = true;
 		},
 		error: function(error) {
@@ -574,7 +577,7 @@ function loadGame(edit_button) {
 			complete_status = response['complete'];
 			gameName = response['name'];
 
-			setCookie("_game_data", response['game']);
+			localStorage.setItem("_game_data", response['game']);
 			setCookie("_latest_section", response['latest_section']);
 			setCookie("_game_id", response['id']);
 
@@ -597,7 +600,7 @@ function loadGame(edit_button) {
 function loadGameData() {
 	let latestSection = "introduction";
 
-	let gameDataCookie = getCookie("_game_data");
+	let gameDataCookie = localStorage.getItem("_game_data");
 
 	let latestSectionCookie = getCookie("_latest_section");
 
@@ -607,7 +610,7 @@ function loadGameData() {
 		if (latestSectionCookie !== null) {
 			latestSection = parseJWT(latestSectionCookie)["section"];
 		} else {
-			deleteCookie("_game_data");
+			localStorage.removeItem("_game_data");
 		}
 	}
 
@@ -708,7 +711,7 @@ function addStyling(latestSection) {
 // Helper function to add styling to section inputs on page load
 function addGameDataStyling() {
 	// Keys for each section with gamedata
-	let gameData = getCookie("_game_data") !== null ? parseJWT(getCookie("_game_data")) : [];
+	let gameData = localStorage.getItem("_game_data") !== null ? parseJWT(localStorage.getItem("_game_data")) : [];
 	let section_keys = Object.keys(gameData);
 	
 	if (section_keys.length > 0) {
@@ -1208,7 +1211,7 @@ function toggleDashboardPage() {
 function createNewGame() {
 	deleteCookie('_game_id');
 	deleteCookie('_latest_section');
-	deleteCookie('_game_data');
+	localStorage.removeItem('_game_data');
 	current_game = {};
 	// TODO: If user is logged in, generate new game id and save to cookie (validate with backend first)
 	$("#dashboard-container-right").replaceWith(cleanDashboardClone.clone());
