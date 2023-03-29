@@ -1254,9 +1254,9 @@ li {
 }
 
 @media (max-height: 850px) {
-  #home-section {
+  #content {
     zoom: 0.85;
-    -moz-transform: scale(0.9);
+    -moz-transform: scale(0.85);
     -moz-transform-origin: 0 0;
   }
 }
