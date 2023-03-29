@@ -70,8 +70,14 @@ def dashboard():
             for game in games:
                 for form in game.forms:
                     forms.append(form.to_dict())
+            games = [game.to_dict() for game in games]
+        else:
+            games = []
+    else:
+        forms = []
+        games = []
 
-    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=[game.to_dict() for game in games], forms=forms)
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games, forms=forms)
 
 
 @app.route("/form/<game_id>", methods=['GET'])
