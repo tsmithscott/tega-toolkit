@@ -65,10 +65,13 @@ def dashboard():
     
     if current_user.is_authenticated:
         games = Games.query.filter_by(user_id=current_user.id).order_by(Games.last_updated.desc()).all()
+        forms = []
         if games:
-            games = [game.to_dict() for game in games]
+            for game in games:
+                for form in game.forms:
+                    forms.append(form.to_dict())
 
-    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games)
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=[game.to_dict() for game in games], forms=forms)
 
 
 @app.route("/form/<game_id>", methods=['GET'])
@@ -270,6 +273,7 @@ def download_ajax_json(game_id):
         else:
             return "", 404
     else:
+        # CONVERT: Use post request to recieve localstorage data
         game = JWT.decode_jwt(request.cookies.get("_game_data"))
         
         with open(f'./tmp/{game_id}.json', 'w', encoding="utf-8") as file:

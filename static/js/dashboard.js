@@ -139,6 +139,14 @@ function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
 }
 
+$("accessibility-content textarea.form-control").on("change", function() {
+	if( !$(this).val() ) {
+		console.log("Empty");
+	} else {
+		console.log("Edited")
+	}
+});
+
 function toggleSubmeasure(input) {
 	if ($(input).hasClass("selected")) {
 		$(input).removeClass("selected");
@@ -213,6 +221,14 @@ function toggleModelSelection(input) {
 		$(input).closest(".accordion-collapse").prev().find("button").first().removeClass("green");
 		$(input).closest(".accordion-collapse").prev().find("button").first().removeClass("selected");
 	}
+}
+
+function addGameFormLink() {
+	let base_url = $("#form-copy-link").next().attr("baseurl");
+	let game_id = getCookie("_game_id");
+	let combined = base_url + '/form/' + game_id;
+	$("#form-copy-link").html(combined);
+	$("#form-copy-link").attr("href", combined);
 }
 
 function processSection(sectionID) {
@@ -349,6 +365,7 @@ function processSection(sectionID) {
 		let checked_checkboxes = section.find("input:checkbox").map(function() {
 			return $(this).hasClass("selected") ? $(this) : null;
 		}).get();
+
 		let unchecked_checkboxes = section.find("input:checkbox").map(function() {
 			return $(this).hasClass("selected") ? null : $(this);
 		}).get();
@@ -447,11 +464,7 @@ function processSection(sectionID) {
 		save = processGameData(false, sectionID);
 		if (save) {
 			unlockNextSection(sectionID);
-			let base_url = $("#form-copy-link").next().attr("baseurl");
-			let game_id = getCookie("_game_id");
-			let combined = base_url + '/form/' + game_id;
-			$("#form-copy-link").html(combined);
-			$("#form-copy-link").attr("href", combined);
+			addGameFormLink();
 		} else {
 			alert("Unable to save progress. Please contact support.");
 		}
@@ -838,6 +851,8 @@ function addGameDataStyling() {
 					break;
 			}
 		}
+		// Add assessment link
+		addGameFormLink();
 	}
 }
 

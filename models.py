@@ -81,3 +81,11 @@ class Forms(db.Model):
         self.data = data
         self.game_id = game_id
         self.datetime_submitted = datetime_submitted
+        
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "game_id": self.game_id,
+            "data": self.data,
+            "submission_data": self.datetime_submitted
+        }

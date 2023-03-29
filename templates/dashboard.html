@@ -5,7 +5,7 @@
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
         <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1250px; max-width: 1250px;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                <div id="dashboard-card" class="card" style="min-width: 350px;">
+                <div id="dashboard-card" class="card" style="position: relative; top: -25px;">
                     <div id="dashboard-card-header" class="container text-center" style="height: 90px;">
                         <div class="row">
                             <div class="col-4" style="height: 85px;">
@@ -524,7 +524,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <textarea class="form-control" rows="1" required></textarea>
+                                                        <textarea class="form-control" rows="1" onchange="accessbilityOnChange(this)" required></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1126,8 +1126,11 @@
                                         They are required to fill in the following questionnaire after playing your game.
                                     </p>
                                         <br />
+                                        <div id="form-download-section">
+                                            
+                                        </div>
                                         {% if forms %}
-                                        <a id="form-download-button" class="btn btn-primary" href="/download-form/{{game.id}}" role="button">Download submitted forms</a>
+                                        <a id="form-download-button" class="btn btn-primary" href="/download-form/" role="button">Download submitted forms</a>
                                         {% else %}
                                         <p style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out.</i></p>
                                         {% endif %}
