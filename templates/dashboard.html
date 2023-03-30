@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}{{title}}{% endblock title %}
+{% block bodyid %}id="body-dashboard"{% endblock bodyid %}
 {% block content %}
 <div id="dashboard-container" class="container-fluid" style="padding-top:150px;overflow-y:none;">
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
@@ -524,7 +525,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <textarea class="form-control" rows="1" onchange="accessbilityOnChange(this)" required></textarea>
+                                                        <textarea class="form-control accessibilityTextarea" rows="1"></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -534,7 +535,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Token shape">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Regularity of piece manipulation</td>
@@ -543,7 +544,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Regularity of piece manipulation">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Ease of communicating instructions</td>
@@ -552,7 +553,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Ease of communicating instructions">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Physical acting</td>
@@ -561,7 +562,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Physical acting">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Paper money</td>
@@ -570,7 +571,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Paper money">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Number of tokens</td>
@@ -579,7 +580,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of tokens">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Size of game board elements</td>
@@ -588,7 +589,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Size of game board elements">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="3">Visual Sensory</td>
@@ -598,7 +599,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Lying/bluffing</td>
@@ -607,7 +608,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Communication of strategy</td>
@@ -616,7 +617,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="4">Sensory/Auditory</td>
@@ -626,7 +627,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Audibility">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Lying/bluffing</td>
@@ -635,7 +636,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Communication of strategy</td>
@@ -644,7 +645,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Need for audible communications</td>
@@ -653,7 +654,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Need for audible communications">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="9">Cognitive</td>
@@ -663,7 +664,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level required">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Game state complexity</td>
@@ -672,7 +673,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game state complexity">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Memory requirements</td>
@@ -681,7 +682,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Memory requirements">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Game flow</td>
@@ -690,7 +691,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game flow">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Number of token combinations</td>
@@ -699,7 +700,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of token combinations">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Synergy of rules</td>
@@ -708,7 +709,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Synergy of rules">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Scoring</td>
@@ -717,7 +718,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Scoring">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>General knowledge/trivia</td>
@@ -726,7 +727,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="General knowledge/trivia">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Multitasking</td>
@@ -735,7 +736,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Multitasking">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Customisability</td>
@@ -744,7 +745,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Customisability">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Playtesting</td>
@@ -753,7 +754,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Playtesting">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Fun</td>
@@ -762,7 +763,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Fun">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Simplicity</td>
@@ -771,7 +772,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Simplicity">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Co-Operation</td>
@@ -780,7 +781,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Co-Operation">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Common Goal</td>
@@ -789,7 +790,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Common Goal">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Listening Mechanics</td>
@@ -798,7 +799,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Listening Mechanics">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Team Management</td>
@@ -807,7 +808,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Team Management">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Communication</td>
@@ -816,7 +817,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Lifting language barrier</td>
@@ -825,7 +826,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lifting language barrier">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Personality traits</td>
@@ -834,7 +835,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Personality traits">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Unique engagement</td>
@@ -843,7 +844,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Unique engagement">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Assigned responsibility</td>
@@ -852,11 +853,11 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Assigned responsibility">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control" rows="1" required></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span class="errorMessage" style="color:red" hidden>You must select at least 19 different inclusivity measures tools!</span>
+                                        <span class="errorMessage" style="color:red" hidden>You must consider at least 19 different inclusivity measures tools!</span>
                                         <br />
                                         <button id="accessibility-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
                                             Save & Continue

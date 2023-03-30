@@ -97,6 +97,24 @@ $("#upload-game-form").submit(function(e) {
     });
 });
 
+function logout() {
+	current_game = {};
+	deleteCookie("_game_id");
+	deleteCookie("_latest_section");
+	deleteCookie("_user_id");
+	localStorage.removeItem("_game_data");
+
+	$.ajax({
+		type: 'GET',
+		url: '/logout',
+		success: function(data) {
+			window.location('/');
+		},
+		error: function(data) {
+			alert('Error occured while logging out. Try again or please contact support')
+		}
+	});
+}
 
 function importGame() {
 	console.log($('#upload-game-form')[0]);
@@ -139,13 +157,13 @@ function disableBodyScroll() {
 	$("body").css("overflow-y", "hidden");
 }
 
-$("accessibility-content textarea.form-control").on("change", function() {
-	if( !$(this).val() ) {
-		console.log("Empty");
+$(".accessibilityTextarea").keyup(function() {
+	if (!$(this).val()) {
+		$(this).removeClass("selected");
 	} else {
-		console.log("Edited")
+		$(this).addClass("selected");
 	}
-});
+})
 
 function toggleSubmeasure(input) {
 	if ($(input).hasClass("selected")) {
@@ -172,7 +190,7 @@ function toggleSelection(input) {
 		textarea = $(textarea_td).find("textarea");
 		textarea.val("");
 		textarea.attr("disabled", !textarea.attr("disabled"));
-		textarea.attr("required", !textarea.attr("required"));
+		textarea.removeClass("selected");
 
 		if ($(input).hasClass("selected")) {
 			$(input).removeClass("selected");
@@ -376,28 +394,34 @@ function processSection(sectionID) {
 			section.find(".errorMessage").attr("hidden");
 		}
 
-		let considered = [];
-		for (let checkbox of checked_checkboxes) {
-			considered.push(checkbox.val());
-		}
-		section_game["considered"] = considered;
+		if ($("#accessibility-content textarea.selected").length > 18) {
+			$("#accessibility-content").find(".errorMessage").attr("hidden", "hidden");
 
-		for (let checkbox of unchecked_checkboxes) {
-			let subsection = checkbox.val();
-			let reason = $(checkbox).closest("td").next().find("textarea").val();
-			if (reason.length > 0) {
-				section_game[subsection] = reason;
+			let considered = [];
+			for (let checkbox of checked_checkboxes) {
+				considered.push(checkbox.val());
 			}
-		}
+			section_game["considered"] = considered;
 
-		current_game[sectionID] = section_game;
-		save = processGameData(false, sectionID);
-		if (save) {
-			unlockNextSection(sectionID);
+			for (let checkbox of unchecked_checkboxes) {
+				let subsection = checkbox.val();
+				let reason = $(checkbox).closest("td").next().find("textarea").val();
+				if (reason.length > 0) {
+					section_game[subsection] = reason;
+				}
+			}
+
+			current_game[sectionID] = section_game;
+			save = processGameData(false, sectionID);
+			if (save) {
+				unlockNextSection(sectionID);
+			} else {
+				alert("Unable to save progress. Please contact support.");
+			}
 		} else {
-			alert("Unable to save progress. Please contact support.");
+			$("#accessibility-content").find(".errorMessage").removeAttr("hidden");
+			return;
 		}
-
 
 	// Flow Element of the Design
 	} else if (sectionID === "design") {
@@ -798,6 +822,7 @@ function addGameDataStyling() {
 							textarea.text("");
 						} else {
 							textarea.text(gameData[section][$(this).val()]);
+							textarea.addClass("selected");
 						}
 					});
 					break;

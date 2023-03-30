@@ -20,9 +20,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
 
-    <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <body {% block bodyid %}{% endblock bodyid %} data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
         <div class="site-wrap">
-            <div class="site-mobile-menu site-navbar-target">
+            <div id="mobile-navbar" class="site-mobile-menu site-navbar-target">
                 <div class="site-mobile-menu-header">
                     <div class="site-mobile-menu-close mt-3">
                         <span class="icon-close2 js-menu-toggle"></span>
@@ -30,10 +30,10 @@
                 </div>
                 <div class="site-mobile-menu-body"></div>
             </div>
-            <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <header id="navbar" class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center">
-                        <div class="site-logo mr-auto"><a href="/"><img src="{{ url_for('static', filename='images/tega-toolkit-logo.png') }}" style="width: 400px"></a></div>
+                        <div class="site-logo mr-auto"><a href="/"><img id="tega-logo" src="{{ url_for('static', filename='images/tega-toolkit-logo.png') }}" style="width: 400px"></a></div>
             
                         <div class="mx-auto text-center">
                             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -49,7 +49,7 @@
                                         {% endif %}
                                     {% else %}
                                         <li class="cta" style="position: relative; top:5px;"><span><img src="{{ current_user.profile_pic }}" style="width:50px; border-radius: 25px;"></img></span></li>
-                                        <li class="cta"><a href="{{ url_for('logout') }}" class="nav-link"><span>Logout</span></a></li>
+                                        <li class="cta"><a onclick="logout()" class="nav-link"><span>Logout</span></a></li>
                                     {% endif %}
                                 </ul>
                             </nav>
@@ -63,6 +63,22 @@
                     <div id="content">
                     {% block content %}
                     {% endblock content %}
+                    </div>
+                    <div id="no-mobile-users-content" style="display:none; height:100vh;">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h1>Mobile Users</h1>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col-md-12 col-centered">
+                                            <p>Sorry, this site is not available on mobile devices.<br/>Please use a desktop or laptop computer to access this site.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </container>
@@ -118,19 +134,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="closeConfirmModal()">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="no-mobile-users-div" style="display:none; height:100vh;">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12 col-centered">
-                        <img src="{{ url_for('static', filename='images/tega-toolkit-logo.png') }}" style="width: 400px">
-                    </div>
-                    <div class="col-md-12 col-centered">
-                        <p>Sorry, this site is not available on mobile devices.<br/>Please use a desktop or laptop computer to access this site.</p>
                     </div>
                 </div>
             </div>

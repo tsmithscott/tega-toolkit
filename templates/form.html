@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock title%}
+{% block bodyid %}id="body-form"{% endblock bodyid %}
 {% block content %}
-<div id="form-container" class="container-fluid" style="padding-top:150px;overflow-y:none;">
-    <div id="form-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
-        <div id="form-outer-column" class="col-xs-12" style="min-width: 1250px; max-width: 1250px;">
+<div id="form-container" class="container-fluid" style="padding-top:100px;overflow-y:none;">
+    <div id="form-outer-row" class="row justify-content-center align-items-center flex-nowrap">
+        <div id="form-outer-column" class="col-xs-12" style="min-width: 350px; max-width: 1250px;">
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                <div id="form-card" class="card" style="position: relative; top: -10px; min-width: 350px; height: 750px; overflow-x: hidden; overflow-y: hidden;">
+                <div id="form-card" class="card" style="position: relative; top: 25px; min-width: 350px; height: 750px; overflow-x: hidden; overflow-y: hidden;">
                     <div id="form-card-header" class="container text-center" style="height: 90px;">
                         <div class="row">
-                            <div class="col-4" style="height: 85px;">
-                            </div>
-                            <div class="col-4" style="height: 85px;">
-                                <h1 class="text-nowrap" style="color:black; text-align: center; padding-top: 20px; padding-bottom:0px;">Assessment Form</h1><br />
+                            <div class="col-8" style="height: 85px;">
+                                <h1 class="text-left pl-2" style="font-size: 2rem; color:black; padding-top: 20px; padding-bottom:0px;">Toolkit Form</h1><br />
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 {% if game_exists == True %}
                                     {% if game.name != None %}
-                                    <h5 class="text-right" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">Game Name: {{game.name}}</h3>
+                                    <h5 class="text-center text-wrap" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">Game: {{game.name}}</h5>
                                     {% endif %}
                                 {% endif %}
                             </div>

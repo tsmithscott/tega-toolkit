@@ -506,12 +506,11 @@ def send_confirmation():
 @app.route("/logout")
 @login_required
 def logout():
-    logout_user()
-    
-    response = make_response(redirect(url_for('index')))
-    response.set_cookie('_user_id', '', expires=0)
-    
-    return response
+    try:
+        logout_user()
+        return "", 200
+    except:
+        return "", 500
 
 
 @app.route("/fallback-profile")
