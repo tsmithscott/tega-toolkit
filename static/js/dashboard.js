@@ -70,13 +70,34 @@ $(document).on("click", ".fa-file-download", function() {
 
 $(document).on("click", "#justification-submit-anonymous", function() {
 	let gameid = getCookie("_game_id");
-	let pdf_url = "/download-game-pdf/" + gameid;
 	let json_url = "/download-game-json/" + gameid;
+	let form_url = "/download-game-forms/" + gameid;
 
-	$("#pdf-download-option").attr("href", pdf_url);
 	$("#json-download-option").attr("href", json_url);
+	$("#form-download-button").attr("href", form_url);
 })
 
+function downloadJSON() {
+	let url = "/download-game-json/" + getCookie("_game_id");
+
+	$.ajax({
+		url: url,
+		type: "POST",
+		data: JSON.stringify({"game_data": localStorage.getItem("_game_data")}),
+		contentType: "application/json",
+		success: function(result) {
+			console.log(result);
+			var blob=new Blob([result], {type: 'text/plain'});
+			var link=document.createElement('a');
+			link.href=window.URL.createObjectURL(blob);
+			link.download=getCookie("_game_id") + ".json";
+			link.click();
+		},
+		error: function(result) {
+			return;
+		}
+	})
+}
 
 $("#upload-game-form").submit(function(e) {
     e.preventDefault();
@@ -108,7 +129,7 @@ function logout() {
 		type: 'GET',
 		url: '/logout',
 		success: function(data) {
-			window.location('/');
+			$(location).attr("href", "/");
 		},
 		error: function(data) {
 			alert('Error occured while logging out. Try again or please contact support')

@@ -10,10 +10,8 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; 
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(5px); }
-  
+  background-size: cover; }
+
 ::-moz-selection {
   background: #000;
   color: #fff; }
@@ -1253,6 +1251,10 @@ li {
   transition: transform 0.3s;
 }
 
+#mobile-warning {
+  display: none;
+}
+
 @media (max-height: 875px) {
   body {
     zoom: 0.85;
@@ -1273,12 +1275,20 @@ li {
 
 /* On screens below 1066px */
 @media only screen and (max-width: 1066px) {
-  #dashboard-container {
+  #dashboard-card {
     display: none;
+  }
+
+  #mobile-warning {
+    display: block;
   }
 }
 
-/* On screens below 279 */
+#body-form #navbar {
+  display: none;
+}
+
+/* On screens below 279px */
 @media only screen and (max-width: 279px) {
   #form-container {
     display:none;

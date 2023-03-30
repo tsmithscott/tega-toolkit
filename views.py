@@ -1,6 +1,7 @@
 import json
 import uuid
 import threading
+import zipfile
 from datetime import datetime
 
 import requests
@@ -258,9 +259,9 @@ def delete_games(game_id):
         return 'Error occurred, please contact support', 404
     
     
-@app.route('/download-game-json/<game_id>', methods=["GET"])
+@app.route('/download-game-json/<game_id>', methods=["GET", "POST"])
 def download_ajax_json(game_id):
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and request.method == 'GET':
         game = Games.query.filter_by(id=game_id).first()
         
         if game:
@@ -279,16 +280,42 @@ def download_ajax_json(game_id):
         else:
             return "", 404
     else:
-        # CONVERT: Use post request to recieve localstorage data
-        game = JWT.decode_jwt(request.cookies.get("_game_data"))
-        
-        with open(f'./tmp/{game_id}.json', 'w', encoding="utf-8") as file:
-            file.write(json.dumps(game))
+        if request.method == 'POST':
+            game = JWT.decode_jwt(request.get_json()["game_data"])
             
-        garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 30), daemon=True)
-        garbage_thread.start()
+            return json.dumps(game), 200
+        else:
+            return "", 405
         
-        return send_file(f'./tmp/{game_id}.json', as_attachment=True)
+
+# @app.route('/download-game-forms/<game_id>', methods=["GET"])
+# def download_ajax_forms(game_id):
+#     if current_user.is_authenticated:
+#         game = Games.query.filter_by(id=game_id).first()
+        
+#         if game:
+#             if game.user_id == current_user.id:
+#                 forms = Forms.query.filter_by(game_id=game_id)
+#                 form_files = []
+                
+#                 for form in forms:
+#                     form = form.to_dict()
+#                     with open(f'./tmp/{form["id"]}-forms.json', 'w', encoding="utf-8") as file:
+#                         file.write(json.dumps(form))
+#                         form_files.append(f'./tmp/{form["id"]}-forms.json')
+                        
+#                 with zipfile.ZipFile(f'{game.id}-forms.zip', 'w')
+                    
+#                 garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 15), daemon=True)
+#                 garbage_thread.start()
+                    
+#                 return send_file(f'./tmp/{game_id}.json', as_attachment=True)
+#             else:
+#                 return "This game does not belong to this user.", 500
+#         else:
+#             return "", 404
+#     else:
+#         return "", 500
     
     
 @app.route('/upload-game', methods=["POST"])

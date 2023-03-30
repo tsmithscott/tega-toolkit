@@ -2,9 +2,19 @@
 {% block title %}{{title}}{% endblock title %}
 {% block bodyid %}id="body-dashboard"{% endblock bodyid %}
 {% block content %}
-<div id="dashboard-container" class="container-fluid" style="padding-top:150px;overflow-y:none;">
+<div id="dashboard-container" class="container-fluid" style="padding-top:100px;overflow-y:none;">
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
         <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1250px; max-width: 1250px;">
+            <div class="centered-div mt-5">
+                <div id="mobile-warning" class="card" style="width: 300px; height:325px;">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Mobile devices not supported</h5>
+                        <div class="centered-div text-center">
+                            <h4 style="color:black;">Please open the app on your desktop or laptop.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
                 <div id="dashboard-card" class="card" style="position: relative; top: -10px;">
                     <div id="dashboard-card-header" class="container text-center" style="height: 90px;">
@@ -1131,7 +1141,7 @@
                                             
                                         </div>
                                         {% if forms %}
-                                        <a id="form-download-button" class="btn btn-primary" href="/download-form/" role="button">Download submitted forms</a>
+                                        <a id="form-download-button" class="btn btn-primary" role="button">Download submitted forms</a>
                                         {% else %}
                                         <p style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out.</i></p>
                                         {% endif %}
@@ -1887,7 +1897,8 @@
                     <div class="col-4"></div>
                     <div class="col-4">
                         <div class="centered-div">
-                            <a class="btn btn-secondary text-wrap mb-2 mt-0 text-center" id="json-download-option" href="" role="button">
+                            
+                            <a class="btn btn-secondary text-wrap mb-2 mt-0 text-center" {% if not current_user.is_authenticated %}onclick="downloadJSON()"{% endif %} {% if current_user.is_authenticated %}id="json-download-option" href=""{% endif %} role="button">
                                 Download as JSON
                             </a>
                         </div>
@@ -1916,7 +1927,7 @@
                     <div class="row" style="position: relative; bottom: -10px;">
                         <div class="col-8">
                             <div class="mb-3">
-                                <input class="form-control" type="file" name="file"accept="application/JSON" id="import-game-file" name="import-game-file">
+                                <input class="form-control" type="file" name="file"accept="application/JSON" id="import-game-file" name="import-game-file" required>
                             </div>
                         </div>
                         <div class="col-4">

@@ -2,314 +2,490 @@
 {% block title %}{{ title }}{% endblock title%}
 {% block bodyid %}id="body-form"{% endblock bodyid %}
 {% block content %}
-<div id="form-container" class="container-fluid" style="padding-top:100px;overflow-y:none;">
-    <div id="form-outer-row" class="row justify-content-center align-items-center flex-nowrap">
-        <div id="form-outer-column" class="col-xs-12" style="min-width: 350px; max-width: 1250px;">
-            <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
-                <div id="form-card" class="card" style="position: relative; top: 25px; min-width: 350px; height: 750px; overflow-x: hidden; overflow-y: hidden;">
-                    <div id="form-card-header" class="container text-center" style="height: 90px;">
-                        <div class="row">
-                            <div class="col-8" style="height: 85px;">
-                                <h1 class="text-left pl-2" style="font-size: 2rem; color:black; padding-top: 20px; padding-bottom:0px;">Toolkit Form</h1><br />
-                            </div>
-                            <div class="col-4" style="height: 85px;">
-                                {% if game_exists == True %}
-                                    {% if game.name != None %}
-                                    <h5 class="text-center text-wrap" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">Game: {{game.name}}</h5>
+<div class="centered-div">
+    <div id="form-container" class="container-fluid" style="padding-top:0px;overflow-y:none;">
+        <div id="form-outer-row" class="row justify-content-center align-items-center flex-nowrap">
+            <div id="form-outer-column" class="col-xs-12" style="min-width: 350px; max-width: 1250px;">
+                <div class="ml-auto aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                    <div id="form-card" class="card" style="position: relative; top: 25px; min-width: 350px; height: 750px; overflow-x: hidden; overflow-y: hidden;">
+                        <div id="form-card-header" class="container text-center" style="height: 90px;">
+                            <div class="row">
+                                <div class="col-8" style="height: 85px;">
+                                    <h1 class="text-left pl-2" style="font-size: 2rem; color:black; padding-top: 20px; padding-bottom:0px;">Toolkit Form</h1><br />
+                                </div>
+                                <div class="col-4" style="height: 85px;">
+                                    {% if game_exists == True %}
+                                        {% if game.name != None %}
+                                        <h5 class="text-right text-wrap" style="color:black; text-align: center; padding-top: 35px; padding-bottom:0px;">Game: {{game.name}}</h5>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {% if game_exists == True %}
-                    <div id="form-card-body mb-5" class="card-body" style="height: 100%; overflow-y: scroll;">
-                        <form action="javascript:;submitAssessmentForm('{{game.id}}')">
-                            <div class="container text-center">
-                                <div class="row">
-                                    <div class="col-12">
-                                        
-                                        <!-- Game feedback questionnaire (corrected version based on trainees' feedback) -->
-                                        <div class="container-fluid" id="assessment-content-feedback">
-                                            <h3>Game feedback questionnaire</h3>
-                                            <!-- Question 1 -->
-                                            <div class="row" id="assessment-content-feedback-question-1">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>1.</b> What was your experience of the game?
-                                                        <span class="fa fa-info-circle" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
-                                                        data-bs-content="Think about emotions, experience, knowledge acquired" style="font-size: 13px;"></span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 2-->
-                                            <div class="row" id="assessment-content-feedback-question-2">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>2.</b>
-                                                        What was your favourite moment(s) in the game? 
-                                                        Would you change something? If Yes, what would you change?
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 3-->
-                                            <div class="row" id="assessment-content-feedback-question-3">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>3.</b>
-                                                        What would you change about the game?
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 4-->
-                                            <div class="row" id="assessment-content-feedback-question-4">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>4.</b>
-                                                        Was there anything in the rules you didn’t understand?
-                                                        <span class="fa fa-info-circle" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
-                                                        data-bs-content="Think in terms of mechanics" style="font-size: 13px;"></span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 5-->
-                                            <div class="row" id="assessment-content-feedback-question-5">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>5.</b>
-                                                        What do you think is the learning purpose of the game?
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 6-->
-                                            <div class="row" id="assessment-content-feedback-question-6">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>6.</b>
-                                                        What do you feel that you have actually learned?
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 7-->
-                                            <div class="row" id="assessment-content-feedback-question-7">
-                                                <div class="col-12">
-                                                    <p class="text-left" style="color:black;"><b>7.</b> What was your favourite moment(s) in the game? 
-                                                        Would you change something? If Yes, what would you change?
-                                                    </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <textarea class="form-control" row="3" required></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End of Game Feedback Questionnaire -->
-
-                                        <br />
-                                        <br />
-
-                                        <!-- Post-test questionnaire (based on M. Sousa’s (2021) suggestions) -->
-                                        <div class="container-fluid" id="assessment-content-post-test">
-                                            <h3>Post-test questionnaire</h3>
-                                            <p style="color:black;">Answer <b>all</b> questions <br /><sub>(1=None, 5=Totally)</sub></p>
-                                            <!-- Question 1 -->
-                                            <div class="row radio-question" id="assessment-content-post-test-question-1">
-                                                <div class="col-7">
-                                                    <p style="color:black;"><b>1.</b> How the game maintains the balance between fun and knowledge acquisition</p>
-                                                </div>
-                                                <div class="col-5 my-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-1" value="1" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-1-1">1</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-2" value="2" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-1-2">2</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-3" value="3" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-1-3">3</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-4" value="4" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-1-4">4</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-5" value="5" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-1-5">5</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 2 -->
-                                            <div class="row radio-question" id="assessment-content-post-test-question-2">
-                                                <div class="col-7">
-                                                    <p style="color:black;"><b>2.</b> How much you were engaged into the game?</p>
-                                                </div>
-                                                <div class="col-5 my-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-1" value="1" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-2-1">1</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-2" value="2" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-2-2">2</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-3" value="3" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-2-3">3</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-4" value="4" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-2-4">4</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-5" value="5" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-2-5">5</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 3 -->
-                                            <div class="row radio-question" id="assessment-content-post-test-question-3">
-                                                <div class="col-7">
-                                                    <p style="color:black;"><b>3.</b> How do you classify the level of difficulty of the played game?</p>
-                                                </div>
-                                                <div class="col-5 my-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-1" value="1" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-3-1">1</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-2" value="2" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-3-2">2</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-3" value="3" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-3-3">3</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-4" value="4" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-3-4">4</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-5" value="5" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-3-5">5</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 4 -->
-                                            <div class="row radio-question" id="assessment-content-post-test-question-4">
-                                                <div class="col-7">
-                                                    <p style="color:black;"><b>4.</b> How do you classify the level of anxiety during playing the game?</p>
-                                                </div>
-                                                <div class="col-5 my-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-1" value="1" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-4-1">1</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-2" value="2" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-4-2">2</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-3" value="3" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-4-3">3</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-4" value="4" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-4-4">4</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-5" value="5" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-4-5">5</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <!-- Question 5 -->
-                                            <div class="row radio-question" id="assessment-content-post-test-question-5">
-                                                <div class="col-7">
-                                                    <p style="color:black;"><b>5.</b> How do you classify the level of surprise during playing the game? - no needed</p>
-                                                </div>
-                                                <div class="col-5 my-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-1" value="1" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-5-1">1</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-2" value="2" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-5-2">2</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-3" value="3" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-5-3">3</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-4" value="4" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-5-4">4</label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-5" value="5" required>
-                                                                <label class="form-check-label" for="assessment-content-post-test-question-5-5">5</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                        </div>
-                                        <!-- End of Post Test Questionnaire-->
-                                        <div class="centered-div">
-                                            <button type="submit" class="btn btn-primary" id="form-content-submit">Submit</button>
-                                        </div>
-                                        <br />
-                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    {% else %}
-                    <div class="centered-div" style="height: 550px;">
-                        <div class="alert alert-danger" role="alert">
-                            Invalid URL! Please check the URL and try again.
                         </div>
+                        {% if game_exists == True %}
+                        <div id="form-card-body mb-5" class="card-body" style="height: 100%; overflow-y: scroll;">
+                            <form action="javascript:;submitAssessmentForm('{{game.id}}')">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            
+                                            <!-- Game feedback questionnaire (corrected version based on trainees' feedback) -->
+                                            <div class="container-fluid" id="assessment-content-feedback">
+                                                <h3>Game feedback questionnaire</h3>
+                                                <!-- Question 1 -->
+                                                <div class="row" id="assessment-content-feedback-question-1">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>1.</b> What was your experience of the game?
+                                                            <span class="fa fa-info-circle" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                            data-bs-content="Think about emotions, experience, knowledge acquired" style="font-size: 13px;"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 2-->
+                                                <div class="row" id="assessment-content-feedback-question-2">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>2.</b>
+                                                            Would you change something in the game? If yes, what would you change?
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 3-->
+                                                <div class="row" id="assessment-content-feedback-question-3">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>3.</b>
+                                                            What do you think was the learning purpose of the game?
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 4-->
+                                                <div class="row" id="assessment-content-feedback-question-4">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>4.</b>
+                                                            What did you actually learn?
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 5-->
+                                                <div class="row" id="assessment-content-feedback-question-5">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>5.</b>                                 
+                                                            Do you have any other feedback you'd like the designer or publisher to hear?
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 6-->
+                                                <div class="row" id="assessment-content-feedback-question-6">
+                                                    <div class="col-12">
+                                                        <p class="text-left" style="color:black;"><b>6.</b>            
+                                                            Was there anything in the rules you did not understand?
+                                                            <span class="fa fa-info-circle" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                            data-bs-content="Think in terms of mechanics" style="font-size: 13px;"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control" row="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                            <!-- End of Game Feedback Questionnaire -->
+
+
+
+
+                                            <br />
+                                            <br />
+
+
+
+
+                                            <!-- Post-test questionnaire (based on M. Sousa’s (2021) suggestions) -->
+                                            <div class="container-fluid" id="assessment-content-post-test">
+                                                <h3>Post-test questionnaire</h3>
+                                                <p style="color:black;">Answer <b>all</b> questions <br /><sub>(1=None, 5=Totally)</sub></p>
+
+                                                <!-- Question 1 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-1">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>1.</b> How the game maintains the balance between fun and knowledge acquisition</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-1-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-1-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-1-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-1-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale1" id="assessment-content-post-test-question-1-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-1-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 2 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-2">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>2.</b> How much you were engaged into the game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-2-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-2-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-2-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-2-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale2" id="assessment-content-post-test-question-2-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-2-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 3 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-3">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>3.</b> How do you classify the level of difficulty of the played game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-3-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-3-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-3-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-3-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale3" id="assessment-content-post-test-question-3-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-3-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 4 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-4">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>4.</b> How do you classify the level of anxiety after playing the game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-4-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-4-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-4-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-4-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale4" id="assessment-content-post-test-question-4-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-4-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 5 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-5">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>5.</b> How do you classify the level of surprise during playing the game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-5-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-5-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-5-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-5-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-5-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-5-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 6 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-6">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>6.</b> How do you classify the level of frustration during playing the game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-6-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-6-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-6-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-6-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-6-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-6-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-6-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-6-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-6-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-6-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <!-- Question 7 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-7">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>7.</b> How strongly do you agree that the pre-set objectives have been reached during the game?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-7-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-7-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-7-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-7-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-7-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-7-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-7-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-7-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-7-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-7-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 8 -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-8">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>8.</b> How likely you would play this game again?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-8-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-8-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-8-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-8-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-8-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-8-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-8-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-8-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-8-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-8-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 9a -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-9a">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>9a.</b> How do you classify the level of the instructions' clarity?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9a-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9a-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9a-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9a-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9a-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9a-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9a-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9a-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9a-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9a-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                <!-- Question 9b -->
+                                                <div class="row radio-question" id="assessment-content-post-test-question-9b">
+                                                    <div class="col-8">
+                                                        <p style="color:black;"><b>9b.</b> Do you agree that the instructions of the game were clear?</p>
+                                                    </div>
+                                                    <div class="col-4 my-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9b-1" value="1" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9b-1">1</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9b-2" value="2" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9b-2">2</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9b-3" value="3" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9b-3">3</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9b-4" value="4" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9b-4">4</label>
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="scale5" id="assessment-content-post-test-question-9b-5" value="5" required>
+                                                                    <label class="form-check-label" for="assessment-content-post-test-question-9b-5">5</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                            </div> <!-- End of Post Test Questionnaire-->
+
+                                            <div class="centered-div">
+                                                <button type="submit" class="btn btn-primary" id="form-content-submit">Submit</button>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div class="centered-div" style="height: 550px;">
+                            <div class="alert alert-danger" role="alert">
+                                Invalid URL! Please check the URL and try again.
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content%}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/form.js') }}"></script>

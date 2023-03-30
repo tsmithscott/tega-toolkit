@@ -310,8 +310,10 @@ jQuery(document).ready(function($) {
 // Modals
 const myModal = document.getElementById('contactUsModal')
 const myInput = document.getElementById('contact-us-modal-button')
-myModal.addEventListener('shown.bs.modal', () => {
-	window.scrollTo({top: 400, behavior: 'smooth'});
+$("#contactUsModal").on("show", function() {
+    $('html, body').animate({
+        scrollTop: $("#contactUsModal").offset().top
+    }, 2000);
 });
 
 // Popovers
