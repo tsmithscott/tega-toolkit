@@ -59,7 +59,7 @@ $(document).on("click", ".fa-trash", function() {
 	$("#modal-data-id").val(dataid);
 })
 
-$(document).on("click", ".fa-file-download", function() {
+$(document).on("click", ".fa-download", function() {
 	let dataid = $(this).data('id');
 	let pdf_url = "/download-game-pdf/" + dataid;
 	let json_url = "/download-game-json/" + dataid;
@@ -528,8 +528,79 @@ function processSection(sectionID) {
 
 	// Justification
 	} else if (sectionID === "justification") {
-		save = processGameData(true, sectionID);
 		
+		let trs = $("#justification-tbody").find("tr");
+		let section_game = {};
+
+		for (let tr of trs) {
+			let question_number = Number($(tr).children().first().html());
+			let input_td = $(tr).find('td')[2];
+
+
+			// Handle select inputs
+			if ($(input_td).find("select").length > 0) {
+				let select = $(input_td).find("select");
+				let value = $(select).find("option:selected").html();
+
+				if (value === "Please choose") {
+					return alert("Please answer all questions before submitting.");
+				}
+				
+				if (question_number === 3) {
+					let other = $("#justification-content-q-3-text");
+					value = $(other).val();
+					if ($(other).siblings().first().find("option:selected").html() === "Other") {
+						section_game[question_number] = "Other: "+ value;
+					} else {
+						section_game[question_number] = value;
+					}
+				} else {
+					section_game[question_number] = value;
+				}
+
+
+			// Handle radio inputs
+			} else if ($(input_td).children().first().hasClass("col")) {
+				let yes = $(input_td).children().first().find("input").first();
+				let no = $($(input_td).children().first().children()[1]).find("input");
+
+				if (question_number === 15) {
+
+					let other = $("#justification-content-q-15-text").val();
+					if ($(yes).is(":checked")) {
+						if (other !== "") {
+							section_game[question_number] = "Yes: " + other;
+						} else {
+							section_game[question_number] = "Yes";
+						}
+					} else if ($(no).is(":checked")) {
+						section_game[question_number] = "No";
+					}
+
+				} else {
+					if ($(yes).is(":checked")) {
+						section_game[question_number] = "Yes"
+					} else if ($(no).is(":checked")) {
+						section_game[question_number] = "No"
+					}
+
+				}
+
+
+			// Handle text/number inputs
+			} else if ($(input_td).find("textarea").length > 0) {
+				let input = $(input_td).find("textarea").first();
+				section_game[question_number] = $(input).val();
+			} else if ($(input_td).find("input")) {
+				let input = $(input_td).find("input").first();
+				section_game[question_number] = $(input).val();
+			}
+
+		}
+
+		current_game[sectionID] = section_game;
+		save = processGameData(true, sectionID);
+
 		if (save) {
 			unlockNextSection(sectionID);
 			toggleDashboardPage();
@@ -589,12 +660,10 @@ function processGameData(complete, section) {
 	deleteCookie("_game_data");
 
 
-	if (!update) {
+	if (update) {
 		complete = complete_status;
 	}
-	if (complete_status === true) {
-		complete = true;
-	}
+
 	$.ajax({
 		url: url,
 		contentType: "application/json;charset=utf-8",
@@ -627,7 +696,6 @@ function loadGame(edit_button) {
 			update = true;
 			complete_status = response['complete'];
 			gameName = response['name'];
-			console.log(gameName + " " + response['complete']);
 
 			localStorage.setItem("_game_data", response['game']);
 			setCookie("_latest_section", response['latest_section']);
@@ -1306,6 +1374,34 @@ function nameGame() {
 		async: true
 	});
 }
+
+
+$(".yes-no-desc").find("input[type='radio']").on("change", function() {
+	if ($(this).hasClass("selected")) {
+		if ($(this).val() === "Yes") {
+			$(this).parent().parent().find('input[type="text"]').attr("required", "required").show();
+		} else {
+			$(this).parent().parent().find('input[type="text"]').removeAttr("required").val("").hide();
+
+		}
+	} else {
+		if ($(this).val() === "Yes") {
+			$(this).parent().parent().find('input[type="text"]').attr("required", "required").show();
+		} else {
+			$(this).parent().parent().find('input[type="text"]').removeAttr("required").val("").hide();
+		}
+	}
+});
+
+
+$(".select-answer-other").children().first().on("change", function() {
+	if ($(this).find("option:selected").html() === "Other") {
+		$(this).next().attr("required", "required").show();
+	} else {
+		$(this).next().removeAttr("required").hide();
+	}
+});
+
 
 
 // Handle 'Theoretical Foundation' section modals

@@ -67,18 +67,36 @@
                                                         <li class="list-group-item">
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <a class="fa fa-pencil float" onclick="loadGame(this)" data-id={{ game.id }} href="#" role="button"></a>
+                                                                    <div data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                                    data-bs-content="Edit/continue game">
+                                                                        <a class="fa fa-pencil float" onclick="loadGame(this)" data-id={{ game.id }} href="#" role="button"></a>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col">
                                                                     {% if game.complete == True %}
-                                                                    <a class="fa fa-file-download" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModalDownload" role="button"></a>
+                                                                    <div data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-content="Download saved game">
+                                                                        <a class="fas fa-download" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModalDownload" role="button"></a>
+                                                                    </div>
                                                                     {% else %}
-                                                                    <a class="fa fa-file-download" style="color:lightgray" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
-                                                                    data-bs-content="You must complete the game before downloading" data-id={{ game.id }} role="button"></a>
+                                                                    <a class="fas fa-download" style="color:lightgray" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                                    data-bs-content="You must complete the game before downloading it" data-id={{ game.id }} role="button"></a>
                                                                     {% endif %}
                                                                 </div>
                                                                 <div class="col">
-                                                                    <a class="fas fa-trash float" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
+                                                                    {% if forms %}
+                                                                    <div data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-content="Download submitted forms">
+                                                                        <a class="fa fa-file-download" id="form-download-button-saved-games" role="button" href="/download-game-forms/{{game.id}}"></a>
+                                                                    </div>
+                                                                    {% else %}
+                                                                    <a class="fa fa-file-download" style="color:lightgray" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                                    data-bs-content="Please ensure your beta-testers have submitted forms" data-id={{ game.id }} role="button"></a>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
+                                                                    data-bs-content="Delete game">
+                                                                        <a class="fas fa-trash float" data-bs-toggle="modal" data-id={{ game.id }} href="#dashboardGameModal" role="button"></a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -535,7 +553,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <textarea class="form-control accessibilityTextarea" rows="1"></textarea>
+                                                        <textarea class="form-control accessibilityTextarea" rows="1" required></textarea>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -545,7 +563,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Token shape">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Regularity of piece manipulation</td>
@@ -554,7 +572,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Regularity of piece manipulation">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Ease of communicating instructions</td>
@@ -563,7 +581,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Ease of communicating instructions">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Physical acting</td>
@@ -572,7 +590,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Physical acting">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Paper money</td>
@@ -581,7 +599,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Paper money">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Number of tokens</td>
@@ -590,7 +608,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of tokens">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Size of game board elements</td>
@@ -599,7 +617,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Size of game board elements">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="3">Visual Sensory</td>
@@ -609,7 +627,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Lying/bluffing</td>
@@ -618,7 +636,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Communication of strategy</td>
@@ -627,7 +645,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="4">Sensory/Auditory</td>
@@ -637,7 +655,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Audibility">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Lying/bluffing</td>
@@ -646,7 +664,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lying/bluffing">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Communication of strategy</td>
@@ -655,7 +673,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication of strategy">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Need for audible communications</td>
@@ -664,7 +682,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Need for audible communications">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td rowspan="9">Cognitive</td>
@@ -674,7 +692,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Reading level required">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Game state complexity</td>
@@ -683,7 +701,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game state complexity">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Memory requirements</td>
@@ -692,7 +710,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Memory requirements">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Game flow</td>
@@ -701,7 +719,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Game flow">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Number of token combinations</td>
@@ -710,7 +728,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Number of token combinations">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Synergy of rules</td>
@@ -719,7 +737,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Synergy of rules">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Scoring</td>
@@ -728,7 +746,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Scoring">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>General knowledge/trivia</td>
@@ -737,7 +755,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="General knowledge/trivia">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Multitasking</td>
@@ -746,7 +764,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Multitasking">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Customisability</td>
@@ -755,7 +773,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Customisability">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Playtesting</td>
@@ -764,7 +782,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Playtesting">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Fun</td>
@@ -773,7 +791,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Fun">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Simplicity</td>
@@ -782,7 +800,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Simplicity">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Co-Operation</td>
@@ -791,7 +809,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Co-Operation">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Common Goal</td>
@@ -800,7 +818,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Common Goal">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Listening Mechanics</td>
@@ -809,7 +827,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Listening Mechanics">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Team Management</td>
@@ -818,7 +836,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Team Management">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Communication</td>
@@ -827,7 +845,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Communication">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Lifting language barrier</td>
@@ -836,7 +854,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Lifting language barrier">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Personality traits</td>
@@ -845,7 +863,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Personality traits">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Unique engagement</td>
@@ -854,7 +872,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Unique engagement">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Assigned responsibility</td>
@@ -863,7 +881,7 @@
                                                             <input class="form-check-input" onclick="toggleSelection(this)" type="checkbox" value="Assigned responsibility">
                                                         </div>
                                                     </td>
-                                                    <td><textarea class="form-control accessibilityTextarea" rows="1"></textarea></td>
+                                                    <td><textarea class="form-control accessibilityTextarea" rows="1" required></textarea></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1162,36 +1180,211 @@
                                 <div id="justification-content" class="dashboard-content" style="display:none;">
                                     <h2><b>Justification</b></h2><br />
                                     <p style="color:black;">
-                                        The questions of <b><i>Game feedback questionnaire</i></b> were created based on the publications on following topic, the comments of the trainees during the 1st TEGA training activity, and the notes of the teachers who incorporate games into their training programs and who have been interviewed in a frame of TEGA project (IO1).
+                                        The Justification section is a critical component that serves to explain the rationale behind the use of educational games in the tutoring process. As educators continue to explore new and innovative approaches to teaching, the use of gaming has emerged as a powerful tool that can engage students and enhance their learning outcomes.
                                     </p>
                                     <p style="color:black;">
-                                        Researchers (Fokides et al.,2019; Gow et al., 2010; Ijsselsteijn et al., 2013; Sousa, 2021) and teachers state that it is important to get feedback from as many students as possible after testing a new game in the classroom. Therefore, the questionnaire should be short and the answers have to reveal students' emotions, experiences, knowledge acquired and ideas for improvements of the game.
+                                        The <b><i>Tutor's Readiness Questionnaire</i></b> is an important tool for tutors as they design these educational games. By completing the questionnaire in this section, tutors can evaluate their own strengths and weaknesses in the subject matter, as well as their proficiency in designing effective games. This information can be used to inform the design of the games, ensuring that they are both engaging and effective.
                                     </p>
-                                    <p style="color:black;">
-                                        The <b><i>Game feedback questionnaire</i></b> consists of six questions:
+                                    <p style="color: black">
+                                        Press the buttons below to view justifications for using the questionnaires.
                                     </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 1.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
-                                    </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 2.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
-                                    </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 3.</b> <i>Would you change something in the game?</i> If yes, what would you change? The aim of this question is to capture the emotions and experience, most likely negative, after playing the game. What students would like to remove from the game may be the part that causes them negative emotions and experiences. What students would like to add can have a positive effect on the dynamics of the game. All coments would help to improve the game.
-                                    </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 4.</b> <i>What do you think was the learning purpose of the game?</i> The aim of this question is to invite students to evaluate the educational purpose of the game, i.e. experience and knowledge acquired and caused by the game in general.
-                                    </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 5.</b> <i>What did you actually learn?</i> The aim of this question is to invite students to reflect and self-evaluate the knowledge they acquired through the game.
-                                    </p>
-                                    <p style="color:black;">
-                                        <b>Question No. 6.</b> <i>Do you have any other feedback you'd like the designer or publisher to hear?</i> The answers to this question can give some insights to the game designer and/or publisher on how the particular game can be improved.
-                                    </p>
-                                    
-                                    <button onclick="processSection('justification')" id="{% if current_user.is_authenticated %}justification-submit{% else %}justification-submit-anonymous{% endif %}" class="btn btn-secondary dashboard-content-submit" type="button" class="btn btn-secondary">
-                                        {% if current_user.is_authenticated %}Complete Game{% else %}Complete Game and Download{% endif %}
-                                    </button>
+                                    <div class="centered-div">
+                                        <table class="table table-borderless w-20">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span>
+                                                            <a id="justificationModal1Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#justificationModal1" role="button">
+                                                                Game Feedback Questionnaire</a>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            <a id="justificationModal2Button" class="btn btn-primary btn-block" data-bs-toggle="modal" href="#justificationModal2" role="button">
+                                                                Tutor's Readiness Questionnaire</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <br />
+
+                                    <h3>Tutor's Readiness Questionnaire</h3>
+                                    <sub style="color: black;">(Please answer <b>all</b> questions)</sub>
+
+                                    <br />
+                                    <br />
+
+                                    <form action="javascript:;" onsubmit="processSection('justification')">
+                                        <table class="table table-bordered" style="color:black;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="col-1">#</th>
+                                                    <th scope="col" class="col-6">Question</th>
+                                                    <th scope="col" class="col-5">Answer</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="justification-tbody">
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Is the game included in the BGG database (<a href="https://boardgamegeek.com/">https://boardgamegeek.com/</a>)?</td>
+                                                    <td>
+                                                        <div class="col pt-3">
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale1" id="justification-content-q-1-yes" value="Yes" required>
+                                                                <label class="form-check-label" for="justification-content-q-1-yes">Yes</label>
+                                                            </div>
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale1" id="justification-content-q-1-no" value="No" required>
+                                                                <label class="form-check-label" for="justification-content-q-1-no">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>What is the theme of the game?</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>What is the type of the game?</td>
+                                                    <td>
+                                                        <div class="form-group justification select-answer-other">
+                                                            <select class="form-control" required>
+                                                                <option disabled selected hidden>Please choose</option>
+                                                                <option>Strategy</option>
+                                                                <option>Adventure</option>
+                                                                <option>Role Play</option>
+                                                                <option>Simulation</option>
+                                                                <option>Puzzle</option>
+                                                                <option>Other</option>
+                                                            </select>
+                                                            <input id="justification-content-q-3-text" type="text" class="form-control" style="display:none;" placeholder="Please specify">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>What is the language of the game?</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>For those who do not speak the language in which this game is published, how language-dependent are the components (aside from the rules)? </td>
+                                                    <td>
+                                                        <div class="form-group justification select-answer" style="padding-top: 33px;">
+                                                            <select class="form-control" required>
+                                                                <option disabled selected hidden>Please choose</option>
+                                                                <option>No necessary in-game text</option>
+                                                                <option>Some necessary text - easily memorized or small crib sheet</option>
+                                                                <option>Moderate in-game text - needs crib sheet or paste ups</option>
+                                                                <option>Extensive use of text - massive conversion needed to be playable</option>
+                                                                <option>Unplayable in another language</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>How long does it take to learn the rules?</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7</td>
+                                                    <td>How heavy (difficult/complex) is this game?</td>
+                                                    <td>
+                                                        <div class="form-group justification select-answer">
+                                                            <select class="form-control" required>
+                                                                <option disabled selected hidden>Please choose</option>
+                                                                <option>Light</option>
+                                                                <option>Medium light</option>
+                                                                <option>Medium</option>
+                                                                <option>Medium heavy</option>
+                                                                <option>Heavy</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8</td>
+                                                    <td>How long does it take to play?</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>9</td>
+                                                    <td>Minimum number of players?</td>
+                                                    <td><input class="form-control justification number-answer" type="number" min="1" required></input></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10</td>
+                                                    <td>Maximum number of players?</td>
+                                                    <td><input class="form-control justification number-answer" type="number" min="1" required></input></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>11</td>
+                                                    <td>Age range of players?</td>
+                                                    <td><input class="form-control justification number-answer" type="text" required></input></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12</td>
+                                                    <td>List the game materials, e.g. dice, board, cards, etc.</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>13</td>
+                                                    <td>List the learning objectives that you want to achieve through this game.</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>14</td>
+                                                    <td>List the game mechanics.</td>
+                                                    <td><textarea class="form-control justification short-answer" rows="1" required></textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>15</td>
+                                                    <td>Have you made adaptations to this game?</td>
+                                                    <td>
+                                                        <div class="col yes-no-desc">
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale2" id="justification-content-q-15-yes" value="Yes" required>
+                                                                <label class="form-check-label" for="justification-content-q-15-yes">Yes</label>
+                                                            </div>
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale2" id="justification-content-q-15-no" value="No" required>
+                                                                <label class="form-check-label" for="justification-content-q-15-no">No</label>
+                                                            </div>
+                                                            <input id="justification-content-q-15-text" type="text" class="form-control" style="display:none;" placeholder="Please specify">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>16</td>
+                                                    <td>Have you play tested the game at least once?</td>
+                                                    <td>
+                                                        <div class="col">
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale3" id="justification-content-q-16-yes" value="Yes" required>
+                                                                <label class="form-check-label" for="justification-content-q-16-yes">Yes</label>
+                                                            </div>
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="scale3" id="justification-content-q-16-no" value="No" required>
+                                                                <label class="form-check-label" for="justification-content-q-16-no">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <br />
+                                        <span class="errorMessage" style="color:red" hidden>Please correct the highlighted mistakes before submitting!</span>
+                                        <button id="{% if current_user.is_authenticated %}justification-submit{% else %}justification-submit-anonymous{% endif %}" class="btn btn-secondary dashboard-content-submit" type="submit" class="btn btn-secondary">
+                                            {% if current_user.is_authenticated %}Complete Game{% else %}Complete Game and Download{% endif %}
+                                        </button>
+                                    </form>
                                 </div>
                                 <!-- End Justification -->
 
@@ -1941,6 +2134,116 @@
     </div>
 </div>
 <!-- End of Import game modal - Dashboard -->
+<!-- Justification modals -->
+<div class="modal fade" id="justificationModal1" tabindex="-1" aria-labelledby="justificationModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="justificationModalLabel1">Game Feedback Questionnaire</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p style="color:black;">
+                    The questions of <b><i>Game feedback questionnaire</i></b> were created based on the publications on following topic, the comments of the trainees during the 1st TEGA training activity, and the notes of the teachers who incorporate games into their training programs and who have been interviewed in a frame of TEGA project (IO1).
+                </p>
+                <p style="color:black;">
+                    Researchers (Fokides et al.,2019; Gow et al., 2010; Ijsselsteijn et al., 2013; Sousa, 2021) and teachers state that it is important to get feedback from as many students as possible after testing a new game in the classroom. Therefore, the questionnaire should be short and the answers have to reveal students' emotions, experiences, knowledge acquired and ideas for improvements of the game.
+                </p>
+                <p style="color:black;">
+                    The <b><i>Game feedback questionnaire</i></b> consists of six questions:
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 1.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 2.</b> <i>What was your experience of the game?</i> The aim of this question is to capture the emotions, experience, knowledge acquired through the game in general. 
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 3.</b> <i>Would you change something in the game?</i> If yes, what would you change? The aim of this question is to capture the emotions and experience, most likely negative, after playing the game. What students would like to remove from the game may be the part that causes them negative emotions and experiences. What students would like to add can have a positive effect on the dynamics of the game. All coments would help to improve the game.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 4.</b> <i>What do you think was the learning purpose of the game?</i> The aim of this question is to invite students to evaluate the educational purpose of the game, i.e. experience and knowledge acquired and caused by the game in general.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 5.</b> <i>What did you actually learn?</i> The aim of this question is to invite students to reflect and self-evaluate the knowledge they acquired through the game.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 6.</b> <i>Do you have any other feedback you'd like the designer or publisher to hear?</i> The answers to this question can give some insights to the game designer and/or publisher on how the particular game can be improved.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="justificationModal2" tabindex="-1" aria-labelledby="justificationModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-dark" id="justificationModalLabel2">Tutor’s Readiness Questionnaire</h1>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+                <p style="color:black;">
+                    The tutor's readiness questionnaire aims to assess the degree that tutors are aware of the steps they should follow when they decide to apply game-based teaching in their classroom.
+                </p>
+                <p style="color:black;">
+                    The reasoning for the selection of the specific questions is provided under each question. 
+                </p>
+                <p style="color:black;">
+                    <b><i>Tutor's readiness questionnaire</i></b>
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 1.</b> <i>Is the game included in the BGG database (https://boardgamegeek.com/)?</i> This question is a starting point for tutors because if the game they selected exists in the BGG database it can be used either as is or modified. If it does not exist it must be created from scratch. 
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 2.</b> <i>What is the theme of the game?</i> Theme sums up all the creative aspects of a game beyond the bare bones of mechanics and rules, including the game's setting, story and artwork. Therefore, if tutors know the theme of the game, they will be able to more effectively combine the educational objectives in the environment and narrative of the game.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 3.</b> <i>What is the type of the game? (select from list: strategy, adventure, role play, simulation...)</i> If a specific game type is required, the search can be limited to games of that type only.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 4.</b> <i>What is the language of the game?</i> Translation may be necessary for the game to become accessible by students.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 5.</b> <i>For those who do not speak the language in which this game is published, how language-dependent are the components (aside from the rules)? (select from list: No necessary in-game text; Some necessary text - easily memorized or small crib sheet; Moderate in-game text - needs crib sheet or paste ups; Extensive use of text - massive conversion needed to be playable; Unplayable in another language)</i> This question is related to Q5 and explores the extent of the game's language dependency.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 6.</b> <i>How long does it take to learn the rules?</i> In order for tutors to know - in conjunction with the playing time - the total time required.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 7.</b> <i>How heavy (difficult/complex) is this game? (select from list: light, medium light, medium, medium heavy, heavy)</i> In order for tutors to know if the game can be used in conjunction with the level of the students and the requirements of the course.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 8.</b> <i>How long does it take to play?</i> In order for tutors to know whether the game can - in combination with the time spent learning the rules - be used in a lesson lasting a certain number of teaching hours.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 9.</b> <i>Minimum number of players?</i> In order for tutors to know how to form the groups of students (how many students will be per group) but also in conjunction with the size of the class and the materials that will be needed.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 10.</b> <i>Maximum number of players?</i> In order for tutors to know how to form the groups of students (how many students will be per group) but also in conjunction with the size of the class and the materials that will be needed.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 11.</b> <i>Age range of players?</i> In order for tutors to know if the game can be exploited in the age group of their students.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 12.</b> <i>List the game materials, e.g. dice, board, cards, etc. (list or short answer)</i> In order for tutors to know exactly what game materials are needed so that they are available during teaching.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 13.</b> <i>List the learning objectives that you want to achieve through this game.</i> In order for tutors to adapt the game accordingly but also to be able to evaluate the achievement of the objectives.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 14.</b> <i>List the game mechanics.</i> In order for tutors to be able to assign the game mechanics to learning mechanics according to the LM-GM model.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 15.</b> <i>Have you made adaptations to this game? (Y/N)</i> If Yes, name the adaptations you have made and why? So that the game can be used by other teachers too.
+                </p>
+                <p style="color:black;">
+                    <b>Question No. 16.</b> <i>Have you play tested the game at least once?</i> In order for tutors to identify any problems in implementing the game in teaching.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Justification modals -->
 
 
 {% endblock content %}
