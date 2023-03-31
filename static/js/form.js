@@ -104,6 +104,8 @@ function submitAssessmentForm(gameID) {
         4: q4_values,
         5: q5_values,
         6: q6_values,
+        7: $("#post-playing-q-7").find('input[type="radio"]:checked').val(),
+        8: $("#post-playing-q-8").find('textarea').val(),
     }
     console.log(form_data);
     $.ajax({

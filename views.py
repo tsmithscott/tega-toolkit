@@ -271,33 +271,37 @@ def download_ajax_forms(game_id):
                 forms = Forms.query.filter_by(game_id=game_id)
                 form_files = []
                 
-                for form in forms:
-                    data = json.loads(form.data)
-                    form_files.append(Template.generate_form(data['feedback'],
-                                                             data['post_test'],
-                                                             form.id,
-                                                             form.game_id,
-                                                             game.name))
+                if forms:
+                    for form in forms:
+                        data = json.loads(form.data)
+                        form_files.append(Template.generate_form(data['feedback'],
+                                                                data['post_test'],
+                                                                data['post_playing'],
+                                                                form.id,
+                                                                form.game_id,
+                                                                game.name))
                         
-                with zipfile.ZipFile(f'./tmp/{game.id}-forms.zip', 'w') as forms_zip:
+                    with zipfile.ZipFile(f'./tmp/{game.id}-forms.zip', 'w') as forms_zip:
+                        for filepath in form_files:
+                            forms_zip.write(filepath)
+                        
                     for filepath in form_files:
-                        forms_zip.write(filepath)
+                        garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(filepath, 15), daemon=True)
+                        garbage_thread.start()
                         
-                for filepath in form_files:
-                    garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(filepath, 15), daemon=True)
+                    garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game.id}-forms.zip', 60), daemon=True)
                     garbage_thread.start()
                     
-                garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game.id}-forms.zip', 60), daemon=True)
-                garbage_thread.start()
-                
-                with open(f'./tmp/{game.id}-forms.zip', 'rb') as zip_binary_file:
-                    zip_data = zip_binary_file.read()
-                    
-                return send_file(
-                    io.BytesIO(zip_data),
-                    as_attachment=True,
-                    download_name=f'{game.id}-forms.zip'
-                )
+                    with open(f'./tmp/{game.id}-forms.zip', 'rb') as zip_binary_file:
+                        zip_data = zip_binary_file.read()
+                        
+                    return send_file(
+                        io.BytesIO(zip_data),
+                        as_attachment=True,
+                        download_name=f'{game.id}-forms.zip'
+                    )
+                else:
+                    return "", 404
             else:
                 return "This game does not belong to this user.", 401
         else:

@@ -46,3 +46,33 @@ Q9A. How do you classify the level of the instructions' clarity?
 A9A. {{PT_Q_9}} out of 5
 Q9B. Do you agree that the instructions of the game we clear?
 A9B. {{PT_Q_10}} out of 5
+
+
+
+
+
+Post Playing Experience Questionnaire
+--------------------------
+Q1: In your opinion, how much knowledge have you acquired by learning 
+    this method compared to other teaching methods?
+A1: {{PE_Q_1}}
+Q2: Compared to other teaching methods,
+    how attractive are the activities conducted by this method?
+A2: {{PE_Q_2}}
+Q3: Which discipline knowledge had to be used to play this game?
+A3: {{PE_Q_3}}
+Q4: Did you encounter any problematic situations while playing this game?
+    If yes, could you name it please?
+A4: {{PE_Q_4}}
+Q5: Have you noticed any mistakes made by you or your competitors 
+    while playing this game, from which lessons can be learned? 
+    If yes, could you name it please?
+A5: {{PE_Q_5}}
+Q6: Did you experience emotional tension while playing this game?
+    If yes, could you name it please?
+A6: {{PE_Q_6}}
+Q7: Would you like to play this game again?
+A7: {{PE_Q_7}}
+Q8: How this game could be improved in terms to increase the 
+    level of knowledge acquisition of the course?
+A8: {{PE_Q_8}}
