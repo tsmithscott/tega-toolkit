@@ -15,7 +15,6 @@ from jwt.exceptions import InvalidSignatureError
 from app import Config, app, client, db, get_google_provider_cfg, login_manager
 from models import Users, Games, Forms
 from security.jwt import JWT
-from confirmation.sendmail import SendMail
 from utilities.fileutils import Fileutils
 from utilities.latestsection import LatestSection
 from pdf.template import Template
