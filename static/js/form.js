@@ -1,6 +1,39 @@
 $(document).ready(function() {
     $("body").css("overflow-y", "hidden");
-    
+
+    $(".yes-no-desc").find("input[type='radio']").on("change", function() {
+        if ($(this).hasClass("selected")) {
+            if ($(this).val() == "Yes") {
+                $(this).parent().parent().find('input[type="text"]').attr("required", "required").show();
+                $(this).parent().next().children().first().removeClass("selected");
+            } else {
+                $(this).parent().parent().find('input[type="text"]').removeAttr("required").hide();
+                $(this).parent().next().children().first().addClass("selected");
+            }
+        } else {
+            if ($(this).val() == "Yes") {
+                $(this).parent().parent().find('input[type="text"]').attr("required", "required").show();
+                $(this).parent().next().children().first().removeClass("selected");
+            } else {
+                $(this).parent().parent().find('input[type="text"]').removeAttr("required").hide();
+                $(this).parent().next().children().first().addClass("selected");
+            }
+        }
+    });
+
+    $(".check-others").find("input[type='checkbox']").on("change", function() {
+        if ($(this).hasClass("selected")) {
+            if ($(this).val() == "Others") {
+                $(this).parent().parent().find('input[type="text"]').removeAttr("required").hide();
+            }
+            $(this).removeClass("selected");
+        } else {
+            if ($(this).val() == "Others") {
+                $(this).parent().parent().find('input[type="text"]').attr("required", "required").show();
+            }
+            $(this).addClass("selected");
+        }
+    });
 });
 
 
@@ -29,20 +62,58 @@ function submitAssessmentForm(gameID) {
         10: $("#assessment-content-post-test-question-9b").find('input[type="radio"]:checked').val()
     }
 
-    $.ajax({
-        contentType: "application/json;charset=utf-8",
-        type: "POST",
-        url: `/form-submit`,
-        data: JSON.stringify({form_data}),
-        success: function(data) {
-            $('#form-content-submit').removeClass("btn-primary").addClass("green text-light").text("Success! Redirecting...");
-            setTimeout(function() {
-                $(location).attr("href", "/");
-			}, 3000);
-
-        },
-        error: function(data) {
-            $('#form-content-submit').removeClass("btn-primary").addClass("dtn-danger").text("Error! Please try again.");
-        }
+    q3_checked_boxes = $("#post-playing-q-3").find(".selected");
+    q3_text = $("#post-playing-q-3").find('input[type="text"]').val();
+    q3_values = [];
+    $(q3_checked_boxes).each(function() {
+        q3_values.push($(this).val());
     });
+    if (q3_text != "") {
+        q3_values.push(q3_text);
+    }
+    
+    q4_values = [];
+    q4_values.push($("#post-playing-q-4").find('.selected').val());
+    q4_text = $("#post-playing-q-4").find('input[type="text"]').val();
+    if (q4_text != "") {
+        q4_values.push(q4_text);
+    }
+    q5_values = [];
+    q5_values.push($("#post-playing-q-5").find('.selected').val());
+    q5_text = $("#post-playing-q-5").find('input[type="text"]').val();
+    if (q5_text != "") {
+        q5_values.push(q5_text);
+    }
+    q6_values = [];
+    q6_values.push($("#post-playing-q-6").find('.selected').val());
+    q6_text = $("#post-playing-q-6").find('input[type="text"]').val();
+    if (q6_text != "") {
+        q6_values.push(q6_text);
+    }
+
+    form_data["post_playing"] = {
+        1: $("#post-playing-q-1").find('input[type="radio"]:checked').val(),
+        2: $("#post-playing-q-2").find('input[type="radio"]:checked').val(),
+        3: q3_values,
+        4: q4_values,
+        5: q5_values,
+        6: q6_values,
+    }
+    console.log(form_data);
+    // $.ajax({
+    //     contentType: "application/json;charset=utf-8",
+    //     type: "POST",
+    //     url: `/form-submit`,
+    //     data: JSON.stringify({form_data}),
+    //     success: function(data) {
+    //         $('#form-content-submit').removeClass("btn-primary").addClass("green text-light").text("Success! Redirecting...");
+    //         setTimeout(function() {
+    //             $(location).attr("href", "/");
+	// 		}, 3000);
+
+    //     },
+    //     error: function(data) {
+    //         $('#form-content-submit').removeClass("btn-primary").addClass("dtn-danger").text("Error! Please try again.");
+    //     }
+    // });
 }

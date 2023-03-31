@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock title%}
 {% block content %}
 <div class="container" id="index-container">
-  <div class="row align-items-center pt-5">
+  <div class="row align-items-center pt-5 pb-5">
     <div class="col-12">
       <div class="row align-items-center" id="main_page">
         <div class="col-lg-6 mb-4">
@@ -13,30 +13,12 @@
 
         <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
           <form id="signup-form" action="javascript:;" onsubmit="return registrationAjax()" method="post" class="form-box">
-            <h3 class="h4 text-black mb-4">Sign Up</h3>
-            <div class="form-group">
-              <input id="email-signup" type="text" class="form-control" placeholder="Email Address" required>
-              <div id="emailErrorMessage" class="error"><span id="emailErrorSpan"></span></div>
-            </div>
-            <div class="form-group">
-              <input id="password-signup" type="password" class="form-control liveValidation" placeholder="Password" required>
-              <div id="passwordErrorMessage" class="error"><span id="passwordErrorSpan"></span></div>
-            </div>
-            <div class="form-group mb-4">
-              <input id="confirm-password-signup" type="password" class="form-control" placeholder="Re-type Password" required>
-              <div id="confirmErrorMessage" class="error"><span id="confirmErrorSpan"></span></div>
-            </div>
-            <div class="form-group" style="display: flex; justify-content: center; align-items: center;">
-              <button input="signupSubmit" class="btn btn-primary btn-pill" value="Sign up" type="submit">Signup</button>
-            </div>
-            <hr />
             <div class="centered-div">
               <a class="btn btn-outline-dark" href="{{ url_for('google_login') }}" role="button" style="text-transform:none">
                 <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="{{ url_for('static', filename='images/google.png') }}">
-                Sign up with Google
+                Continue with Google
               </a>
             </div>
-            <hr />
           </form>
 
         </div>
@@ -46,7 +28,7 @@
 </div>
 {% endblock content %}
 {% block footer %}
-<footer class="footer-section bg-white">
+<footer class="footer-section bg-white mt-2">
   <div class="container">
       <div class="row">
           <div class="col-md-4">

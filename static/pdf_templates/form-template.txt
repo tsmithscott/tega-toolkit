@@ -1,0 +1,48 @@
+-----------------
+Form ID: {{FID}}
+Game ID: {{GID}}
+Game Name: {{GNAME}}
+-----------------
+Game Feedback Questionnaire
+---------------------------
+Q1. What was you experience of the game?
+A1: {{Q_1}}
+Q2. Would you change something in the game? If yes, what would you change?
+A2. {{Q_2}}
+Q3. What do you think was the learning purpose of the game?
+A3. {{Q_3}}
+Q4. What did you learn?
+A4. {{Q_4}}
+Q5. Do you have any other feedback you'd like the designer or publisher to hear?
+A5. {{Q_5}}
+Q6. Was there anything in the rules you did not understand? (mechanics)
+A6. {{Q_6}}
+
+
+
+
+
+
+
+Post Test Feedback Questionnaire
+--------------------------------
+Q1. How the game maintains the balance between fun and knowledge acquisition?
+A1. {{PT_Q_1}} out of 5
+Q2. How much you were engaged into the game?
+A2. {{PT_Q_2}} out of 5
+Q3. How do you classify the level of difficulty of the played game?
+A3. {{PT_Q_3}} out of 5
+Q4. How do you the level of anxiety after playing the game?
+A4. {{PT_Q_4}} out of 5
+Q5. How do you classify the level of surprise during playing the game?
+A5. {{PT_Q_5}} out of 5
+Q6. How do you classify the level of frustration during playing the game?
+A6. {{PT_Q_6}} out of 5
+Q7. How strongly do you agree that the pre-set objectives have been reached during the game?
+A7. {{PT_Q_7}} out of 5
+Q8. How likely would you play this game again?
+A8. {{PT_Q_8}} out of 5
+Q9A. How do you classify the level of the instructions' clarity?
+A9A. {{PT_Q_9}} out of 5
+Q9B. Do you agree that the instructions of the game we clear?
+A9B. {{PT_Q_10}} out of 5

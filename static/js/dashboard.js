@@ -86,7 +86,6 @@ function downloadJSON() {
 		data: JSON.stringify({"game_data": localStorage.getItem("_game_data")}),
 		contentType: "application/json",
 		success: function(result) {
-			console.log(result);
 			var blob=new Blob([result], {type: 'text/plain'});
 			var link=document.createElement('a');
 			link.href=window.URL.createObjectURL(blob);
@@ -268,6 +267,9 @@ function addGameFormLink() {
 	let combined = base_url + '/form/' + game_id;
 	$("#form-copy-link").html(combined);
 	$("#form-copy-link").attr("href", combined);
+	
+	let form_url = "/download-game-forms/" + game_id;
+	$("#form-download-button").attr("href", form_url);
 }
 
 function processSection(sectionID) {
@@ -902,6 +904,7 @@ function addGameDataStyling() {
 		}
 		// Add assessment link
 		addGameFormLink();
+		// 
 	}
 }
 

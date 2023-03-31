@@ -1,3 +1,4 @@
+import json
 from flask_login import UserMixin
 
 from security.jwt import JWT
@@ -86,6 +87,6 @@ class Forms(db.Model):
         return {
             "id": self.id,
             "game_id": self.game_id,
-            "data": self.data,
+            "data": json.loads(self.data),
             "submission_data": self.datetime_submitted
         }

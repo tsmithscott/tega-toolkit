@@ -2,6 +2,7 @@ import json
 import uuid
 import threading
 import zipfile
+import io
 from datetime import datetime
 
 import requests
@@ -17,6 +18,7 @@ from security.jwt import JWT
 from confirmation.sendmail import SendMail
 from utilities.fileutils import Fileutils
 from utilities.latestsection import LatestSection
+from pdf.template import Template
 
 
 @login_manager.user_loader
@@ -31,34 +33,6 @@ def index():
     else:
         return render_template("index.html", title="Tega Toolkit")
     
-    
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-        if current_user.is_authenticated:
-            return redirect(url_for("dashboard"))
-        else:
-            return render_template("login.html", title="Tega Toolkit - Login")
-    elif request.method == 'POST':
-        email = request.form['email']
-        
-        if Users.query.filter_by(email=email).first():
-            user = Users.query.filter_by(email=email).first()
-            if check_password_hash(user.password, request.form['password']):
-                if user.account_confirmed:
-                    login_user(user)
-                    return url_for('dashboard')
-                else:
-                    response = make_response()
-                    response.status_code = 406
-                    return response
-            else:
-                return '', 400
-        else:
-            return '', 400
-    else:
-        return '', 405
-
 
 @app.route("/dashboard", methods=['GET', 'POST'])
 def dashboard():
@@ -288,34 +262,49 @@ def download_ajax_json(game_id):
             return "", 405
         
 
-# @app.route('/download-game-forms/<game_id>', methods=["GET"])
-# def download_ajax_forms(game_id):
-#     if current_user.is_authenticated:
-#         game = Games.query.filter_by(id=game_id).first()
+@app.route('/download-game-forms/<game_id>', methods=["GET"])
+def download_ajax_forms(game_id):
+    if current_user.is_authenticated:
+        game = Games.query.filter_by(id=game_id).first()
         
-#         if game:
-#             if game.user_id == current_user.id:
-#                 forms = Forms.query.filter_by(game_id=game_id)
-#                 form_files = []
+        if game:
+            if game.user_id == current_user.id:
+                forms = Forms.query.filter_by(game_id=game_id)
+                form_files = []
                 
-#                 for form in forms:
-#                     form = form.to_dict()
-#                     with open(f'./tmp/{form["id"]}-forms.json', 'w', encoding="utf-8") as file:
-#                         file.write(json.dumps(form))
-#                         form_files.append(f'./tmp/{form["id"]}-forms.json')
+                for form in forms:
+                    data = json.loads(form.data)
+                    form_files.append(Template.generate_form(data['feedback'],
+                                                             data['post_test'],
+                                                             form.id,
+                                                             form.game_id,
+                                                             game.name))
                         
-#                 with zipfile.ZipFile(f'{game.id}-forms.zip', 'w')
+                with zipfile.ZipFile(f'./tmp/{game.id}-forms.zip', 'w') as forms_zip:
+                    for filepath in form_files:
+                        forms_zip.write(filepath)
+                        
+                for filepath in form_files:
+                    garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(filepath, 15), daemon=True)
+                    garbage_thread.start()
                     
-#                 garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game_id}.json', 15), daemon=True)
-#                 garbage_thread.start()
+                garbage_thread = threading.Thread(target=Fileutils.garbage_collection, args=(f'./tmp/{game.id}-forms.zip', 60), daemon=True)
+                garbage_thread.start()
+                
+                with open(f'./tmp/{game.id}-forms.zip', 'rb') as zip_binary_file:
+                    zip_data = zip_binary_file.read()
                     
-#                 return send_file(f'./tmp/{game_id}.json', as_attachment=True)
-#             else:
-#                 return "This game does not belong to this user.", 500
-#         else:
-#             return "", 404
-#     else:
-#         return "", 500
+                return send_file(
+                    io.BytesIO(zip_data),
+                    as_attachment=True,
+                    download_name=f'{game.id}-forms.zip'
+                )
+            else:
+                return "This game does not belong to this user.", 401
+        else:
+            return "", 404
+    else:
+        return "", 400
     
     
 @app.route('/upload-game', methods=["POST"])
@@ -465,71 +454,6 @@ def ajax_parse():
         response.status_code = 400
 
 
-@app.route("/register-user", methods=["POST"])
-def register_user():
-    if not Users.query.filter_by(email=request.form['email']).first():
-        user_id = uuid.uuid4().hex
-
-        while Users.query.filter_by(id=user_id).first():
-            user_id = uuid.uuid4().hex
-
-        new_user = Users(
-            id=user_id,
-            name=None,
-            email=request.form['email'],
-            profile_pic=url_for('fallback_profile'),
-            password=generate_password_hash(request.form['password'], method='sha256'),
-            account_confirmed=False
-        )
-
-        db.session.add(new_user)
-        db.session.commit()
-        mail = SendMail()
-        mail.send_confirmation(request.form['email'], JWT.generate_jwt({"email":request.form['email']}))
-
-        response = make_response(jsonify(message='/login'))
-        response.status_code = 200
-        return response
-    else:
-        user = Users.query.filter_by(email=request.form['email']).first()
-        
-        if user.account_confirmed:
-            response = make_response(jsonify(message='E-500-1'))
-            response.status_code = 400
-            return response
-        else:
-            response = make_response(jsonify(message='E-500-2'))
-            response.status_code = 400
-            return response
-
-
-@app.route("/confirm-account/<token>")
-def confirm_account(token):
-    try:
-        data = JWT.decode_jwt(token)
-        user = Users.query.filter_by(email=data['email']).first()
-        user.account_confirmed = True
-        db.session.commit()
-        login_user(user)
-        
-        return redirect('/dashboard')
-    except InvalidSignatureError:
-        return 'This token is invalid. Contact support', 400
-
-
-@app.route("/reset-password")
-def reset_password():
-    return render_template("reset.html")
-
-
-@app.route("/resend-confirmation", methods=["POST"])
-def send_confirmation():
-    email = request.form["email"]
-    mail = SendMail()
-    mail.send_confirmation(email, JWT.generate_jwt({"email":email}))
-    return '', 200
-
-
 @app.route("/logout")
 @login_required
 def logout():
@@ -538,9 +462,3 @@ def logout():
         return "", 200
     except:
         return "", 500
-
-
-@app.route("/fallback-profile")
-@login_required
-def fallback_profile():
-    return send_from_directory('static/images', 'default-profile-pic.png')

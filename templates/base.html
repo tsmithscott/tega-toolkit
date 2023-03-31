@@ -43,11 +43,7 @@
                         <div class="ml-auto w-25">
                             <nav class="site-navigation position-relative text-right" role="navigation">
                                 <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
-                                    {% if not current_user.is_authenticated %}
-                                        {% if not request.endpoint == 'login' %}
-                                            <li class="cta"><a href="{{ url_for('login') }}" class="nav-link"><span>Login</span></a></li>
-                                        {% endif %}
-                                    {% else %}
+                                    {% if current_user.is_authenticated %}
                                         <li class="cta" style="position: relative; top:5px;"><span><img src="{{ current_user.profile_pic }}" style="width:50px; border-radius: 25px;"></img></span></li>
                                         <li class="cta"><a onclick="logout()" class="nav-link"><span>Logout</span></a></li>
                                     {% endif %}
