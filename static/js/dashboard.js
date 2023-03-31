@@ -417,7 +417,7 @@ function processSection(sectionID) {
 			section.find(".errorMessage").attr("hidden");
 		}
 
-		if ($("#accessibility-content textarea.selected").length > 18) {
+		if ($("#accessibility-content .form-check-input.selected").length > 18) {
 			$("#accessibility-content").find(".errorMessage").attr("hidden", "hidden");
 
 			let considered = [];
@@ -534,7 +534,7 @@ function processSection(sectionID) {
 			unlockNextSection(sectionID);
 			toggleDashboardPage();
 		} else {
-			alert("Unable to save progress to the database. Please contact support.");
+			alert("Unable to save progress to the database. Please contact support or try again later.");
 		}
 
 
@@ -557,7 +557,7 @@ function processSection(sectionID) {
 				selections = [];
 				unlockNextSection(sectionID);
 			} else {
-				alert("Unable to save progress. Please contact support.");
+				alert("Unable to save progress. Please contact support or try again later.");
 			}
 		}
 	}
@@ -588,8 +588,12 @@ function processGameData(complete, section) {
 	let url = '/ajax-autosave';
 	deleteCookie("_game_data");
 
-	if (update) {
+
+	if (!update) {
 		complete = complete_status;
+	}
+	if (complete_status === true) {
+		complete = true;
 	}
 	$.ajax({
 		url: url,
@@ -623,6 +627,7 @@ function loadGame(edit_button) {
 			update = true;
 			complete_status = response['complete'];
 			gameName = response['name'];
+			console.log(gameName + " " + response['complete']);
 
 			localStorage.setItem("_game_data", response['game']);
 			setCookie("_latest_section", response['latest_section']);

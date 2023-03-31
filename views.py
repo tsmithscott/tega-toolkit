@@ -131,28 +131,25 @@ def callback():
     userinfo_response = requests.get(uri, headers=headers, data=body)
     
     if userinfo_response.json().get("email_verified"):
+        unique_id = userinfo_response.json()["sub"]
         users_email = userinfo_response.json()["email"]
         picture = userinfo_response.json()["picture"]
         users_name = userinfo_response.json()["given_name"]
     else:
         return "User email not available or not verified by Google.", 400
 
-    # Doesn't exist? Add it to the database.
-    user_id = uuid.uuid4().hex
 
-    while Users.query.filter_by(id=user_id).first():
-        user_id = uuid.uuid4().hex
 
+    # If user doesn't exist, create a new user
     if not Users.query.filter_by(email=users_email).first():
         user = Users(
-            id=user_id,
+            id=unique_id,
             name=users_name, 
             email=users_email, 
-            profile_pic=picture,
-            password=None,
-            account_confirmed=None)
+            profile_pic=picture)
         db.session.add(user)
         db.session.commit()
+    # If user exists, select the user
     else:
         user = Users.query.filter_by(email=users_email).first()
     
