@@ -39,11 +39,15 @@ def dashboard():
     
     if current_user.is_authenticated:
         games = Games.query.filter_by(user_id=current_user.id).order_by(Games.last_updated.desc()).all()
-        forms = []
+        dict_of_games = {}
+        forms = 0
         if games:
             for game in games:
-                for form in game.forms:
-                    forms.append(form.to_dict())
+                if game.forms:
+                    forms = 1
+                else:
+                    forms = 0
+                dict_of_games[game.id] = forms
             games = [game.to_dict() for game in games]
         else:
             games = []
@@ -51,7 +55,7 @@ def dashboard():
         forms = []
         games = []
 
-    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games, forms=forms)
+    return render_template("dashboard.html", title="Tega Toolkit - Dashboard", base_url=Config.BASE_URL, games=games, forms=dict_of_games)
 
 
 @app.route("/form/<game_id>", methods=['GET'])
@@ -216,6 +220,19 @@ def get_game(game_id):
             404
         )
 
+@app.route("/get_game_form_status/<game_id>", methods=["GET"])
+@login_required
+def get_game_form_status(game_id):
+    game = Games.query.filter_by(id=game_id).first()
+    if game:
+        if Forms.query.filter_by(game_id=game_id).first():
+            has_forms = 1
+        else:
+            has_forms = 0
+        return make_response(jsonify(has_forms), 200)
+    else:
+        return "", 404
+    
     
 @app.route("/delete_game/<game_id>", methods=["POST"])
 def delete_games(game_id):

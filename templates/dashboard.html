@@ -83,7 +83,7 @@
                                                                     {% endif %}
                                                                 </div>
                                                                 <div class="col">
-                                                                    {% if forms %}
+                                                                    {% if forms[game.id] %}
                                                                     <div data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-content="Download submitted forms">
                                                                         <a class="fa fa-file-download" id="form-download-button-saved-games" role="button" href="/download-game-forms/{{game.id}}"></a>
                                                                     </div>
@@ -1080,6 +1080,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <br />
                                         <button id="instruction-submit" class='btn btn-secondary dashboard-content-submit' type="submit" class="btn btn-secondary">
                                         Save & Continue
                                         </button>
@@ -1156,8 +1157,8 @@
                                         <a id="form-copy-link"></a><input baseurl="{{ base_url }}" hidden>
                                     </p>
                                     <br />
-                                    <a id="form-download-button" class="btn btn-primary" role="button" style="display:none">Download submitted forms</a><br /><br />
-                                    <p id="form-download-no-forms" style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out. Please refresh the page when they have.</i></p>
+                                    <div id="form-download-button-div"><a id="form-download-button" class="btn btn-primary" href="" role="button">Download submitted forms</a><br /><br /></div>
+                                    <p id="form-download-no-forms" style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out. Please refresh the page when they have.</i><br /><br /></p>
                                     {% else %}
                                     <br />
                                     <p style="color:black;">

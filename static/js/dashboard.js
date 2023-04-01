@@ -714,6 +714,25 @@ function loadGame(edit_button) {
 	  	},
 		async: false
 	});
+
+	url = '/get_game_form_status/' + dataid;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(response) {
+            if (response === 1) {
+                $("#form-download-button-div").show();
+                $("#form-download-no-forms").hide();
+            } else {
+                $("#form-download-button-div").hide();
+                $("#form-download-no-forms").show();
+            }
+        },
+        error: function(error) {
+            saved = false;
+        },
+        async: false
+    });
 }
 
 
@@ -1351,6 +1370,9 @@ function createNewGame() {
 	$("#load-most-recent-game-button").hide();
 	$("#import-game-button").hide();
 	$("#page-switch-button").show();
+	$("#form-download-button-div").hide();
+    $("#form-download-no-forms").show();
+
 }
 
 
