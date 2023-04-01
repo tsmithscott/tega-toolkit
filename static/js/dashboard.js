@@ -549,10 +549,11 @@ function processSection(sectionID) {
 				if (question_number === 3) {
 					let other = $("#justification-content-q-3-text");
 					value = $(other).val();
-					if ($(other).siblings().first().find("option:selected").html() === "Other") {
+					let selection_value = $(other).siblings().first().find("option:selected").html()
+					if (selection_value === "Other") {
 						section_game[question_number] = "Other: "+ value;
 					} else {
-						section_game[question_number] = value;
+						section_game[question_number] = selection_value;
 					}
 				} else {
 					section_game[question_number] = value;
@@ -657,7 +658,7 @@ function processLatestSection(latestSection) {
 function processGameData(complete, section) {
 	let saved = '';
 	let url = '/ajax-autosave';
-	deleteCookie("_game_data");
+	localStorage.removeItem("_game_data");
 
 
 	if (update) {
@@ -694,7 +695,7 @@ function loadGame(edit_button) {
 		type: 'GET',
 		success: function(response) {
 			update = true;
-			complete_status = response['complete'];
+			complete_status = false ? (response['latest_section'] === 'justification') : true;
 			gameName = response['name'];
 
 			localStorage.setItem("_game_data", response['game']);
@@ -973,6 +974,13 @@ function addGameDataStyling() {
 						createPlayabilityRow($(empty_row[0]).children().first(), true);
 					}
 					break;
+
+				case('justification'):
+					for (let row in gameData['justification']) {
+						console.log(row);
+					}
+
+					break;
 			}
 		}
 		// Add assessment link
@@ -1072,7 +1080,7 @@ function processCharacteristicMeasure(characteristic) {
 // Create submeasure dropdowns for 'Game Characteristics' section when pressed
 function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characteristic) {
 	$('#characteristics-content-accordion-row').prepend(`
-	<div class="characteristics-content-accordion-${characteristic_for_id} mb-5 characteristic-accordion" style="text-align: left; max-height: 170px; padding:5px;">
+	<div class="characteristics-content-accordion-${characteristic_for_id} characteristic-accordion" style="text-align: left; padding:5px;">
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="headingOne">
 				<div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
@@ -1085,7 +1093,7 @@ function createCharacteristicsSubmeasureDropdown(characteristic_for_id, characte
 					</button>
 				</div>
 			</h2>
-			<div id="${characteristic_for_id}-collapse" style="position:relative; top:-7px; max-height:130px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-${characteristic_for_id}">
+			<div id="${characteristic_for_id}-collapse" style="position:relative; top:-7px; max-height:140px; padding-bottom:15px;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#characteristics-content-accordion-${characteristic_for_id}">
 				<div class="accordion-body">
 					<div class="card pr-5" style="margin-bottom: 0px; max-height: 150px; width:fit-content; overflow-y:auto; overflow-x:hidden;">
 						<ul style="max-height:125px; padding-left:0px; position:relative; left: 5px"></ul>

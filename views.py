@@ -88,6 +88,11 @@ def assessment_form_submit():
         
         return "", 200
 
+
+@app.route("/login", methods=["GET"])
+def login_redirect():
+    return redirect("/google-login")
+
     
 @app.route("/google-login", methods=["GET"])
 def google_login():

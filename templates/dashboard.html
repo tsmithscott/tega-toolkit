@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-5 text-center" style="min-width:200px; height: 550px; overflow-y:hidden; overflow-x:hidden; direction: rtl;"">
-                                <div class="centered-div my-auto" style="height:100%; position: relative;">
+                                <div class="centered-div my-auto" style="height:100%; position: relative; left: 25px;">
                                     <p style="color:black;">Select from your saved games on the left <br /><br /><b><i>or</i></b><br /><br />
                                          <button class="btn btn-primary" onclick="createNewGame()">Create a New Game</button>
                                     </p>
@@ -1156,15 +1156,12 @@
                                         <a id="form-copy-link"></a><input baseurl="{{ base_url }}" hidden>
                                     </p>
                                     <br />
-                                        {% if forms %}
-                                        <a id="form-download-button" class="btn btn-primary" role="button">Download submitted forms</a><br /><br />
-                                        {% else %}
-                                        <p style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out. Please refresh the page when they have.</i></p>
-                                        {% endif %}
+                                    <a id="form-download-button" class="btn btn-primary" role="button" style="display:none">Download submitted forms</a><br /><br />
+                                    <p id="form-download-no-forms" style="color:black;"><i>No forms have been submitted yet. Please send the link to your beta-testers and ask them to fill it out. Please refresh the page when they have.</i></p>
                                     {% else %}
                                     <br />
                                     <p style="color:black;">
-                                        You must <a href="{{base_url}}/login">login/signup</a> to name your game and to send a questionnaire form to your beta-testers.
+                                        You must <a href="{{ url_for('index') }}">login/signup</a> to name your game and to send a questionnaire form to your beta-testers.
                                     </p>
                                     <br />
                                     {% endif %}

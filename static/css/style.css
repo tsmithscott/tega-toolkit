@@ -1288,6 +1288,13 @@ li {
   display: none;
 }
 
+@media only screen and (min-width: 640px) {
+  #form-container {
+    position: relative;
+    top: 75px;
+  }
+}
+
 /* On screens below 279px */
 @media only screen and (max-width: 279px) {
   #form-container {
