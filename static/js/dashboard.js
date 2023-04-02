@@ -1042,10 +1042,23 @@ function addGameDataStyling() {
 						}
 
 
-						// // Handle text/number inputs
-						// else if (true) {
+						// Handle text/number inputs
+						else if ($(input_td).find(".short-answer").length > 0
+							|| $(input_td).find(".number-answer").length > 0) {
+							let textareas = $(input_td).find('textarea');
+							let text_inputs = $(input_td).find('input[type="text"]');
+							let number_inputs = $(input_td).find('input[type="number"]');
+							$(textareas).each(function() {
+								$(this).val(gameData['justification'][question_no]);
+							});
+							$(text_inputs).each(function() {
+								$(this).val(gameData['justification'][question_no]);
+							});
+							$(number_inputs).each(function() {
+								$(this).val(gameData['justification'][question_no]);
+							});
+						}
 
-						// }
 					}
 
 					break;
