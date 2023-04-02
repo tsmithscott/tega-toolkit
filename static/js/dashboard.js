@@ -527,9 +527,7 @@ function processSection(sectionID) {
 
 	// Justification
 	} else if (sectionID === "justification") {
-		
 		let trs = $("#justification-tbody").find("tr");
-		let section_game = {};
 
 		for (let tr of trs) {
 			let question_number = Number($(tr).children().first().html());
@@ -658,6 +656,10 @@ function processGameData(complete, section) {
 	let saved = '';
 	let url = '/ajax-autosave';
 	localStorage.removeItem("_game_data");
+
+	if (!update) {
+		update = true;
+	}
 
 	
 	if ((update) && (section === "justification")) {
