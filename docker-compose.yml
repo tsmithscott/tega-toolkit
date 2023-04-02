@@ -15,14 +15,14 @@ services:
       - /Users/theo/VSCode/tega/config.py:/app/config.py
     depends_on:
       - tega-db
+    restart: unless-stopped
 
   tega-db:
     container_name: tega-db
     image: mysql:latest
-    ports:
-      - 3306:3306
     environment:
       - MYSQL_DATABASE=tegatoolkit
       - MYSQL_ROOT_PASSWORD=changeme123
       - MYSQL_USER=tega
-      - MYSQL_USER_PASSWORD=changeme123
+      - MYSQL_PASSWORD=changeme123
+    restart: unless-stopped

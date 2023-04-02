@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}{{title}}{% endblock title %}
+{% block mobile_navbar %}
+<div id="mobile-navbar" class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+{% endblock mobile_navbar %}
 {% block bodyid %}id="body-dashboard"{% endblock bodyid %}
 {% block content %}
 <div id="dashboard-container" class="container-fluid" style="padding-top:100px;overflow-y:none;">

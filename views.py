@@ -52,6 +52,7 @@ def dashboard():
         else:
             games = []
     else:
+        dict_of_games = {}
         forms = []
         games = []
 
