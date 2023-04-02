@@ -1046,16 +1046,21 @@ function addGameDataStyling() {
 						// Handle radio inputs
 						else if ($(input_td).children().first().hasClass("col")) {
 							let radios = $(input_td).find(".form-check-input");
-							if (gameData['justification'][question_no] === "Yes") {
-								$(radios[0]).attr("checked", "checked");
+
+							if (question_no !== "15") {
+								if (gameData['justification'][question_no] === "Yes") {
+									$(radios[0]).attr("checked", "checked");
+								} else {
+									$(radios[1]).attr("checked", "checked");
+								}
 							} else {
-								$(radios[1]).attr("checked", "checked");
-							}
-							if (question_no === "15") {
 								if (gameData['justification'][question_no][0] === "Yes") {
 									let text_input = $(input_td).find('input[type="text"]');
 									let text_val = gameData['justification'][question_no][1];
 									$(text_input).attr("required", "required").val(text_val).show();
+									$(radios[0]).attr("checked", "checked");
+								} else {
+									$(radios[1]).attr("checked", "checked");
 								}
 							}
 						}
