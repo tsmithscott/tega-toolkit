@@ -660,9 +660,11 @@ function processGameData(complete, section) {
 	let url = '/ajax-autosave';
 	localStorage.removeItem("_game_data");
 
-
+	
 	if (update) {
-		complete = complete_status;
+		complete = true ? (section === "justification") : false;
+	} else {
+		complete = true;
 	}
 
 	$.ajax({
@@ -694,8 +696,12 @@ function loadGame(edit_button) {
 		url: url,
 		type: 'GET',
 		success: function(response) {
-			update = true;
-			complete_status = false ? (response['latest_section'] === 'justification') : true;
+			if (response['complete']) {
+				update = false;
+			} else {
+				update = true;
+			}
+			// complete_status = true ? (response['complete']) : false;
 			gameName = response['name'];
 
 			localStorage.setItem("_game_data", response['game']);
@@ -1492,7 +1498,6 @@ $(".select-answer-other").children().first().on("change", function() {
 		$(this).next().removeAttr("required").hide();
 	}
 });
-
 
 
 // Handle 'Theoretical Foundation' section modals

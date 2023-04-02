@@ -1256,10 +1256,9 @@ li {
 }
 
 @media (max-height: 875px) {
-  body {
-    zoom: 0.85;
-    -moz-transform: scale(0.85);
-    -moz-transform-origin: 0 0;
+  #content {
+    transform: scale(0.9);
+    transform-origin: top;
   }
 }
 

@@ -351,11 +351,6 @@ def upload_game():
                             
                     game = json.loads(file.read())
                     latest_section = LatestSection.find(game.keys())
-                    if latest_section == "playability":
-                        latest_section = "justification"
-                    
-                    print(game.keys())
-                    print(latest_section)
                     
                     game_jwt = JWT.generate_jwt(game)
                     complete = True if latest_section == "justification" else False
