@@ -1003,6 +1003,7 @@ function addGameDataStyling() {
 						let row = trs[question];
 						let input_td = $(row).find("td").last();
 
+
 						// Handle select inputs
 						if ($(input_td).find("select").length > 0) {
 							let options = $(input_td).find("option");
@@ -1011,9 +1012,7 @@ function addGameDataStyling() {
 							for (let option of options) {
 								if (($(option).html() === gameData['justification'][question_no])
 									|| $(option).html() === gameData['justification'][question_no][0]) {
-									console.log(question_no);
 									if (question_no === "3") {
-										console.log("Inside 3")
 										if ($(option).html() === "Other") {
 											let text_value = gameData['justification'][question_no][1];
 											$(option).parent().next().attr("required", "required").show();
@@ -1025,10 +1024,24 @@ function addGameDataStyling() {
 							}
 						} 
 
-						// // Handle radio inputs
-						// else if ($(input_td).children().first().hasClass("col")) {
 
-						// }
+						// Handle radio inputs
+						else if ($(input_td).children().first().hasClass("col")) {
+							let radios = $(input_td).find(".form-check-input");
+							if (gameData['justification'][question_no] === "Yes"
+								|| gameData['justification'][question_no][0] === "Yes") {
+								$(radios[0]).attr("checked", "checked");
+							} else {
+								$(radios[1]).attr("checked", "checked");
+							}
+							if (question_no === "15") {
+								let text_input = $(input_td).find('input[type="text"]');
+								let text_val = gameData['justification'][question_no][1];
+								$(text_input).attr("required", "required").val(text_val).show();
+							}
+						}
+
+
 						// // Handle text/number inputs
 						// else if (true) {
 
