@@ -551,7 +551,7 @@ function processSection(sectionID) {
 					value = $(other).val();
 					let selection_value = $(other).siblings().first().find("option:selected").html()
 					if (selection_value === "Other") {
-						section_game[question_number] = "Other: "+ value;
+						section_game[question_number] = ["Other", value];
 					} else {
 						section_game[question_number] = selection_value;
 					}
@@ -570,7 +570,7 @@ function processSection(sectionID) {
 					let other = $("#justification-content-q-15-text").val();
 					if ($(yes).is(":checked")) {
 						if (other !== "") {
-							section_game[question_number] = "Yes: " + other;
+							section_game[question_number] = ["Yes", other];
 						} else {
 							section_game[question_number] = "Yes";
 						}
@@ -995,16 +995,51 @@ function addGameDataStyling() {
 					break;
 
 				case('justification'):
-					for (let row in gameData['justification']) {
-						console.log(row);
+					let trs = $("#justification-tbody").find("tr");
+					let questions = Object.keys(gameData['justification']);
+
+					for (let question in questions) {
+						let question_no = questions[question];
+						let row = trs[question];
+						let input_td = $(row).find("td").last();
+
+						// Handle select inputs
+						if ($(input_td).find("select").length > 0) {
+							let options = $(input_td).find("option");
+							$(input_td).find("[selected]").removeAttr("selected");
+
+							for (let option of options) {
+								if (($(option).html() === gameData['justification'][question_no])
+									|| $(option).html() === gameData['justification'][question_no][0]) {
+									console.log(question_no);
+									if (question_no === "3") {
+										console.log("Inside 3")
+										if ($(option).html() === "Other") {
+											let text_value = gameData['justification'][question_no][1];
+											$(option).parent().next().attr("required", "required").show();
+											$(option).parent().next().val(text_value);
+										}
+									}
+									$(option).prop("selected", "selected").attr("selected", "selected");
+								}
+							}
+						} 
+
+						// // Handle radio inputs
+						// else if ($(input_td).children().first().hasClass("col")) {
+
+						// }
+						// // Handle text/number inputs
+						// else if (true) {
+
+						// }
 					}
 
 					break;
 			}
 		}
-		// Add assessment link
+		// Add assessment form link
 		addGameFormLink();
-		// 
 	}
 }
 
@@ -1388,7 +1423,7 @@ function nameGame() {
 			saved = true;
 			$("#game-name-submit").text("Saved!");
 			$("#game-name-submit").addClass("green");
-			setTimeout(function(){
+			setTimeout(function() {
 				$('#game-name-submit').removeClass("green").text("Save");
 			}, 2000);
 		},
