@@ -9,6 +9,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5001:5001
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql://${MYSQL_USER}:${MYSQL_USER_PASSWORD}@tega-db/${MYSQL_DATABASE}
     volumes:
       - /Users/theo/VSCode/tega/config.py:/app/config.py
     depends_on:
