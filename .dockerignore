@@ -27,6 +27,5 @@ LICENSE
 README.md
 
 config.py
-tmp/*.json
-tmp/*.pdf
-tega.db
+tmp/*
+tmp/*
