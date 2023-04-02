@@ -131,3 +131,5 @@ dmypy.json
 # Custom files
 tega.db
 config.py
+server.crt
+server.key

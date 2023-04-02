@@ -8,13 +8,16 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 5001:5001
+      - 443:443
     environment:
       - SQLALCHEMY_DATABASE_URI=mysql://${MYSQL_USER}:${MYSQL_USER_PASSWORD}@tega-db/${MYSQL_DATABASE}
     volumes:
+      - /Users/theo/VSCode/tega/server.crt:/app/server.crt
+      - /Users/theo/VSCode/tega/server.key:/app/server.key
       - /Users/theo/VSCode/tega/config.py:/app/config.py
     depends_on:
-      - tega-db
+      tega-db:
+        condition: service_healthy
     restart: unless-stopped
 
   tega-db:
@@ -26,3 +29,7 @@ services:
       - MYSQL_USER=tega
       - MYSQL_PASSWORD=changeme123
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 30s
+      retries: 10

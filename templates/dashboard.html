@@ -12,6 +12,7 @@
 {% endblock mobile_navbar %}
 {% block bodyid %}id="body-dashboard"{% endblock bodyid %}
 {% block content %}
+{% if current_user.is_authenticated %}<div id="logged_in_user" hidden></div>{% endif %}
 <div id="dashboard-container" class="container-fluid" style="padding-top:100px;overflow-y:none;">
     <div id="dashboard-outer-row" class="row justify-content-center align-items-center flex-nowrap" style="min-width: 0;">
         <div id="dashboard-outer-column" class="col-xs-12" style="min-width: 1250px; max-width: 1250px;">
@@ -2096,10 +2097,15 @@
                     <div class="col-4"></div>
                     <div class="col-4">
                         <div class="centered-div">
-                            
-                            <a class="btn btn-secondary text-wrap mb-2 mt-0 text-center" {% if not current_user.is_authenticated %}onclick="downloadJSON()"{% endif %} {% if current_user.is_authenticated %}id="json-download-option" href=""{% endif %} role="button">
+                            {% if not current_user.is_authenticated %}
+                            <button class="btn btn-secondary text-wrap mb-2 mt-0 text-center" onclick="downloadJSON()">
+                                Download as JSON
+                            </button>
+                            {% else %}
+                            <a class="btn btn-secondary text-wrap mb-2 mt-0 text-center" id="json-download-option" role="button">
                                 Download as JSON
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-4"></div>

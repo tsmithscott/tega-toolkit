@@ -29,3 +29,5 @@ README.md
 config.py
 tmp/*
 tmp/*
+server.cert
+server.key

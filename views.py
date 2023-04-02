@@ -377,7 +377,7 @@ def upload_game():
 @app.route('/ajax-autosave', methods=["POST"])
 def ajax_autosave():
     saved_game_uuid = request.get_json()['gameuuid']
-    complete = request.get_json()['complete']
+    complete = False if not 'complete' in (request.get_json()).keys() else request.get_json()['complete']
     latest_section = request.get_json()['latestsection']
     name = None if not "name" in (request.get_json()).keys() else request.get_json()['name']
     update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
@@ -393,7 +393,7 @@ def ajax_autosave():
             current_game = Games.query.filter_by(id=game_uuid).first()
             current_game.game = token
             current_game.last_updated = update_datetime
-            current_game.complete = complete
+            current_game.complete = current_game.complete if not complete else complete
             
             db.session.commit()
         else:
@@ -405,7 +405,7 @@ def ajax_autosave():
                 game=token,
                 name=name,
                 user_id=current_user.id,
-                complete=complete,
+                complete=False,
                 latest_section=latest_section,
                 last_updated=update_datetime
             )

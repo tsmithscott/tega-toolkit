@@ -4,7 +4,6 @@ var characteristics;
 var models;
 var gameName;
 var update;
-var complete_status;
 var cleanDashboardClone;
 
 $.ajax({
@@ -661,28 +660,41 @@ function processGameData(complete, section) {
 	localStorage.removeItem("_game_data");
 
 	
-	if (update) {
-		complete = true ? (section === "justification") : false;
+	if ((update) && (section === "justification")) {
+		$.ajax({
+			url: url,
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id"), "latestsection": section}),
+			type: 'POST',
+			success: function(response) {
+				let data = JSON.parse(JSON.stringify(response));
+				localStorage.setItem("_game_data", data["_game_data"]);
+				setCookie("_game_id", data["_game_id"]);
+				saved = true;
+			},
+			error: function(error) {
+				saved = false;
+			  },
+			async: false
+		});
 	} else {
-		complete = true;
+		$.ajax({
+			url: url,
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({current_game, "gameuuid": getCookie("_game_id"), "latestsection": section}),
+			type: 'POST',
+			success: function(response) {
+				let data = JSON.parse(JSON.stringify(response));
+				localStorage.setItem("_game_data", data["_game_data"]);
+				setCookie("_game_id", data["_game_id"]);
+				saved = true;
+			},
+			error: function(error) {
+				saved = false;
+			  },
+			async: false
+		});
 	}
-
-	$.ajax({
-		url: url,
-		contentType: "application/json;charset=utf-8",
-		data: JSON.stringify({current_game, "complete":complete, "gameuuid": getCookie("_game_id"), "latestsection": section}),
-		type: 'POST',
-		success: function(response) {
-			let data = JSON.parse(JSON.stringify(response));
-			localStorage.setItem("_game_data", data["_game_data"]);
-			setCookie("_game_id", data["_game_id"]);
-			saved = true;
-		},
-		error: function(error) {
-			saved = false;
-	  	},
-		async: false
-	});
 	return saved;
 }
 
@@ -696,7 +708,7 @@ function loadGame(edit_button) {
 		url: url,
 		type: 'GET',
 		success: function(response) {
-			if (response['complete']) {
+			if (response['complete'] === true) {
 				update = false;
 			} else {
 				update = true;
@@ -1034,16 +1046,17 @@ function addGameDataStyling() {
 						// Handle radio inputs
 						else if ($(input_td).children().first().hasClass("col")) {
 							let radios = $(input_td).find(".form-check-input");
-							if (gameData['justification'][question_no] === "Yes"
-								|| gameData['justification'][question_no][0] === "Yes") {
+							if (gameData['justification'][question_no] === "Yes") {
 								$(radios[0]).attr("checked", "checked");
 							} else {
 								$(radios[1]).attr("checked", "checked");
 							}
 							if (question_no === "15") {
-								let text_input = $(input_td).find('input[type="text"]');
-								let text_val = gameData['justification'][question_no][1];
-								$(text_input).attr("required", "required").val(text_val).show();
+								if (gameData['justification'][question_no][0] === "Yes") {
+									let text_input = $(input_td).find('input[type="text"]');
+									let text_val = gameData['justification'][question_no][1];
+									$(text_input).attr("required", "required").val(text_val).show();
+								}
 							}
 						}
 
