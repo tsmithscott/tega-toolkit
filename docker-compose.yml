@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   tega:
+    container_name: tega
     image: tega
     build:
       context: .
@@ -14,6 +15,7 @@ services:
       - tega-db
 
   tega-db:
+    container_name: tega-db
     image: mysql:latest
     ports:
       - 3306:3306
