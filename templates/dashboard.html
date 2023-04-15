@@ -1412,8 +1412,9 @@
     </div>
 </div>
 <!-- End of Dashboard -->
+{% endblock content %}
 
-
+{% block modals %}
 <!-- Modals - Introduction -->
 <div class="modal fade" id="introductionModal1" tabindex="-1" aria-labelledby="introductionModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -2255,9 +2256,8 @@
     </div>
 </div>
 <!-- End of Justification modals -->
+{% endblock modals %}
 
-
-{% endblock content %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dashboard.js') }}" charset="iso-8859-1"></script>
 <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>

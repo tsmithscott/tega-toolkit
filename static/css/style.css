@@ -1255,22 +1255,10 @@ li {
   display: none;
 }
 
-.dashboard-card {
-  z-index: 1;
-}
-
-.modal-dialog {
-  z-index: 2;
-}
-
-.modal-backdrop {
-  z-index: -1;
-}
-
 /* On screens below 850px height */
-@media only screen and (max-height: 875px) {
+@media only screen and (max-height: 825px) {
   #content {
-    transform: scale(0.85);
+    transform: scale(0.83);
     transform-origin: top;
   }
 }
