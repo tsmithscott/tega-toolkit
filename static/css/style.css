@@ -1267,14 +1267,15 @@ li {
   z-index: -1;
 }
 
-
-@media only screen and (max-height: 850px) {
+/* On screens below 850px height */
+@media only screen and (max-height: 875px) {
   #content {
-    transform: scale(0.83);
+    transform: scale(0.85);
     transform-origin: top;
   }
 }
 
+/* On screens below 995px width */
 @media only screen and (max-width: 995px) {
   #index-container {
     padding-top: 50px;
@@ -1285,7 +1286,7 @@ li {
   }
 }
 
-/* On screens below 1066px */
+/* On screens below 1066px width */
 @media only screen and (max-width: 1066px) {
   #dashboard-card {
     display: none;

@@ -42,11 +42,11 @@
                             </div>
                             <div class="col-4" style="height: 85px;">
                                 {% if current_user.is_authenticated %}
-                                <div class="float-right" style="position:relative; top:20px; left:50px;">
-                                    <button id="load-most-recent-game-button" class="btn btn-primary" onclick="loadMostRecentGame()" {% if not games %}style="display:none;"{% endif %}>
+                                <div class="float-right">
+                                    <button id="load-most-recent-game-button" class="btn btn-primary" style="position:relative; top:20px; left:50px;" onclick="loadMostRecentGame()" {% if not games %}style="display:none;"{% endif %}>
                                         Return to most recent game
                                     </button>
-                                    <button id="page-switch-button" class="btn btn-primary" onclick="toggleDashboardPage()" style="display:none;">
+                                    <button id="page-switch-button" class="btn btn-primary" onclick="toggleDashboardPage()" style="display:none; position:relative; top:20px; left:50px;">
                                         Return to saved games
                                     </button>
                                 </div>
