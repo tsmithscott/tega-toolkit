@@ -1,12 +1,3 @@
-// $("#post-playing input[type='radio']") {
-//     if ($(radio).hasClass("selected")) {
-//         $(radio.removeClass("selected"));
-//     } else {
-//         $(radio).addClass("selected");
-//     }
-// }
-
-
 $(document).ready(function() {
     $("body").css("overflow-y", "hidden");
 
@@ -107,7 +98,6 @@ function submitAssessmentForm(gameID) {
         7: $("#post-playing-q-7").find('input[type="radio"]:checked').val(),
         8: $("#post-playing-q-8").find('textarea').val(),
     }
-    console.log(form_data);
     $.ajax({
         contentType: "application/json;charset=utf-8",
         type: "POST",

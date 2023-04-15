@@ -331,47 +331,47 @@ def download_ajax_forms(game_id):
     
     
 @app.route('/upload-game', methods=["POST"])
+@login_required
 def upload_game():
-    if current_user.is_authenticated:
-        if 'file' not in request.files:
+    if 'file' not in request.files:
+        return "No file submitted", 400
+    else:
+        gamefile = request.files['file']
+        name = request.form['game_name']
+        
+        if gamefile.filename == '':
             return "No file submitted", 400
         else:
-            file = request.files['file']
-            name = request.form['game_name']
-            
-            if file.filename == '':
-                return "No file submitted", 400
+            if gamefile.filename.split('.', 1)[1] == 'json':
+                game_id = uuid.uuid4().hex
+                
+                if Games.query.filter_by(id=game_id).first():
+                    while game_id in Games.query.filter_by(id=game_id).first():
+                        game_id = uuid.uuid4().hex
+                        
+                game = json.loads(gamefile.read())
+                latest_section = LatestSection.find(game.keys())
+                
+                game_jwt = JWT.generate_jwt(game)
+                complete = True if latest_section == "justification" else False
+                update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+                
+                new_game = Games(
+                    id=game_id,
+                    game=game_jwt,
+                    name=name,
+                    user_id=current_user.id,
+                    complete=complete,
+                    latest_section=latest_section,
+                    last_updated=update_datetime
+                )
+                db.session.add(new_game)
+                db.session.commit()
+                
+                return "", 200
+                
             else:
-                if file.filename.split('.', 1)[1] == 'json':
-                    game_id = uuid.uuid4().hex
-                    
-                    if Games.query.filter_by(id=game_id).first():
-                        while game_id in Games.query.filter_by(id=game_id).first():
-                            game_id = uuid.uuid4().hex
-                            
-                    game = json.loads(file.read())
-                    latest_section = LatestSection.find(game.keys())
-                    
-                    game_jwt = JWT.generate_jwt(game)
-                    complete = True if latest_section == "justification" else False
-                    update_datetime = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
-                    
-                    new_game = Games(
-                        id=game_id,
-                        game=game_jwt,
-                        name=name,
-                        user_id=current_user.id,
-                        complete=complete,
-                        latest_section=latest_section,
-                        last_updated=update_datetime
-                    )
-                    db.session.add(new_game)
-                    db.session.commit()
-                    
-                    return "", 200
-                    
-                else:
-                    return "Incorrent file type", 400
+                return "Incorrent file type", 400
 
 
 @app.route('/ajax-autosave', methods=["POST"])
@@ -467,7 +467,6 @@ def ajax_parse():
         response.headers['Content-Type'] == 'application/json'
         return response
     except InvalidSignatureError:
-        print(request.get_json()['jwt'])
         response = make_response()
         response.status_code = 400
 

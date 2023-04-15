@@ -107,11 +107,10 @@ $("#upload-game-form").submit(function(e) {
         cache: false,
         processData:false,
         success: function(data) {
-            console.log("Successful upload");
 			location.reload();
         },
         error: function(data) {
-            console.log("Error uploading game");
+			alert("Error uploading game! Please try again later.");
         }
     });
 });
@@ -136,7 +135,6 @@ function logout() {
 }
 
 function importGame() {
-	console.log($('#upload-game-form')[0]);
 	var form_data = new FormData($('#upload-game-form')[0]);
 	$.ajax({
 		type: 'POST',
@@ -145,9 +143,6 @@ function importGame() {
 		contentType: false,
 		cache: false,
 		processData: false,
-		success: function(data) {
-			console.log('Success!');
-		},
 	});
 }
 

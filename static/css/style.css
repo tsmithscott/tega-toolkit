@@ -1255,14 +1255,27 @@ li {
   display: none;
 }
 
-@media (max-height: 875px) {
+.dashboard-card {
+  z-index: 1;
+}
+
+.modal-dialog {
+  z-index: 2;
+}
+
+.modal-backdrop {
+  z-index: -1;
+}
+
+
+@media only screen and (max-height: 850px) {
   #content {
-    transform: scale(0.9);
+    transform: scale(0.83);
     transform-origin: top;
   }
 }
 
-@media (max-width: 995px) {
+@media only screen and (max-width: 995px) {
   #index-container {
     padding-top: 50px;
     margin-bottom: 50px;
